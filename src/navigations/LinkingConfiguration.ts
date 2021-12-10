@@ -9,6 +9,9 @@ export const LinkingConfiguration: LinkingOptions<RootStackParamList> = {
 			Auth: {
 				path: "auth",
 				screens: {
+					SigninAction: {
+						path: "signin_action",
+					},
 					Signin: {
 						path: "signin",
 					},

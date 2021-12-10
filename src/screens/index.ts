@@ -4,6 +4,7 @@ import { NotFoundScreen } from "./NotFoundScreen";
 import { PasscodeScreen } from "./PasscodeScreen";
 import { ShopInfoRegisterScreen } from "./ShopInfoRegisterScreen";
 import { ShopInfoVerificationScreen } from "./ShopInfoVerificationScreen";
+import { SigninActionScreen } from "./SigninActionScreen";
 import { SigninScreen } from "./SigninScreen";
 import { SignupScreen } from "./SignupScreen";
 import { TabOneScreen } from "./TabOneScreen";
@@ -19,6 +20,7 @@ export {
 	PasscodeScreen,
 	ShopInfoRegisterScreen,
 	ShopInfoVerificationScreen,
+	SigninActionScreen,
 	SigninScreen,
 	SignupScreen,
 	TabOneScreen,
