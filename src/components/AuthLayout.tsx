@@ -2,6 +2,7 @@ import type { ReactNode, VFC } from "react";
 import React, { useMemo } from "react";
 import { StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { View } from "src/components/custom";
+import { WhoPayHorizontal } from "src/components/icon";
 import { onKeyBoardClose } from "src/functions";
 import { useThemeColor } from "src/hooks";
 
@@ -26,7 +27,9 @@ export const AuthLayout: VFC<Props> = (props) => {
 					lightBgColor={primary}
 					darkBgColor={primary}
 					style={defaultStyle.twoToneTop}
-				></View>
+				>
+					<WhoPayHorizontal />
+				</View>
 				<View style={defaultStyle.twoToneBottom}></View>
 
 				<View style={[positionStyle, defaultStyle.fixedLayout]}>
@@ -45,6 +48,9 @@ const defaultStyle = StyleSheet.create({
 	},
 	twoToneTop: {
 		flex: 4,
+		alignItems: "center",
+		justifyContent: "center",
+
 		width: "100%",
 	},
 	twoToneBottom: {
