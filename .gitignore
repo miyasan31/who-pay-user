@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store
+.env
+src/firebase/who-pay-15741-firebase-adminsdk-31y5e-73c2e96111.json
