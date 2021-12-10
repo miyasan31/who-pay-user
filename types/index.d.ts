@@ -12,9 +12,8 @@ declare global {
 }
 
 export type RootStackParamList = {
-	// Root: NavigatorScreenParams<BottomTabScreenProps> | undefined;
 	Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
-	Pay: NavigatorScreenParams<PayStackParamList> | undefined;
+	Root: NavigatorScreenParams<BottomTabScreenProps> | undefined;
 	Modal: undefined;
 	NotFound: undefined;
 };
@@ -42,24 +41,11 @@ export type AuthScreenProps<T extends keyof AuthStackParamList> =
 	>;
 /* ---- */
 
-/* 決済 */
-export type PayStackParamList = {
-	Calculator: undefined;
-	VoiceRecord: { price: string };
-	Passcode: { price: string };
-};
-export type PayScreenProps<T extends keyof PayStackParamList> =
-	CompositeScreenProps<
-		BottomTabScreenProps<PayStackParamList, T>,
-		NativeStackScreenProps<RootStackParamList>
-	>;
-/* ---- */
-
-/* 未使用 */
+/* 下タブ */
 export type BottomTabParamList = {
-	TabOne: undefined;
-	TabTwo: undefined;
-	TabThree: undefined;
+	Home: undefined;
+	Payment: NavigatorScreenParams<PaymentStackParamList> | undefined;
+	Setting: NavigatorScreenParams<SettingStackParamList> | undefined;
 };
 export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 	CompositeScreenProps<
@@ -67,3 +53,40 @@ export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
+
+/* 決済履歴 */
+export type PaymentStackParamList = {
+	PaymentList: undefined;
+	PaymentDetail: undefined;
+};
+export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<PaymentStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* 設定 */
+export type SettingStackParamList = {
+	Setting: undefined;
+	VoiceRecord: undefined;
+	Passcode: undefined;
+};
+export type SettingScreenProps<T extends keyof SettingStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<SettingStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+// /* 決済 */
+// export type PayStackParamList = {
+// 	VoiceRecord: { price: string };
+// 	Passcode: { price: string };
+// };
+// export type PayScreenProps<T extends keyof PayStackParamList> =
+// 	CompositeScreenProps<
+// 		BottomTabScreenProps<PayStackParamList, T>,
+// 		NativeStackScreenProps<RootStackParamList>
+// 	>;
+// /* ---- */

@@ -5,7 +5,9 @@ import type { ComponentProps, VFC } from "react";
 import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useColorScheme } from "src/hooks";
-import { TabOneScreen, TabThreeScreen, TabTwoScreen } from "src/screens";
+import { PaymentNavigator } from "src/navigations/PaymentNavigator";
+import { SettingNavigator } from "src/navigations/SettingNavigator";
+import { HomeScreen } from "src/screens";
 import { theme } from "src/styles";
 import type { BottomTabParamList, BottomTabScreenProps } from "types";
 
@@ -24,16 +26,18 @@ export const BottomTabNavigator: VFC = () => {
 	return (
 		<BottomTab.Navigator
 			// 最初の画面を指定
-			initialRouteName="TabOne"
+			initialRouteName="Home"
 			screenOptions={{
 				tabBarActiveTintColor: theme[colorScheme].primary,
 				tabBarStyle: { position: "absolute" },
-				tabBarBackground: () => <BlurView intensity={10} style={StyleSheet.absoluteFill} />,
+				tabBarBackground: () => (
+					<BlurView intensity={10} style={StyleSheet.absoluteFill} />
+				),
 			}}
 		>
 			<BottomTab.Screen
-				name="TabOne"
-				component={TabOneScreen}
+				name="Home"
+				component={HomeScreen}
 				options={{
 					// tabBarBadge: 20, // バッチの文字
 					// tabBarBadgeStyle: {
@@ -41,7 +45,7 @@ export const BottomTabNavigator: VFC = () => {
 					// 	backgroundColor: themes[colorScheme].tint, // バッチの背景色
 					// },
 					// tabBarShowLabel: false, // タブのタイトルをつけるか
-					title: "Tab One",
+					title: "ホームタブ",
 					tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
 					headerStyle: {
 						backgroundColor: theme[colorScheme].bg0,
@@ -51,10 +55,11 @@ export const BottomTabNavigator: VFC = () => {
 			/>
 
 			<BottomTab.Screen
-				name="TabTwo"
-				component={TabTwoScreen}
-				options={({ navigation }: BottomTabScreenProps<"TabTwo">) => ({
-					title: "Tab Two",
+				name="Payment"
+				component={PaymentNavigator}
+				options={({ navigation }: BottomTabScreenProps<"Payment">) => ({
+					title: "決済履歴タブ",
+					headerShown: false,
 
 					tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
 					// ヘッダーの右側にアクション用のボタンとか設定できる
@@ -67,7 +72,12 @@ export const BottomTabNavigator: VFC = () => {
 								opacity: pressed ? 0.5 : 1,
 							})}
 						>
-							<FontAwesome name="info-circle" size={25} color={theme[colorScheme].icon1} style={{ marginRight: 15 }} />
+							<FontAwesome
+								name="info-circle"
+								size={25}
+								color={theme[colorScheme].icon1}
+								style={{ marginRight: 15 }}
+							/>
 						</Pressable>
 					),
 					headerStyle: {
@@ -77,10 +87,10 @@ export const BottomTabNavigator: VFC = () => {
 			/>
 
 			<BottomTab.Screen
-				name="TabThree"
-				component={TabThreeScreen}
-				options={({ navigation }: BottomTabScreenProps<"TabThree">) => ({
-					title: "Tab Three",
+				name="Setting"
+				component={SettingNavigator}
+				options={({ navigation }: BottomTabScreenProps<"Setting">) => ({
+					title: "設定タブ",
 					tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
 					headerLeft: () => (
 						<Pressable
@@ -91,7 +101,12 @@ export const BottomTabNavigator: VFC = () => {
 								opacity: pressed ? 0.5 : 1,
 							})}
 						>
-							<AntDesign name="pluscircle" size={25} color={theme[colorScheme].icon1} style={{ marginLeft: 15 }} />
+							<AntDesign
+								name="pluscircle"
+								size={25}
+								color={theme[colorScheme].icon1}
+								style={{ marginLeft: 15 }}
+							/>
 						</Pressable>
 					),
 					headerStyle: {
@@ -103,10 +118,9 @@ export const BottomTabNavigator: VFC = () => {
 	);
 };
 
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-
-const TabBarIcon = (props: { name: ComponentProps<typeof FontAwesome>["name"]; color: string }) => {
+const TabBarIcon = (props: {
+	name: ComponentProps<typeof FontAwesome>["name"];
+	color: string;
+}) => {
 	return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 };

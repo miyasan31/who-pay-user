@@ -6,10 +6,9 @@ import { CircleKeyButton } from "src/components";
 import { ColorButton, Text, View } from "src/components/custom";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textStyles, viewStyles } from "src/styles";
-import type { PayScreenProps } from "types";
+import type { SettingScreenProps } from "types";
 
-export const PasscodeScreen: VFC<PayScreenProps<"Passcode">> = (props) => {
-	const { price } = props.route.params;
+export const PasscodeScreen: VFC<SettingScreenProps<"Setting">> = (props) => {
 	const color = useThemeColor({}, "text2");
 	const backGroundColor = useThemeColor({}, "bg1");
 	const [passcode, setPasscode] = useState("");
@@ -32,16 +31,16 @@ export const PasscodeScreen: VFC<PayScreenProps<"Passcode">> = (props) => {
 	}, []);
 
 	const onVoiceAuthentication = useCallback(
-		(price: string, passcode: string) => {
-			const body = { price: price, passcode: passcode };
+		(passcode: string) => {
+			const body = { passcode: passcode };
 			console.info("POST Request Body", body);
-			props.navigation.navigate("Calculator");
+			props.navigation.navigate("Setting");
 		},
 		[props]
 	);
 
 	return (
-		<View style={viewStyles.middle}>
+		<View style={viewStyles.full}>
 			<Text style={textStyles.passCodeTitle}>パスワードを入力してください</Text>
 
 			<View
@@ -79,7 +78,7 @@ export const PasscodeScreen: VFC<PayScreenProps<"Passcode">> = (props) => {
 			<ColorButton
 				title="送信"
 				outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
-				onPress={() => onVoiceAuthentication(price, passcode)}
+				onPress={() => onVoiceAuthentication(passcode)}
 			/>
 		</View>
 	);

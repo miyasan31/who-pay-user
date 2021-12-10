@@ -32,9 +32,6 @@ export const LinkingConfiguration: LinkingOptions<RootStackParamList> = {
 			Pay: {
 				path: "pay",
 				screens: {
-					Calculator: {
-						path: "calculator",
-					},
 					VoiceRecord: {
 						path: "voice_record/:price",
 					},
