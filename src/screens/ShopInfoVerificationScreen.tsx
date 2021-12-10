@@ -2,11 +2,12 @@ import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import { shop } from "src/atom";
-import { ColorButton, Text, View } from "src/components/custom";
+import { AuthLayout } from "src/components/AuthLayout";
+import { ColorButton, Text } from "src/components/custom";
 import { authRequestFetcher } from "src/functions/fetcher";
 import { saveSequreStore } from "src/functions/store";
 import { useThemeColor } from "src/hooks";
-import { buttonStyles, textStyles, viewStyles } from "src/styles";
+import { buttonStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
 
 export const ShopInfoVerificationScreen: VFC<
@@ -47,7 +48,7 @@ export const ShopInfoVerificationScreen: VFC<
 	}, [props]);
 
 	return (
-		<View style={viewStyles.semi}>
+		<AuthLayout overPositionStyle>
 			<Text style={textStyles.title}>新規登録確認画面</Text>
 
 			<Text
@@ -89,6 +90,6 @@ export const ShopInfoVerificationScreen: VFC<
 				outlineStyle={buttonStyles.outline}
 				onPress={onStackBack}
 			/>
-		</View>
+		</AuthLayout>
 	);
 };

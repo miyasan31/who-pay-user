@@ -1,13 +1,10 @@
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
-import { shop } from "src/atom";
-import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
-import { authRequestFetcher } from "src/functions/fetcher";
-import { saveSequreStore } from "src/functions/store";
+import { ErrorMessage } from "src/components/ErrorMessage";
+import { requestFetcher } from "src/functions/fetcher";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -17,42 +14,30 @@ type FormDataType = {
 	password: string;
 };
 
-export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
+export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 	const color = useThemeColor({}, "text2");
-	const setShopInfo = useSetRecoilState(shop);
-
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormDataType>();
 
-	const onSubmitPress = useCallback(async (body: FormDataType) => {
-		const requestBody = { phone: "81" + body.phone, password: body.password };
-		const result = await authRequestFetcher(
-			"/auth/signin/shop",
-			requestBody,
-			"POST"
-		);
-		console.info(result);
-		if (result.status >= 400) {
-			console.info("error");
-		}
-		await saveSequreStore("access_token", result.response.token);
-		setShopInfo({
-			id: result.response.id,
-			shopName: result.response.shopName,
-			email: result.response.email,
-			phone: result.response.phone,
-			token: result.response.token,
-			isSignin: true,
-		});
-	}, []);
+	const onSubmitPress = useCallback(
+		async (body: FormDataType) => {
+			const requestBody = { phone: "81" + body.phone, password: body.password };
+			const status = await requestFetcher("/auth/signup", requestBody, "POST");
+			if (status >= 400) {
+				console.info("不正なリクエスト");
+				return;
+			}
+			props.navigation.navigate("Verify", { phone: body.phone });
+		},
+		[props]
+	);
 
 	return (
 		<AuthLayout>
-			<Text style={textStyles.title}>サインイン</Text>
-
+			<Text style={textStyles.title}>サインアップ</Text>
 			<Text
 				lightTextColor={color}
 				darkTextColor={color}
@@ -110,7 +95,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 			{errors.password && <ErrorMessage message={errors.password.message} />}
 
 			<ColorButton
-				title="サインイン"
+				title="確認コードを受け取る"
 				outlineStyle={buttonStyles.outline}
 				// eslint-disable-next-line react/jsx-handler-names
 				onPress={handleSubmit(onSubmitPress)}

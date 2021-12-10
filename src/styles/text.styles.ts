@@ -2,8 +2,13 @@ import { StyleSheet } from "react-native";
 
 export const textStyles = StyleSheet.create({
 	title: {
-		paddingVertical: 15,
+		paddingBottom: 15,
 		fontSize: 25,
+	},
+	subtitle: {
+		fontSize: 15,
+		paddingBottom: 15,
+		fontWeight: "normal",
 	},
 	messageTitle: {
 		paddingVertical: 30,
