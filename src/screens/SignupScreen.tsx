@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
-import { requestFetcher } from "src/functions/fetcher";
+import { authRequestFetcher } from "src/functions/fetcher";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -25,8 +25,12 @@ export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
 			const requestBody = { phone: "81" + body.phone, password: body.password };
-			const status = await requestFetcher("/auth/signup", requestBody, "POST");
-			if (status >= 400) {
+			const { statusCode } = await authRequestFetcher(
+				"/auth/signup",
+				requestBody,
+				"POST"
+			);
+			if (statusCode >= 400) {
 				console.info("不正なリクエスト");
 				return;
 			}

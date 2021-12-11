@@ -23,8 +23,8 @@ export const textStyles = StyleSheet.create({
 		textAlign: "left",
 	},
 	text: {
-		paddingVertical: 10,
-		fontSize: 22,
+		paddingVertical: 5,
+		fontSize: 20,
 		textAlign: "left",
 	},
 	result: {

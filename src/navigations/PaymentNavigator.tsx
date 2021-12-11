@@ -13,6 +13,7 @@ export const PaymentNavigator: VFC = () => {
 			screenOptions={{
 				title: "Who Pay",
 				headerBackTitle: "戻る",
+				headerShown: false,
 			}}
 		>
 			<Payment.Screen

@@ -1,11 +1,11 @@
 import type { VFC } from "react";
-import React from "react";
+import React, { memo } from "react";
 import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
 
-export const WhoPayHorizontal: VFC = () => {
+export const WhoPayHorizontal: VFC = memo(() => {
 	return (
 		<Svg
-			width="250"
+			width="240"
 			height="269"
 			viewBox="0 0 1000 269"
 			fill="none"
@@ -94,4 +94,4 @@ export const WhoPayHorizontal: VFC = () => {
 			</Defs>
 		</Svg>
 	);
-};
+});

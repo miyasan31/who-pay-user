@@ -2,15 +2,16 @@ import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { shop } from "src/atom";
+import { user } from "src/atom";
 import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
-import { authRequestFetcher } from "src/functions/fetcher";
+import { requestFetcher } from "src/functions/fetcher";
 import { saveSequreStore } from "src/functions/store";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
+import type { User } from "types/fetcher";
 
 type FormDataType = {
 	phone: string;
@@ -19,7 +20,7 @@ type FormDataType = {
 
 export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 	const color = useThemeColor({}, "text2");
-	const setShopInfo = useSetRecoilState(shop);
+	const setUserInfo = useSetRecoilState(user);
 
 	const {
 		control,
@@ -29,22 +30,22 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 
 	const onSubmitPress = useCallback(async (body: FormDataType) => {
 		const requestBody = { phone: "81" + body.phone, password: body.password };
-		const result = await authRequestFetcher(
-			"/auth/signin/shop",
+		const { statusCode, response } = await requestFetcher<User>(
+			"/auth/signin/user",
 			requestBody,
 			"POST"
 		);
-		console.info(result);
-		if (result.status >= 400) {
+		if (statusCode >= 400) {
 			console.info("error");
 		}
-		await saveSequreStore("access_token", result.response.token);
-		setShopInfo({
-			id: result.response.id,
-			shopName: result.response.shopName,
-			email: result.response.email,
-			phone: result.response.phone,
-			token: result.response.token,
+		await saveSequreStore("access_token", response.token);
+		setUserInfo({
+			id: response.id,
+			firstName: response.firstName,
+			lastName: response.lastName,
+			email: response.email,
+			phone: response.phone,
+			token: response.token,
 			isSignin: true,
 		});
 	}, []);

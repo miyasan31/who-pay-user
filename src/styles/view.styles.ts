@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const viewStyles = StyleSheet.create({
+	keyboard: {
+		flex: 1,
+	},
 	full: {
 		flex: 1,
 		alignItems: "center",
@@ -19,5 +22,16 @@ export const viewStyles = StyleSheet.create({
 		justifyContent: "center",
 
 		paddingHorizontal: "3%",
+	},
+	horizontal: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "space-between",
+	},
+	flex1: {
+		flex: 1,
+	},
+	space: {
+		width: "5%",
 	},
 });

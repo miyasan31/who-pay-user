@@ -21,25 +21,22 @@ export const LinkingConfiguration: LinkingOptions<RootStackParamList> = {
 					Verify: {
 						path: "verify/:phone",
 					},
-					ShopInfoRegister: {
-						path: "shop_info_register/:phone",
-					},
-					ShopInfoVerification: {
-						path: "shop_info_verification/:shopName/:passcode/:creditNumber/:securityCode/:email/:phone",
+					UserInfoRegister: {
+						path: "user_info_register/:phone",
 					},
 				},
 			},
-			Pay: {
-				path: "pay",
-				screens: {
-					VoiceRecord: {
-						path: "voice_record/:price",
-					},
-					Passcode: {
-						path: "passcode/:price",
-					},
-				},
-			},
+			// Pay: {
+			// 	path: "pay",
+			// 	screens: {
+			// 		VoiceRecord: {
+			// 			path: "voice_record/:price",
+			// 		},
+			// 		Passcode: {
+			// 			path: "passcode/:price",
+			// 		},
+			// 	},
+			// },
 
 			Modal: "modal",
 			NotFound: "*",

@@ -13,6 +13,7 @@ export const SettingNavigator: VFC = () => {
 			screenOptions={{
 				title: "Who Pay",
 				headerBackTitle: "戻る",
+				headerShown: false,
 			}}
 		>
 			<Setting.Screen

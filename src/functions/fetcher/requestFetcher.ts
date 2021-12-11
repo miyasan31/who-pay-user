@@ -2,12 +2,16 @@ import { API_URL } from "src/constants/api_url";
 import fetch from "unfetch";
 
 type Method = "POST" | "PUT" | "DELETE";
+type Response<R> = {
+	statusCode: number;
+	response: R;
+};
 
 export const authRequestFetcher = async (
 	url: string,
 	body: unknown,
 	method: Method
-): Promise<any> => {
+): Promise<{ statusCode: number }> => {
 	console.info(" ");
 	console.info("authRequestFetcher | ---------------------------");
 	console.info(`request method     | ${method}`);
@@ -23,11 +27,8 @@ export const authRequestFetcher = async (
 		body: JSON.stringify(body),
 	})
 		.then(async (res) => {
-			const response = await res.json();
-			return {
-				status: res.status,
-				response: response,
-			};
+			const statusCode = res.status;
+			return { statusCode };
 		})
 		.catch((err) => {
 			throw new Error("Error: " + err);
@@ -36,12 +37,12 @@ export const authRequestFetcher = async (
 	return result;
 };
 
-export const requestFetcher = async (
+export const requestFetcher = async <R>(
 	url: string,
 	body: unknown,
 	method: Method
 	// token: string
-): Promise<number> => {
+): Promise<Response<R>> => {
 	console.info(" ");
 	console.info("requestFetcher | ---------------------------");
 	console.info(`request method | ${method}`);
@@ -58,8 +59,10 @@ export const requestFetcher = async (
 		},
 		body: JSON.stringify(body),
 	})
-		.then((res) => {
-			return res.status;
+		.then(async (res) => {
+			const statusCode = res.status;
+			const response = await res.json();
+			return { statusCode, response };
 		})
 		.catch((err) => {
 			throw new Error("Error: " + err);

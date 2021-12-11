@@ -5,4 +5,9 @@ export const textInputStyles = StyleSheet.create({
 		padding: 12,
 		borderRadius: 10,
 	},
+	half: {
+		width: "100%",
+		padding: 12,
+		borderRadius: 10,
+	},
 });

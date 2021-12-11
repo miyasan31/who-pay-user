@@ -2,11 +2,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
 import React from "react";
 import {
-	ShopInfoRegisterScreen,
-	ShopInfoVerificationScreen,
 	SigninActionScreen,
 	SigninScreen,
 	SignupScreen,
+	UserInfoRegisterScreen,
 	VerifyScreen,
 } from "src/screens";
 import type { AuthStackParamList } from "types";
@@ -40,13 +39,8 @@ export const AuthNavigator: VFC = () => {
 				options={() => ({})}
 			/>
 			<AuthStack.Screen
-				name="ShopInfoRegister"
-				component={ShopInfoRegisterScreen}
-				options={() => ({})}
-			/>
-			<AuthStack.Screen
-				name="ShopInfoVerification"
-				component={ShopInfoVerificationScreen}
+				name="UserInfoRegister"
+				component={UserInfoRegisterScreen}
 				options={() => ({})}
 			/>
 		</AuthStack.Navigator>

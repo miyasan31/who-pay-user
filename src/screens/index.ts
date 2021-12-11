@@ -5,11 +5,10 @@ import { PasscodeScreen } from "./PasscodeScreen";
 import { PaymentDetailScreen } from "./PaymentDetailScreen";
 import { PaymentListScreen } from "./PaymentListScreen";
 import { SettingScreen } from "./SettingScreen";
-import { ShopInfoRegisterScreen } from "./ShopInfoRegisterScreen";
-import { ShopInfoVerificationScreen } from "./ShopInfoVerificationScreen";
 import { SigninActionScreen } from "./SigninActionScreen";
 import { SigninScreen } from "./SigninScreen";
 import { SignupScreen } from "./SignupScreen";
+import { UserInfoRegisterScreen } from "./UserInfoRegisterScreen";
 import { VerifyScreen } from "./VerifyScreen";
 import { VoiceRecordScreen } from "./VoiceRecordScreen";
 
@@ -21,11 +20,10 @@ export {
 	PaymentDetailScreen,
 	PaymentListScreen,
 	SettingScreen,
-	ShopInfoRegisterScreen,
-	ShopInfoVerificationScreen,
 	SigninActionScreen,
 	SigninScreen,
 	SignupScreen,
+	UserInfoRegisterScreen,
 	VerifyScreen,
 	VoiceRecordScreen,
 };

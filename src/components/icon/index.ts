@@ -1,4 +1,5 @@
+import { TabBarIcon } from "./TabBarIcon";
 import { WhoPayHorizontal } from "./WhoPayHorizontal";
 import { WhoPayVertical } from "./WhoPayVertical";
 
-export { WhoPayHorizontal, WhoPayVertical };
+export { TabBarIcon, WhoPayHorizontal, WhoPayVertical };

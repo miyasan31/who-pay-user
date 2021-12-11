@@ -26,13 +26,7 @@ export type AuthStackParamList = {
 	Signin: undefined;
 	Signup: undefined;
 	Verify: { phone: string };
-	ShopInfoRegister: { phone: string };
-	ShopInfoVerification: {
-		shopName: string;
-		address: string;
-		email: string;
-		phone: string;
-	};
+	UserInfoRegister: { phone: string };
 };
 export type AuthScreenProps<T extends keyof AuthStackParamList> =
 	CompositeScreenProps<

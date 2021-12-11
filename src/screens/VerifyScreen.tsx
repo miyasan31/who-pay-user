@@ -1,15 +1,16 @@
 import type { VFC } from "react";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { shop } from "src/atom";
+import { user } from "src/atom";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
-import { authRequestFetcher } from "src/functions/fetcher";
+import { requestFetcher } from "src/functions/fetcher";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
+import type { VerifyAuth } from "types/fetcher";
 
 type FormDataType = {
 	verifyCode: string;
@@ -17,7 +18,8 @@ type FormDataType = {
 
 export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 	const color = useThemeColor({}, "text2");
-	const setShopInfo = useSetRecoilState(shop);
+	const setUserInfo = useSetRecoilState(user);
+	const [isCertified, setIsCertified] = useState(false);
 
 	const {
 		control,
@@ -25,30 +27,39 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 		formState: { errors },
 	} = useForm<FormDataType>();
 
+	const { phone } = props.route.params;
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
-			const { phone } = props.route.params;
 			const requestBody = { phone: "81" + phone, token: body.verifyCode };
-			const result = await authRequestFetcher(
+			const { statusCode, response } = await requestFetcher<VerifyAuth>(
 				"/auth/verify",
 				requestBody,
 				"POST"
 			);
-			if (result.status >= 400) {
+			if (statusCode >= 400) {
 				console.info("error");
 				return;
 			}
-			setShopInfo((prev) => ({
+
+			setUserInfo((prev) => ({
 				...prev,
-				id: result.response.user.id,
-				token: result.response.access_token,
+				id: response.user.id,
+				token: response.access_token,
 			}));
-			props.navigation.navigate("ShopInfoRegister", {
+			setIsCertified(true);
+
+			props.navigation.navigate("UserInfoRegister", {
 				phone: phone,
 			});
 		},
 		[props]
 	);
+
+	const onNavigate = useCallback(() => {
+		props.navigation.navigate("UserInfoRegister", {
+			phone: phone,
+		});
+	}, []);
 
 	return (
 		<AuthLayout>
@@ -59,7 +70,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 				darkTextColor={color}
 				style={textStyles.label}
 			>
-				パスワード
+				６桁の番号を入力してください
 			</Text>
 			<Controller
 				control={control}
@@ -93,11 +104,20 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 			)}
 
 			<ColorButton
-				title="送信"
+				title={isCertified ? "登録へ進む" : "送信"}
 				outlineStyle={buttonStyles.outline}
 				// eslint-disable-next-line react/jsx-handler-names
-				onPress={handleSubmit(onSubmitPress)}
+				onPress={isCertified ? onNavigate : handleSubmit(onSubmitPress)}
 			/>
+			{isCertified ? (
+				<Text
+					lightTextColor={color}
+					darkTextColor={color}
+					style={textStyles.error}
+				>
+					登録済みです
+				</Text>
+			) : null}
 		</AuthLayout>
 	);
 };

@@ -1,10 +1,16 @@
 import type { ReactNode, VFC } from "react";
 import React, { useMemo } from "react";
-import { StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+	KeyboardAvoidingView,
+	Platform,
+	StyleSheet,
+	TouchableWithoutFeedback,
+} from "react-native";
 import { View } from "src/components/custom";
 import { WhoPayHorizontal } from "src/components/icon";
 import { onKeyBoardClose } from "src/functions";
 import { useThemeColor } from "src/hooks";
+import { viewStyles } from "src/styles";
 
 type Props = {
 	children: ReactNode;
@@ -21,22 +27,27 @@ export const AuthLayout: VFC<Props> = (props) => {
 	}, []);
 
 	return (
-		<TouchableWithoutFeedback onPress={onKeyBoardClose}>
-			<View style={defaultStyle.full}>
-				<View
-					lightBgColor={primary}
-					darkBgColor={primary}
-					style={defaultStyle.twoToneTop}
-				>
-					<WhoPayHorizontal />
-				</View>
-				<View style={defaultStyle.twoToneBottom}></View>
+		<KeyboardAvoidingView
+			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			style={viewStyles.keyboard}
+		>
+			<TouchableWithoutFeedback onPress={onKeyBoardClose}>
+				<View style={defaultStyle.full}>
+					<View
+						lightBgColor={primary}
+						darkBgColor={primary}
+						style={defaultStyle.twoToneTop}
+					>
+						<WhoPayHorizontal />
+					</View>
+					<View style={defaultStyle.twoToneBottom}></View>
 
-				<View style={[positionStyle, defaultStyle.fixedLayout]}>
-					{props.children}
+					<View style={[positionStyle, defaultStyle.fixedLayout]}>
+						{props.children}
+					</View>
 				</View>
-			</View>
-		</TouchableWithoutFeedback>
+			</TouchableWithoutFeedback>
+		</KeyboardAvoidingView>
 	);
 };
 
@@ -59,7 +70,7 @@ const defaultStyle = StyleSheet.create({
 	},
 	position1: {
 		position: "absolute",
-		top: "25%",
+		top: "28%",
 	},
 	position2: {
 		position: "absolute",
