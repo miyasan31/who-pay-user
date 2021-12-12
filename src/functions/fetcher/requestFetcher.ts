@@ -1,6 +1,16 @@
 import { API_URL } from "src/constants/api_url";
 import fetch from "unfetch";
 
+// const black = "\u001b[30m";
+// const red = "\u001b[31m";
+// const blue = "\u001b[34m";
+const green = "\u001b[32m";
+const yellow = "\u001b[33m";
+const magenta = "\u001b[35m";
+const cyan = "\u001b[36m";
+const white = "\u001b[37m";
+const reset = "\u001b[0m";
+
 type Method = "POST" | "PUT" | "DELETE";
 type Response<R> = {
 	statusCode: number;
@@ -12,12 +22,14 @@ export const authRequestFetcher = async (
 	body: unknown,
 	method: Method
 ): Promise<{ statusCode: number }> => {
-	console.info(" ");
-	console.info("authRequestFetcher | ---------------------------");
-	console.info(`request method     | ${method}`);
-	console.info(`endpoint           | ${API_URL}${url}`);
-	console.info("request body       |", body);
-	console.info(" ");
+	console.info(cyan + "| ----------------- fetcher loging ----------------- ");
+	console.info(cyan + "| fetcher  | " + magenta + "authRequestFetcher");
+	console.info(cyan + "| method   | " + green + method);
+	console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
+	console.info(cyan + "| body     | " + white, body);
+	console.info(
+		cyan + "| -------------------------------------------------- " + reset
+	);
 
 	const result = await fetch(`${API_URL}${url}`, {
 		method: method,
@@ -26,7 +38,7 @@ export const authRequestFetcher = async (
 		},
 		body: JSON.stringify(body),
 	})
-		.then(async (res) => {
+		.then((res) => {
 			const statusCode = res.status;
 			return { statusCode };
 		})
@@ -43,13 +55,15 @@ export const requestFetcher = async <R>(
 	method: Method
 	// token: string
 ): Promise<Response<R>> => {
-	console.info(" ");
-	console.info("requestFetcher | ---------------------------");
-	console.info(`request method | ${method}`);
-	console.info(`endpoint       | ${API_URL}${url}`);
-	console.info("request body   |", body);
+	console.info(cyan + "| ----------------- fetcher loging ----------------- ");
+	console.info(cyan + "| fetcher  | " + magenta + "requestFetcher");
+	console.info(cyan + "| method   | " + green + method);
+	console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
+	console.info(cyan + "| body     | " + white, body);
 	// console.info(`Bearer token   | ${token}`);
-	console.info(" ");
+	console.info(
+		cyan + "| -------------------------------------------------- " + reset
+	);
 
 	const result = await fetch(`${API_URL}${url}`, {
 		method: method,

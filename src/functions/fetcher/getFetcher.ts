@@ -1,12 +1,24 @@
 import { API_URL } from "src/constants/api_url";
 import fetch from "unfetch";
 
+// const black = "\u001b[30m";
+// const white = "\u001b[37m";
+// const blue = "\u001b[34m";
+const red = "\u001b[31m";
+const green = "\u001b[32m";
+const yellow = "\u001b[33m";
+const magenta = "\u001b[35m";
+const cyan = "\u001b[36m";
+const reset = "\u001b[0m";
+
 export const getFetcher = async (url: string) => {
-	console.info(" ");
-	console.info("getFetcher     | ---------------------------");
-	console.info("request method | GET");
-	console.info(`endpoint       | ${API_URL}${url}`);
-	console.info(" ");
+	console.info(cyan + "| ----------------- fetcher loging ----------------- ");
+	console.info(cyan + "| fetcher  | " + magenta + "getFetcher");
+	console.info(cyan + "| method   | " + green + "GET");
+	console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
+	console.info(
+		cyan + "| -------------------------------------------------- " + reset
+	);
 
 	const result = await fetch(`${API_URL}${url}`, {
 		method: "GET",
@@ -25,12 +37,14 @@ export const getFetcher = async (url: string) => {
 };
 
 export const getFetcherWithToken = async (url: string, token: string) => {
-	console.info(" ");
-	console.info("getFetcherWithToken | ---------------------------");
-	console.info("request method      | GET");
-	console.info(`endpoint            | ${API_URL}${url}`);
-	console.info(`Bearer token        | ${token}`);
-	console.info(" ");
+	console.info(cyan + "| ----------------- fetcher loging ----------------- ");
+	console.info(cyan + "| fetcher  | " + magenta + "getFetcherWithToken");
+	console.info(cyan + "| method   | " + green + "GET");
+	console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
+	console.info(cyan + "| token    |" + red + token);
+	console.info(
+		cyan + "| -------------------------------------------------- " + reset
+	);
 
 	const result = await fetch(`${API_URL}${url}`, {
 		method: "GET",
