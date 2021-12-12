@@ -1,3 +1,4 @@
+import sha512 from "js-sha512";
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -24,7 +25,11 @@ export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
-			const requestBody = { phone: "81" + body.phone, password: body.password };
+			const hashedPassword = sha512(body.password);
+			const requestBody = {
+				phone: "81" + body.phone,
+				password: hashedPassword,
+			};
 			const { statusCode } = await authRequestFetcher(
 				"/auth/signup",
 				requestBody,
