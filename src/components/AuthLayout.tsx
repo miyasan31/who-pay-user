@@ -7,7 +7,7 @@ import {
 	TouchableWithoutFeedback,
 } from "react-native";
 import { View } from "src/components/custom";
-import { WhoPayHorizontal } from "src/components/icon";
+import { WhoPay } from "src/components/icon";
 import { onKeyBoardClose } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { viewStyles } from "src/styles";
@@ -19,6 +19,7 @@ type Props = {
 
 export const AuthLayout: VFC<Props> = (props) => {
 	const primary = useThemeColor({}, "primary");
+	const bg0 = useThemeColor({}, "bg0");
 
 	const positionStyle = useMemo(() => {
 		return props.overPositionStyle
@@ -38,11 +39,14 @@ export const AuthLayout: VFC<Props> = (props) => {
 						darkBgColor={primary}
 						style={defaultStyle.twoToneTop}
 					>
-						<WhoPayHorizontal />
+						<WhoPay />
 					</View>
-					<View style={defaultStyle.twoToneBottom}></View>
+					<View style={defaultStyle.twoToneBottom} darkBgColor={bg0}></View>
 
-					<View style={[positionStyle, defaultStyle.fixedLayout]}>
+					<View
+						style={[positionStyle, defaultStyle.fixedLayout]}
+						darkBgColor={bg0}
+					>
 						{props.children}
 					</View>
 				</View>
@@ -83,7 +87,7 @@ const defaultStyle = StyleSheet.create({
 		paddingVertical: 50,
 		borderRadius: 20,
 
-		shadowColor: "#000",
+		shadowColor: "#aaa",
 		shadowOffset: {
 			width: 0,
 			height: 2,
