@@ -1,8 +1,7 @@
 import type { VFC } from "react";
 import React, { useCallback } from "react";
-import { StyleSheet } from "react-native";
 import { ColorButton, Text, View } from "src/components/custom";
-import { buttonStyles } from "src/styles/button.styles";
+import { buttonStyles, textStyles, viewStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 
 export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
@@ -13,31 +12,14 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
 	}, []);
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>PaymentListScreen</Text>
+		<View style={viewStyles.full}>
+			<Text style={textStyles.title}>PaymentListScreen</Text>
 
 			<ColorButton
-				outlineStyle={buttonStyles.outline}
 				title="詳細ページへ"
+				outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
 				onPress={onNavigation}
 			/>
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
-});
