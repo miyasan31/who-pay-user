@@ -9,6 +9,7 @@ import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { requestFetcher } from "src/functions/fetcher";
+import { saveSequreStore } from "src/functions/store";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -36,7 +37,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 
 		const hashedPassword = sha512(body.password);
 		const requestBody = { phone: "81" + body.phone, password: hashedPassword };
-		const { statusCode } = await requestFetcher<User>(
+		const { statusCode, response } = await requestFetcher<User>(
 			"/auth/signin/user",
 			requestBody,
 			"POST"
@@ -57,6 +58,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 		});
 		await new Promise((resolve) => setTimeout(resolve, 400));
 
+		await saveSequreStore("access_token", response.token);
 		setUserInfo((prev) => ({
 			...prev,
 			isSignin: true,

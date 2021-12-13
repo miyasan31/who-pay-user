@@ -8,6 +8,7 @@ import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput, View } from "src/components/custom";
 import { requestFetcher } from "src/functions/fetcher/requestFetcher";
+import { saveSequreStore } from "src/functions/store";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import { viewStyles } from "src/styles/view.styles";
@@ -43,7 +44,7 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 				phone: phone,
 				token: userInfo.token,
 			};
-			const { statusCode } = await requestFetcher<User>(
+			const { statusCode, response } = await requestFetcher<User>(
 				"/auth/register/user",
 				requestBody,
 				"POST"
@@ -64,6 +65,7 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 			});
 			await new Promise((resolve) => setTimeout(resolve, 400));
 
+			await saveSequreStore("access_token", response.token);
 			setUserInfo((prev) => ({
 				...prev,
 				isSignin: true,
