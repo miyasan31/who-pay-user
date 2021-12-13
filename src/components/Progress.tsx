@@ -22,7 +22,7 @@ export const Progress: VFC = () => {
 const defaultStyle = StyleSheet.create({
 	center: {
 		flex: 1,
-		paddingTop: 100,
+		paddingTop: 120,
 		width: "100%",
 		alignItems: "center",
 	},
