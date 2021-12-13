@@ -65,6 +65,9 @@ export const requestFetcher = async <R>(
 		cyan + "| -------------------------------------------------- " + reset
 	);
 
+	// ローディングUIを表示させるために0.4秒待つ
+	await new Promise((resolve) => setTimeout(resolve, 400));
+
 	const result = await fetch(`${API_URL}${url}`, {
 		method: method,
 		headers: {

@@ -2,6 +2,7 @@ import sha512 from "js-sha512";
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast/src/core/toast";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
@@ -25,6 +26,10 @@ export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
+			const toastId = toast.loading("処理中...", {
+				icon: "💁‍♂️",
+			});
+
 			const hashedPassword = sha512(body.password);
 			const requestBody = {
 				phone: "81" + body.phone,
@@ -35,10 +40,21 @@ export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 				requestBody,
 				"POST"
 			);
+
 			if (statusCode >= 400) {
-				console.info("不正なリクエスト");
+				toast.error("エラーが発生しました", {
+					id: toastId,
+					icon: "🤦‍♂️",
+				});
 				return;
 			}
+
+			toast.success("確認コードを送信しました", {
+				id: toastId,
+				icon: "🙆‍♂️",
+			});
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+
 			props.navigation.navigate("Verify", { phone: body.phone });
 		},
 		[props]

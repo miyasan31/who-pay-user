@@ -1,13 +1,13 @@
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilState } from "recoil";
 import { user } from "src/atom/index";
 import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput, View } from "src/components/custom";
 import { requestFetcher } from "src/functions/fetcher/requestFetcher";
-import { saveSequreStore } from "src/functions/store/saveSequreStore";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import { viewStyles } from "src/styles/view.styles";
@@ -32,6 +32,10 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 		} = useForm<FormDataType>();
 
 		const onSubmitPress = useCallback(async (body: FormDataType) => {
+			const toastId = toast.loading("処理中...", {
+				icon: "💁‍♂️",
+			});
+
 			const { phone } = props.route.params;
 			const requestBody = {
 				...body,
@@ -39,25 +43,29 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 				phone: phone,
 				token: userInfo.token,
 			};
-			const { statusCode, response } = await requestFetcher<User>(
+			const { statusCode } = await requestFetcher<User>(
 				"/auth/register/user",
 				requestBody,
 				"POST"
 			);
 
 			if (statusCode >= 400) {
-				console.info("不正なリクエスト");
+				toast("エラーが発生しました", {
+					id: toastId,
+					icon: "🤦‍♂️",
+				});
 				return;
 			}
 
-			await saveSequreStore("access_token", userInfo.token);
+			toast.success("ユーザー情報を登録しました", {
+				duration: 1500,
+				id: toastId,
+				icon: "🙆‍♂️",
+			});
+			await new Promise((resolve) => setTimeout(resolve, 400));
+
 			setUserInfo((prev) => ({
 				...prev,
-				id: response.id,
-				firstName: body.firstName,
-				lastName: body.lastName,
-				email: body.email,
-				phone: phone,
 				isSignin: true,
 			}));
 		}, []);

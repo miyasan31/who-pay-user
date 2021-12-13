@@ -2,13 +2,13 @@ import sha512 from "js-sha512";
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast/src/core/toast";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atom";
 import { ErrorMessage } from "src/components";
 import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { requestFetcher } from "src/functions/fetcher";
-import { saveSequreStore } from "src/functions/store";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -30,26 +30,37 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 	} = useForm<FormDataType>();
 
 	const onSubmitPress = useCallback(async (body: FormDataType) => {
+		const toastId = toast.loading("処理中...", {
+			icon: "💁‍♂️",
+		});
+
 		const hashedPassword = sha512(body.password);
 		const requestBody = { phone: "81" + body.phone, password: hashedPassword };
-		const { statusCode, response } = await requestFetcher<User>(
+		const { statusCode } = await requestFetcher<User>(
 			"/auth/signin/user",
 			requestBody,
 			"POST"
 		);
+
 		if (statusCode >= 400) {
-			console.info("error");
+			toast.error("エラーが発生しました", {
+				id: toastId,
+				icon: "🤦‍♂️",
+			});
+			return;
 		}
-		await saveSequreStore("access_token", response.token);
-		setUserInfo({
-			id: response.id,
-			firstName: response.firstName,
-			lastName: response.lastName,
-			email: response.email,
-			phone: response.phone,
-			token: response.token,
-			isSignin: true,
+
+		toast.success("サインインしました", {
+			duration: 1500,
+			id: toastId,
+			icon: "🙆‍♂️",
 		});
+		await new Promise((resolve) => setTimeout(resolve, 400));
+
+		setUserInfo((prev) => ({
+			...prev,
+			isSignin: true,
+		}));
 	}, []);
 
 	return (

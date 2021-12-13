@@ -1,6 +1,7 @@
 import type { VFC } from "react";
 import React, { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast/src/core/toast";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atom";
 import { AuthLayout } from "src/components/AuthLayout";
@@ -30,6 +31,10 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 	const { phone } = props.route.params;
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
+			const toastId = toast.loading("処理中...", {
+				icon: "💁‍♂️",
+			});
+
 			const requestBody = { phone: "81" + phone, token: body.verifyCode };
 			const { statusCode, response } = await requestFetcher<VerifyAuth>(
 				"/auth/verify",
@@ -37,9 +42,18 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 				"POST"
 			);
 			if (statusCode >= 400) {
-				console.info("error");
+				toast("エラーが発生しました", {
+					id: toastId,
+					icon: "🤦‍♂️",
+				});
 				return;
 			}
+
+			toast.success("認証が成功しました", {
+				id: toastId,
+				icon: "🙆‍♂️",
+			});
+			await new Promise((resolve) => setTimeout(resolve, 1000));
 
 			setUserInfo((prev) => ({
 				...prev,
@@ -47,7 +61,6 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 				token: response.access_token,
 			}));
 			setIsCertified(true);
-
 			props.navigation.navigate("UserInfoRegister", {
 				phone: phone,
 			});

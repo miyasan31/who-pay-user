@@ -1,9 +1,11 @@
 import type { ReactNode, VFC } from "react";
 import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilState } from "recoil";
 import { user } from "src/atom";
+import { Progress } from "src/components";
 import { requestFetcher } from "src/functions/fetcher";
-import { getSequreStore } from "src/functions/store";
+import { getSequreStore, saveSequreStore } from "src/functions/store";
 import { AuthNavigator } from "src/navigations/AuthNavigator";
 import type { User } from "types/fetcher";
 
@@ -24,9 +26,15 @@ export const AuthProvider: VFC<Props> = (props) => {
 				requestBody,
 				"POST"
 			);
+
 			if (statusCode >= 400) {
-				throw new Error("不正なリクエストです");
+				toast("エラーが発生しました", {
+					icon: "🤦‍♂️",
+				});
+				return;
 			}
+
+			await saveSequreStore("access_token", response.token);
 			setUserInfo({
 				id: response.id,
 				firstName: response.firstName,
@@ -37,15 +45,20 @@ export const AuthProvider: VFC<Props> = (props) => {
 				isSignin: true,
 			});
 		}
+		await new Promise((resolve) => setTimeout(resolve, 500));
+
 		seIsLoading(false);
 	}, []);
 
 	useEffect(() => {
+		if (!isLoading) {
+			seIsLoading(true);
+		}
 		listenAuthState();
-	}, []);
+	}, [userInfo.isSignin]);
 
 	if (isLoading) {
-		return null;
+		return <Progress />;
 	} else {
 		return <>{userInfo.isSignin ? <>{props.children}</> : <AuthNavigator />}</>;
 	}
