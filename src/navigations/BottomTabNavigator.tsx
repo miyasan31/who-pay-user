@@ -5,9 +5,10 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { TabBarIcon } from "src/components/icon";
 import { useColorScheme } from "src/hooks";
+import { useThemeColor } from "src/hooks/useThemeColor";
 import { PaymentNavigator } from "src/navigations/PaymentNavigator";
 import { SettingNavigator } from "src/navigations/SettingNavigator";
-import { HomeScreen } from "src/screens";
+// import { HomeScreen } from "src/screens";
 import { theme } from "src/styles";
 import type { BottomTabParamList } from "types";
 
@@ -15,20 +16,22 @@ const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export const BottomTabNavigator: VFC = () => {
 	const colorScheme = useColorScheme();
+	const bg1 = useThemeColor({}, "bg1");
 
 	return (
 		<BottomTab.Navigator
-			initialRouteName="Home"
+			// initialRouteName="Home"
+			initialRouteName="Payment"
 			screenOptions={{
 				tabBarActiveTintColor: theme[colorScheme].primary,
-				tabBarStyle: { position: "absolute" },
+				tabBarStyle: { position: "absolute", backgroundColor: bg1 },
 				headerShown: false,
 				tabBarBackground: () => (
 					<BlurView intensity={10} style={StyleSheet.absoluteFill} />
 				),
 			}}
 		>
-			<BottomTab.Screen
+			{/* <BottomTab.Screen
 				name="Home"
 				component={HomeScreen}
 				options={{
@@ -37,7 +40,7 @@ export const BottomTabNavigator: VFC = () => {
 						<TabBarIcon name="home-outline" color={color} />
 					),
 				}}
-			/>
+			/> */}
 			<BottomTab.Screen
 				name="Payment"
 				component={PaymentNavigator}
