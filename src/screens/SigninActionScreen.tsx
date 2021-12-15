@@ -1,7 +1,7 @@
 import type { VFC } from "react";
 import React, { useCallback } from "react";
-import { AuthLayout } from "src/components/AuthLayout";
 import { ColorButton, Text } from "src/components/custom";
+import { AuthLayout } from "src/components/layout";
 import { buttonStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
 

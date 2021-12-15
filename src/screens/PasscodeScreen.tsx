@@ -4,11 +4,12 @@ import React, { useCallback, useMemo, useState } from "react";
 import { StyleSheet } from "react-native";
 import { CircleKeyButton } from "src/components";
 import { ColorButton, Text, View } from "src/components/custom";
+import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
-import { buttonStyles, textStyles, viewStyles } from "src/styles";
+import { buttonStyles } from "src/styles";
 import type { SettingScreenProps } from "types";
 
-export const PasscodeScreen: VFC<SettingScreenProps<"Setting">> = (props) => {
+export const PasscodeScreen: VFC<SettingScreenProps<"Passcode">> = (props) => {
 	const color = useThemeColor({}, "text2");
 	const backGroundColor = useThemeColor({}, "bg1");
 	const [passcode, setPasscode] = useState("");
@@ -34,14 +35,14 @@ export const PasscodeScreen: VFC<SettingScreenProps<"Setting">> = (props) => {
 		(passcode: string) => {
 			const body = { passcode: passcode };
 			console.info("POST Request Body", body);
-			props.navigation.navigate("Setting");
+			props.navigation.navigate("SettingSelect");
 		},
 		[props]
 	);
 
 	return (
-		<View style={viewStyles.full}>
-			<Text style={textStyles.passCodeTitle}>パスワードを入力してください</Text>
+		<Layout>
+			<Text style={styles.passCodeTitle}>パスワードを入力してください</Text>
 
 			<View
 				lightBgColor={backGroundColor}
@@ -80,11 +81,15 @@ export const PasscodeScreen: VFC<SettingScreenProps<"Setting">> = (props) => {
 				outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
 				onPress={() => onVoiceAuthentication(passcode)}
 			/>
-		</View>
+		</Layout>
 	);
 };
 
 const styles = StyleSheet.create({
+	passCodeTitle: {
+		paddingVertical: 30,
+	},
+
 	priceArea: {
 		flexDirection: "row",
 		alignItems: "center",
