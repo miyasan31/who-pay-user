@@ -26,7 +26,7 @@ const defaultStyles = StyleSheet.create({
 	text: {
 		width: "100%",
 		fontSize: 20,
-		fontWeight: "bold",
+		fontWeight: "600",
 		textAlign: "center",
 	},
 });
