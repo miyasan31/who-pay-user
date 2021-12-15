@@ -11,20 +11,22 @@ export const PaymentNavigator: VFC = () => {
 		<Payment.Navigator
 			initialRouteName="PaymentList"
 			screenOptions={{
-				title: "Who Pay",
 				headerBackTitle: "戻る",
-				headerShown: false,
 			}}
 		>
 			<Payment.Screen
 				name="PaymentList"
 				component={PaymentListScreen}
-				options={() => ({})}
+				options={() => ({
+					headerShown: false,
+				})}
 			/>
 			<Payment.Screen
 				name="PaymentDetail"
 				component={PaymentDetailScreen}
-				options={() => ({})}
+				options={() => ({
+					title: "詳細",
+				})}
 			/>
 		</Payment.Navigator>
 	);
