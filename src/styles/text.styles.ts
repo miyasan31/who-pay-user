@@ -10,25 +10,10 @@ export const textStyles = StyleSheet.create({
 		paddingBottom: 15,
 		fontWeight: "normal",
 	},
-	messageTitle: {
-		paddingVertical: 30,
-		fontSize: 25,
-	},
-	passCodeTitle: {
-		paddingVertical: 30,
-	},
 	label: {
 		paddingVertical: 10,
 		fontSize: 15,
 		textAlign: "left",
-	},
-	text: {
-		paddingVertical: 5,
-		fontSize: 20,
-		textAlign: "left",
-	},
-	result: {
-		paddingTop: 20,
 	},
 	error: {
 		paddingTop: 5,
