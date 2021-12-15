@@ -7,9 +7,9 @@ import { ColorButton, Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles } from "src/styles";
-import type { SettingScreenProps } from "types";
+import type { PasscodeScreenProps } from "types";
 
-export const PasscodeScreen: VFC<SettingScreenProps<"Passcode">> = (props) => {
+export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
 	const color = useThemeColor({}, "text2");
 	const backGroundColor = useThemeColor({}, "bg1");
 	const [passcode, setPasscode] = useState("");
@@ -35,7 +35,7 @@ export const PasscodeScreen: VFC<SettingScreenProps<"Passcode">> = (props) => {
 		(passcode: string) => {
 			const body = { passcode: passcode };
 			console.info("POST Request Body", body);
-			props.navigation.navigate("SettingSelect");
+			props.navigation.navigate("PasscodeUpdate");
 		},
 		[props]
 	);

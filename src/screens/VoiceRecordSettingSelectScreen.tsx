@@ -6,28 +6,22 @@ import { ListItem } from "src/components";
 import { Text } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
-import type { SettingScreenProps } from "types";
+import type { VoiceRecordScreenProps } from "types";
 
 type List = {
 	id: string;
 	label: string;
-	screen:
-		| "AccountSetting"
-		| "CreditSetting"
-		| "PasscodeSetting"
-		| "VoiceRecordSetting";
+	screen: "VoiceRecord" | "VoiceRecordUpdate";
 };
 
 const data: Readonly<List[]> = [
-	{ id: "1", screen: "AccountSetting", label: "アカウント" },
-	{ id: "2", screen: "CreditSetting", label: "クレジットカード" },
-	{ id: "3", screen: "PasscodeSetting", label: "パスコード" },
-	{ id: "4", screen: "VoiceRecordSetting", label: "声紋認証" },
+	{ id: "1", screen: "VoiceRecord", label: "登録する" },
+	{ id: "2", screen: "VoiceRecordUpdate", label: "更新する" },
 ];
 
-export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (
-	props
-) => {
+export const VoiceRecordSettingSelectScreen: VFC<
+	VoiceRecordScreenProps<"VoiceRecordSettingSelect">
+> = (props) => {
 	const icon1 = useThemeColor({}, "icon1");
 
 	// List["screen"] ルックアップタイプ

@@ -37,7 +37,7 @@ export type AuthScreenProps<T extends keyof AuthStackParamList> =
 
 /* 下タブ */
 export type BottomTabParamList = {
-	Home: undefined;
+	Top: NavigatorScreenParams<TopStackParamList> | undefined;
 	Payment: NavigatorScreenParams<PaymentStackParamList> | undefined;
 	Setting: NavigatorScreenParams<SettingStackParamList> | undefined;
 };
@@ -48,13 +48,22 @@ export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 	>;
 /* ---- */
 
+/* トップ */
+export type TopStackParamList = {
+	Home: undefined;
+};
+export type TopScreenProps<T extends keyof TopStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<TopStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
 /* 決済履歴 */
 export type PaymentStackParamList = {
 	PaymentList: undefined;
 	PaymentDetail: {
 		id: number;
-		amount: number;
-		shopName: string;
 	};
 };
 export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
@@ -67,12 +76,68 @@ export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
 /* 設定 */
 export type SettingStackParamList = {
 	SettingSelect: undefined;
-	VoiceRecord: undefined;
-	Passcode: undefined;
+	AccountSetting: NavigatorScreenParams<AccountStackParamList> | undefined;
+	CreditSetting: NavigatorScreenParams<CreditStackParamList> | undefined;
+	PasscodeSetting: NavigatorScreenParams<PasscodeStackParamList> | undefined;
+	VoiceRecordSetting:
+		| NavigatorScreenParams<VoiceRecordStackParamList>
+		| undefined;
 };
 export type SettingScreenProps<T extends keyof SettingStackParamList> =
 	CompositeScreenProps<
 		BottomTabScreenProps<SettingStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* アカウント */
+export type AccountStackParamList = {
+	// AccountSettingSelect: undefined;
+	Account: undefined;
+	AccountUpdate: undefined;
+};
+export type AccountScreenProps<T extends keyof AccountStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<AccountStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* クレジット */
+export type CreditStackParamList = {
+	// CreditSettingSelect: undefined;
+	Credit: undefined;
+	CreditUpdate: undefined;
+};
+export type CreditScreenProps<T extends keyof CreditStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<CreditStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* パスコード */
+export type PasscodeStackParamList = {
+	PasscodeSettingSelect: undefined;
+	Passcode: undefined;
+	PasscodeUpdate: undefined;
+};
+export type PasscodeScreenProps<T extends keyof PasscodeStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<PasscodeStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* 声紋認証 */
+export type VoiceRecordStackParamList = {
+	VoiceRecordSettingSelect: undefined;
+	VoiceRecord: undefined;
+	VoiceRecordUpdate: undefined;
+};
+export type VoiceRecordScreenProps<T extends keyof VoiceRecordStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<VoiceRecordStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */

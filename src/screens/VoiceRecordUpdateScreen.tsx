@@ -11,9 +11,9 @@ import type { VoiceRecordScreenProps } from "types";
 
 let recording = new Audio.Recording();
 
-export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
-	props
-) => {
+export const VoiceRecordUpdateScreen: VFC<
+	VoiceRecordScreenProps<"VoiceRecordUpdate">
+> = (props) => {
 	const primary = useThemeColor({}, "primary");
 	const accent = useThemeColor({}, "accent");
 
@@ -72,7 +72,7 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
 	console.info(RecordedURI);
 
 	const onVoiceAuthentication = useCallback(() => {
-		props.navigation.navigate("VoiceRecord");
+		props.navigation.navigate("VoiceRecordUpdate");
 	}, []);
 
 	return (
