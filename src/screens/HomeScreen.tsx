@@ -1,13 +1,30 @@
 import type { VFC } from "react";
 import React from "react";
-import { Text, View } from "src/components/custom";
-import { textStyles, viewStyles } from "src/styles";
+import { Progress } from "src/components";
+import { Text } from "src/components/custom";
+import { Layout } from "src/components/layout";
+import { useGetSWRdev } from "src/hooks";
 import type { BottomTabScreenProps } from "types";
 
+type Amount = {
+	value: number;
+};
+
 export const HomeScreen: VFC<BottomTabScreenProps<"Home">> = () => {
+	const { data, isError, isLoading } = useGetSWRdev<Amount>("/amount");
+
 	return (
-		<View style={viewStyles.full}>
-			<Text style={textStyles.title}>今月の利用可能額は</Text>
-		</View>
+		<Layout>
+			{isLoading ? (
+				<Progress />
+			) : isError ? (
+				<Text>Error</Text>
+			) : (
+				<>
+					<Text>今月の利用可能額は</Text>
+					<Text>{data?.value}</Text>
+				</>
+			)}
+		</Layout>
 	);
 };
