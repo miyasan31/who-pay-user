@@ -4,7 +4,7 @@ import { NotFoundScreen } from "./NotFoundScreen";
 import { PasscodeScreen } from "./PasscodeScreen";
 import { PaymentDetailScreen } from "./PaymentDetailScreen";
 import { PaymentListScreen } from "./PaymentListScreen";
-import { SettingScreen } from "./SettingScreen";
+import { SettingSelectScreen } from "./SettingSelectScreen";
 import { SigninActionScreen } from "./SigninActionScreen";
 import { SigninScreen } from "./SigninScreen";
 import { SignupScreen } from "./SignupScreen";
@@ -19,7 +19,7 @@ export {
 	PasscodeScreen,
 	PaymentDetailScreen,
 	PaymentListScreen,
-	SettingScreen,
+	SettingSelectScreen,
 	SigninActionScreen,
 	SigninScreen,
 	SignupScreen,

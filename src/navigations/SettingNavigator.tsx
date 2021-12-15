@@ -1,7 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
 import React from "react";
-import { PasscodeScreen, SettingScreen } from "src/screens";
+import {
+	PasscodeScreen,
+	SettingSelectScreen,
+	VoiceRecordScreen,
+} from "src/screens";
 import type { SettingStackParamList } from "types";
 
 const Setting = createNativeStackNavigator<SettingStackParamList>();
@@ -9,16 +13,14 @@ const Setting = createNativeStackNavigator<SettingStackParamList>();
 export const SettingNavigator: VFC = () => {
 	return (
 		<Setting.Navigator
-			initialRouteName="Setting"
+			initialRouteName="SettingSelect"
 			screenOptions={{
-				title: "Who Pay",
 				headerBackTitle: "戻る",
-				headerShown: false,
 			}}
 		>
 			<Setting.Screen
-				name="Setting"
-				component={SettingScreen}
+				name="SettingSelect"
+				component={SettingSelectScreen}
 				options={() => ({
 					headerShown: false,
 				})}
@@ -27,7 +29,14 @@ export const SettingNavigator: VFC = () => {
 				name="Passcode"
 				component={PasscodeScreen}
 				options={() => ({
-					headerShown: false,
+					title: "パスコード",
+				})}
+			/>
+			<Setting.Screen
+				name="VoiceRecord"
+				component={VoiceRecordScreen}
+				options={() => ({
+					title: "録音",
 				})}
 			/>
 		</Setting.Navigator>

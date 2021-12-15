@@ -51,7 +51,11 @@ export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 /* 決済履歴 */
 export type PaymentStackParamList = {
 	PaymentList: undefined;
-	PaymentDetail: undefined;
+	PaymentDetail: {
+		id: number;
+		amount: number;
+		shopName: string;
+	};
 };
 export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
 	CompositeScreenProps<
@@ -62,7 +66,7 @@ export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
 
 /* 設定 */
 export type SettingStackParamList = {
-	Setting: undefined;
+	SettingSelect: undefined;
 	VoiceRecord: undefined;
 	Passcode: undefined;
 };
