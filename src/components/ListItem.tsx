@@ -13,8 +13,8 @@ export type ColorButtonProps = StyleProps &
 		onPress: () => void;
 	};
 
-export const ListView: VFC<ColorButtonProps> = memo((props) => {
-	const { bgStyle, lightBgColor, darkBgColor, ...otherProps } = props;
+export const ListItem: VFC<ColorButtonProps> = memo((props) => {
+	const { style, lightBgColor, darkBgColor, ...otherProps } = props;
 
 	const backgroundColor = useThemeColor(
 		{ light: lightBgColor, dark: darkBgColor },
@@ -23,7 +23,7 @@ export const ListView: VFC<ColorButtonProps> = memo((props) => {
 
 	return (
 		<NativeTouchableOpacity
-			style={[defaultStyles.bg, bgStyle, { backgroundColor }]}
+			style={[defaultStyles.bg, style, { backgroundColor }]}
 			activeOpacity={0.4}
 			{...otherProps}
 		>
@@ -37,18 +37,5 @@ const defaultStyles = StyleSheet.create({
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
-
-		padding: 5,
-		margin: 5,
-
-		// shadow
-		// shadowColor: "#aaa",
-		// shadowOffset: {
-		// 	width: 0,
-		// 	height: 2,
-		// },
-		// shadowOpacity: 0.25,
-		// shadowRadius: 4,
-		// elevation: 1,
 	},
 });
