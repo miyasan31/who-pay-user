@@ -50,15 +50,30 @@ export type Voice = {
 /**
  * Model Payment
  */
+// export type Payment = {
+// 	id: string;
+// 	userId: string;
+// 	shopId: string;
+// 	voiceId: string;
+// 	createdAt: Date;
+// 	updatedAt: Date;
+// };
 export type Payment = {
-	id: string;
+	id: number;
 	userId: string;
 	shopId: string;
-	voiceId: string;
+	amount: number;
 	createdAt: Date;
-	updatedAt: Date;
+	updateAt: Date;
+	Shop: {
+		id: string;
+		shopName: string;
+	};
 };
 
+/**
+ * Model VerifyAuth
+ */
 export type VerifyAuth = {
 	user: { id: string };
 	phone: string;
