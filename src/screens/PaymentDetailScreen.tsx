@@ -1,25 +1,19 @@
 import type { VFC } from "react";
-import React, { useCallback } from "react";
-import { ColorButton, Text, View } from "src/components/custom";
-import { buttonStyles, textStyles, viewStyles } from "src/styles";
+import React from "react";
+import { Text } from "src/components/custom";
+import { Layout } from "src/components/layout";
+import { textStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 
 export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (
 	props
 ) => {
-	const onNavigation = useCallback(() => {
-		props.navigation.navigate("PaymentList");
-	}, []);
-
+	const { id, amount, shopName } = props.route.params;
 	return (
-		<View style={viewStyles.full}>
-			<Text style={textStyles.title}>PaymentListScreen</Text>
-
-			<ColorButton
-				title="詳細ページへ"
-				outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
-				onPress={onNavigation}
-			/>
-		</View>
+		<Layout>
+			<Text style={textStyles.title}>{id}</Text>
+			<Text style={textStyles.title}>{amount}</Text>
+			<Text style={textStyles.title}>{shopName}</Text>
+		</Layout>
 	);
 };
