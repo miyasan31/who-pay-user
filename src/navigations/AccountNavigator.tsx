@@ -4,27 +4,24 @@ import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
-import { useMonthPagenation, useThemeColor } from "src/hooks";
-import { PaymentDetailScreen, PaymentListScreen } from "src/screens";
-import type { PaymentScreenProps, PaymentStackParamList } from "types";
+import { useThemeColor } from "src/hooks";
+import { AccountScreen, AccountUpdateScreen } from "src/screens";
+import type { AccountScreenProps, AccountStackParamList } from "types";
 
-type Option = PaymentScreenProps<"PaymentList" | "PaymentDetail">;
+type Option = AccountScreenProps<"Account" | "AccountUpdate">;
 type PrevProps = Option & {
-	screen: "PaymentList";
+	screen: "Account" | "SettingSelect";
 };
 
-const Payment = createNativeStackNavigator<PaymentStackParamList>();
+const Account = createNativeStackNavigator<AccountStackParamList>();
 
-export const PaymentNavigator: VFC = () => {
+export const AccountNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
-
-	const { dateInfo, isThisMonth, PrevMounth, NextMounth } =
-		useMonthPagenation();
-
 	return (
-		<Payment.Navigator
-			initialRouteName="PaymentList"
+		<Account.Navigator
+			initialRouteName="Account"
 			screenOptions={{
+				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
 				headerLargeTitle: true,
 				headerLargeTitleStyle: {
@@ -33,25 +30,24 @@ export const PaymentNavigator: VFC = () => {
 				},
 			}}
 		>
-			<Payment.Screen
-				name="PaymentList"
-				component={PaymentListScreen}
-				options={() => ({
-					title: `${dateInfo.year}年${dateInfo.month}月`,
-					headerLeft: () => <PrevMounth />,
-					headerRight: () => (isThisMonth ? <NextMounth /> : null),
+			<Account.Screen
+				name="Account"
+				component={AccountScreen}
+				options={(options: Option) => ({
+					title: "アカウント情報",
+					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Payment.Screen
-				name="PaymentDetail"
-				component={PaymentDetailScreen}
+			<Account.Screen
+				name="AccountUpdate"
+				component={AccountUpdateScreen}
 				options={(options: Option) => ({
-					title: "詳細",
-					headerLeft: () => <PrevButton {...options} screen="PaymentList" />,
+					title: "アカウント更新",
+					headerLeft: () => <PrevButton {...options} screen="Account" />,
 				})}
 			/>
-		</Payment.Navigator>
+		</Account.Navigator>
 	);
 };
 

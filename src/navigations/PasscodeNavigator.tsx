@@ -4,27 +4,30 @@ import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
-import { useMonthPagenation, useThemeColor } from "src/hooks";
-import { PaymentDetailScreen, PaymentListScreen } from "src/screens";
-import type { PaymentScreenProps, PaymentStackParamList } from "types";
+import { useThemeColor } from "src/hooks";
+import {
+	PasscodeScreen,
+	PasscodeSettingSelectScreen,
+	PasscodeUpdateScreen,
+} from "src/screens";
+import type { PasscodeScreenProps, PasscodeStackParamList } from "types";
 
-type Option = PaymentScreenProps<"PaymentList" | "PaymentDetail">;
+type Option = PasscodeScreenProps<
+	"PasscodeSettingSelect" | "Passcode" | "PasscodeUpdate"
+>;
 type PrevProps = Option & {
-	screen: "PaymentList";
+	screen: "PasscodeSettingSelect" | "SettingSelect";
 };
 
-const Payment = createNativeStackNavigator<PaymentStackParamList>();
+const Passcode = createNativeStackNavigator<PasscodeStackParamList>();
 
-export const PaymentNavigator: VFC = () => {
+export const PasscodeNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
-
-	const { dateInfo, isThisMonth, PrevMounth, NextMounth } =
-		useMonthPagenation();
-
 	return (
-		<Payment.Navigator
-			initialRouteName="PaymentList"
+		<Passcode.Navigator
+			initialRouteName="PasscodeSettingSelect"
 			screenOptions={{
+				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
 				headerLargeTitle: true,
 				headerLargeTitleStyle: {
@@ -33,25 +36,37 @@ export const PaymentNavigator: VFC = () => {
 				},
 			}}
 		>
-			<Payment.Screen
-				name="PaymentList"
-				component={PaymentListScreen}
-				options={() => ({
-					title: `${dateInfo.year}年${dateInfo.month}月`,
-					headerLeft: () => <PrevMounth />,
-					headerRight: () => (isThisMonth ? <NextMounth /> : null),
+			<Passcode.Screen
+				name="PasscodeSettingSelect"
+				component={PasscodeSettingSelectScreen}
+				options={(options: Option) => ({
+					title: "パスコード",
+					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Payment.Screen
-				name="PaymentDetail"
-				component={PaymentDetailScreen}
+			<Passcode.Screen
+				name="Passcode"
+				component={PasscodeScreen}
 				options={(options: Option) => ({
-					title: "詳細",
-					headerLeft: () => <PrevButton {...options} screen="PaymentList" />,
+					title: "パスコード登録",
+					headerLeft: () => (
+						<PrevButton {...options} screen="PasscodeSettingSelect" />
+					),
 				})}
 			/>
-		</Payment.Navigator>
+
+			<Passcode.Screen
+				name="PasscodeUpdate"
+				component={PasscodeUpdateScreen}
+				options={(options: Option) => ({
+					title: "パスコード更新",
+					headerLeft: () => (
+						<PrevButton {...options} screen="PasscodeSettingSelect" />
+					),
+				})}
+			/>
+		</Passcode.Navigator>
 	);
 };
 

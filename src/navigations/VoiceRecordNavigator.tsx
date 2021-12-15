@@ -4,27 +4,30 @@ import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
-import { useMonthPagenation, useThemeColor } from "src/hooks";
-import { PaymentDetailScreen, PaymentListScreen } from "src/screens";
-import type { PaymentScreenProps, PaymentStackParamList } from "types";
+import { useThemeColor } from "src/hooks";
+import {
+	VoiceRecordScreen,
+	VoiceRecordSettingSelectScreen,
+	VoiceRecordUpdateScreen,
+} from "src/screens";
+import type { VoiceRecordScreenProps, VoiceRecordStackParamList } from "types";
 
-type Option = PaymentScreenProps<"PaymentList" | "PaymentDetail">;
+type Option = VoiceRecordScreenProps<
+	"VoiceRecordSettingSelect" | "VoiceRecord" | "VoiceRecordUpdate"
+>;
 type PrevProps = Option & {
-	screen: "PaymentList";
+	screen: "VoiceRecordSettingSelect" | "SettingSelect";
 };
 
-const Payment = createNativeStackNavigator<PaymentStackParamList>();
+const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
 
-export const PaymentNavigator: VFC = () => {
+export const VoiceRecordNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
-
-	const { dateInfo, isThisMonth, PrevMounth, NextMounth } =
-		useMonthPagenation();
-
 	return (
-		<Payment.Navigator
-			initialRouteName="PaymentList"
+		<VoiceRecord.Navigator
+			initialRouteName="VoiceRecordSettingSelect"
 			screenOptions={{
+				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
 				headerLargeTitle: true,
 				headerLargeTitleStyle: {
@@ -33,25 +36,37 @@ export const PaymentNavigator: VFC = () => {
 				},
 			}}
 		>
-			<Payment.Screen
-				name="PaymentList"
-				component={PaymentListScreen}
-				options={() => ({
-					title: `${dateInfo.year}年${dateInfo.month}月`,
-					headerLeft: () => <PrevMounth />,
-					headerRight: () => (isThisMonth ? <NextMounth /> : null),
+			<VoiceRecord.Screen
+				name="VoiceRecordSettingSelect"
+				component={VoiceRecordSettingSelectScreen}
+				options={(options: Option) => ({
+					title: "声紋認証",
+					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Payment.Screen
-				name="PaymentDetail"
-				component={PaymentDetailScreen}
+			<VoiceRecord.Screen
+				name="VoiceRecord"
+				component={VoiceRecordScreen}
 				options={(options: Option) => ({
-					title: "詳細",
-					headerLeft: () => <PrevButton {...options} screen="PaymentList" />,
+					title: "声紋認証登録",
+					headerLeft: () => (
+						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
+					),
 				})}
 			/>
-		</Payment.Navigator>
+
+			<VoiceRecord.Screen
+				name="VoiceRecordUpdate"
+				component={VoiceRecordUpdateScreen}
+				options={(options: Option) => ({
+					title: "声紋認証更新",
+					headerLeft: () => (
+						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
+					),
+				})}
+			/>
+		</VoiceRecord.Navigator>
 	);
 };
 

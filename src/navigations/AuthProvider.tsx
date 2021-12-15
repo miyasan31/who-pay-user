@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { ReactNode, VFC } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
@@ -35,7 +36,7 @@ export const AuthProvider: VFC<Props> = (props) => {
 			}
 
 			await saveSequreStore("access_token", response.token);
-			setUserInfo({
+			await setUserInfo({
 				id: response.id,
 				firstName: response.firstName,
 				lastName: response.lastName,
@@ -46,13 +47,21 @@ export const AuthProvider: VFC<Props> = (props) => {
 			});
 		}
 		await new Promise((resolve) => setTimeout(resolve, 500));
+		seIsLoading(false);
+	}, []);
 
+	const loadingFalse = useCallback(async () => {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 		seIsLoading(false);
 	}, []);
 
 	useEffect(() => {
 		if (!isLoading) seIsLoading(true);
-		if (!userInfo.isSignin) listenAuthState();
+		if (!userInfo.isSignin) {
+			listenAuthState();
+		} else {
+			loadingFalse();
+		}
 	}, [userInfo.isSignin]);
 
 	if (isLoading) {
