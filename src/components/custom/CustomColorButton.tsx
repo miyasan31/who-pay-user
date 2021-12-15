@@ -68,6 +68,7 @@ export const CustomColorButton: VFC<ColorButtonProps> = memo((props) => {
 const defaultStyles = StyleSheet.create({
 	outline: {
 		width: "100%",
+		borderRadius: 9999,
 	},
 	bg: {
 		display: "flex",
