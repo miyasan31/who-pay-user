@@ -1,36 +1,57 @@
 import type { VFC } from "react";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import { Progress } from "src/components";
-import { SafeAreaView, Text } from "src/components/custom";
-import { ListView } from "src/components/ListView";
-import { useGetSWRdev } from "src/hooks";
+import { ListItem, Progress } from "src/components";
+import { Text, View } from "src/components/custom";
+import { SafeAreaLayout } from "src/components/layout";
+import { useGetSWRdev, useThemeColor } from "src/hooks";
 import type { PaymentScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
 export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
 	props
 ) => {
+	const color = useThemeColor({}, "text2");
 	const { data, isError, isLoading } = useGetSWRdev<Payment[]>("/payment");
 
 	const renderItem = ({ item }: { item: Payment }) => {
 		const onNavigation = () => {
 			props.navigation.navigate("PaymentDetail", {
 				id: item.id,
-				amount: item.amount,
-				shopName: item.Shop.shopName,
 			});
 		};
+
 		return (
-			<ListView onPress={onNavigation}>
-				<Text style={styles.title}>{item.amount}</Text>
-				<Text style={styles.title}>{item.Shop.shopName}</Text>
-			</ListView>
+			<ListItem style={styles.list} onPress={onNavigation}>
+				<View style={styles.leftLayout}>
+					<Text style={styles.shopName}>{item.Shop.shopName}</Text>
+					<Text
+						style={styles.date}
+						lightTextColor={color}
+						darkTextColor={color}
+					>
+						2021/12/01
+					</Text>
+				</View>
+				<View style={styles.rightLayout}>
+					<Text
+						style={styles.frequency}
+						lightTextColor={color}
+						darkTextColor={color}
+					>
+						1回払い
+					</Text>
+					<Text style={styles.price}>
+						<Text style={styles.yensign}>¥</Text>
+						{item.amount}
+					</Text>
+				</View>
+			</ListItem>
 		);
 	};
 
 	return (
-		<SafeAreaView>
+		<SafeAreaLayout>
 			{isLoading ? (
 				<Progress />
 			) : isError ? (
@@ -44,15 +65,61 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
 					keyExtractor={(item, _) => String(item.id)}
 				/>
 			) : null}
-		</SafeAreaView>
+		</SafeAreaLayout>
 	);
 };
 
 const styles = StyleSheet.create({
-	title: {
+	header: {
+		alignItems: "center",
+		justifyContent: "center",
+
+		height: 60,
+		width: "100%",
+
+		borderBottomWidth: 1,
+		borderBottomColor: "#b3b3b333",
+	},
+	list: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "space-between",
+
+		padding: 15,
+		marginHorizontal: "1%",
+
+		borderBottomWidth: 1,
+		borderBottomColor: "#88888833",
+	},
+
+	leftLayout: {},
+	rightLayout: {
+		justifyContent: "flex-end",
+	},
+
+	shopName: {
+		paddingBottom: 10,
+
+		fontSize: 18,
+		fontWeight: "500",
+		textAlign: "left",
+	},
+	date: {
 		fontSize: 15,
 		fontWeight: "normal",
 		textAlign: "left",
-		color: "#010101",
+	},
+	frequency: {
+		fontSize: 15,
+		textAlign: "right",
+		fontWeight: "normal",
+	},
+	price: {
+		fontSize: 20,
+		fontWeight: "600",
+	},
+	yensign: {
+		fontSize: 24,
+		fontWeight: "300",
 	},
 });
