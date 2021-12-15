@@ -64,7 +64,7 @@ export type Payment = {
 	shopId: string;
 	amount: number;
 	createdAt: Date;
-	updateAt: Date;
+	updatedAt: Date;
 	Shop: {
 		id: string;
 		shopName: string;
