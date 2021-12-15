@@ -51,10 +51,8 @@ export const AuthProvider: VFC<Props> = (props) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isLoading) {
-			seIsLoading(true);
-		}
-		listenAuthState();
+		if (!isLoading) seIsLoading(true);
+		if (!userInfo.isSignin) listenAuthState();
 	}, [userInfo.isSignin]);
 
 	if (isLoading) {
