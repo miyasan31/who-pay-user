@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import type { VFC } from "react";
-import React, { useCallback, useMemo, useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { CircleKeyButton } from "src/components";
 import { ColorButton, Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
-import { useThemeColor } from "src/hooks";
+import { usePasscodeUpsert, useThemeColor } from "src/hooks";
 import { buttonStyles } from "src/styles";
 import type { PasscodeScreenProps } from "types";
 
@@ -13,37 +13,17 @@ export const PasscodeUpdateScreen: VFC<PasscodeScreenProps<"PasscodeUpdate">> =
 	(props) => {
 		const color = useThemeColor({}, "text2");
 		const backGroundColor = useThemeColor({}, "bg1");
-		const [passcode, setPasscode] = useState("");
 
-		const secretView = useMemo(() => {
-			const length = passcode.length;
-			return "●".repeat(length);
-		}, [passcode]);
-
-		const onClick = useCallback((number?: string) => {
-			setPasscode((prevPrice) => {
-				if (prevPrice.length === 4) return prevPrice;
-				if (number && prevPrice === "" && ["00"].includes(number)) return "";
-				return prevPrice + number;
-			});
-		}, []);
-
-		const onDelete = useCallback(() => {
-			setPasscode((prevPrice) => prevPrice.slice(0, -1));
-		}, []);
-
-		const onVoiceAuthentication = useCallback(
-			(passcode: string) => {
-				const body = { passcode: passcode };
-				console.info("POST Request Body", body);
-				props.navigation.navigate("PasscodeUpdate");
-			},
-			[props]
-		);
+		const { passcode, secretView, onClick, onDelete, onSubmit } =
+			usePasscodeUpsert({ ...props, screen: "PasscodeUpdate" });
 
 		return (
 			<Layout>
-				<Text style={styles.passCodeTitle}>パスワードを入力してください</Text>
+				<Text style={styles.passCodeTitle}>
+					{passcode.isVerify
+						? "確認のためもう一度入力してください"
+						: "パスワードを入力してください"}
+				</Text>
 
 				<View
 					lightBgColor={backGroundColor}
@@ -70,7 +50,6 @@ export const PasscodeUpdateScreen: VFC<PasscodeScreenProps<"PasscodeUpdate">> =
 				</View>
 				<View style={styles.keyRow}>
 					<View style={styles.keyOutline}></View>
-
 					<CircleKeyButton title="0" onPress={onClick} />
 					<CircleKeyButton onPress={onDelete}>
 						<Ionicons name="backspace" size={40} color={color} />
@@ -78,9 +57,9 @@ export const PasscodeUpdateScreen: VFC<PasscodeScreenProps<"PasscodeUpdate">> =
 				</View>
 
 				<ColorButton
-					title="送信"
+					title={passcode.isVerify ? "確定" : "送信"}
 					outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
-					onPress={() => onVoiceAuthentication(passcode)}
+					onPress={onSubmit}
 				/>
 			</Layout>
 		);
@@ -88,7 +67,7 @@ export const PasscodeUpdateScreen: VFC<PasscodeScreenProps<"PasscodeUpdate">> =
 
 const styles = StyleSheet.create({
 	passCodeTitle: {
-		paddingVertical: 30,
+		paddingBottom: 30,
 	},
 
 	priceArea: {
@@ -96,22 +75,22 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "space-evenly",
 		width: "100%",
-		paddingHorizontal: 25,
-		height: 60,
-		marginBottom: 32,
+		// paddingBottom: 25,
+		height: 40,
+		marginBottom: 30,
 	},
 	priceText: {
 		flex: 1,
-		fontSize: 40,
-		fontWeight: "bold",
+		fontSize: 38,
 		textAlign: "center",
-		letterSpacing: 8,
+		letterSpacing: 10,
 	},
 
 	keyRow: {
 		display: "flex",
 		flexDirection: "row",
-		marginBottom: 15,
+		marginBottom: 10,
+		width: "90%",
 	},
 	keyOutline: {
 		display: "flex",
@@ -122,5 +101,9 @@ const styles = StyleSheet.create({
 	},
 	deleteKey: {
 		borderColor: "#ffffff00",
+	},
+
+	buttonOutline: {
+		marginTop: 10,
 	},
 });

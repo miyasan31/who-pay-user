@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
 		width: "33%",
 	},
 	keyBg: {
-		width: "70%",
-		height: 80,
+		width: "62%",
+		height: 68,
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center",
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
 		borderColor: "#ccc",
 	},
 	keyText: {
-		fontSize: 30,
+		fontSize: 28,
 	},
 });
