@@ -3,6 +3,7 @@ import { useColorScheme } from "./useColorScheme";
 import { useGetSWR } from "./useGetSWR";
 import { useGetSWRdev } from "./useGetSWRdev";
 import { useMonthPagenation } from "./useMonthPagenation";
+import { usePasscodeUpsert } from "./usePasscodeUpsert";
 import { useThemeColor } from "./useThemeColor";
 
 export {
@@ -11,5 +12,6 @@ export {
 	useGetSWR,
 	useGetSWRdev,
 	useMonthPagenation,
+	usePasscodeUpsert,
 	useThemeColor,
 };
