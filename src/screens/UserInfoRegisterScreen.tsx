@@ -66,7 +66,7 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 			await new Promise((resolve) => setTimeout(resolve, 400));
 
 			await saveSequreStore("access_token", response.token);
-			setUserInfo((prev) => ({
+			await setUserInfo((prev) => ({
 				...prev,
 				isSignin: true,
 			}));

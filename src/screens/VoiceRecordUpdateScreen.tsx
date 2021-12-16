@@ -1,19 +1,18 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import type { VFC } from "react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { ColorButton, Text, View } from "src/components/custom";
+import { Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
-import { buttonStyles } from "src/styles";
 import type { VoiceRecordScreenProps } from "types";
 
 let recording = new Audio.Recording();
 
 export const VoiceRecordUpdateScreen: VFC<
 	VoiceRecordScreenProps<"VoiceRecordUpdate">
-> = (props) => {
+> = () => {
 	const primary = useThemeColor({}, "primary");
 	const accent = useThemeColor({}, "accent");
 
@@ -71,10 +70,6 @@ export const VoiceRecordUpdateScreen: VFC<
 
 	console.info(RecordedURI);
 
-	const onVoiceAuthentication = useCallback(() => {
-		props.navigation.navigate("VoiceRecordUpdate");
-	}, []);
-
 	return (
 		<Layout>
 			{!RecordedURI ? (
@@ -102,12 +97,7 @@ export const VoiceRecordUpdateScreen: VFC<
 			) : (
 				<>
 					<AntDesign name="checkcircleo" size={150} color={primary} />
-					<Text style={styles.result}>本人確認が完了しました</Text>
-					<ColorButton
-						title="暗証番号入力へ"
-						outlineStyle={buttonStyles.outline}
-						onPress={onVoiceAuthentication}
-					/>
+					<Text style={styles.result}>録音が完了しました</Text>
 				</>
 			)}
 		</Layout>

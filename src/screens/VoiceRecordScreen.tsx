@@ -1,118 +1,109 @@
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import type { VFC } from "react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import { ColorButton, Text, View } from "src/components/custom";
+import { Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
-import { buttonStyles } from "src/styles";
 import type { VoiceRecordScreenProps } from "types";
 
 let recording = new Audio.Recording();
 
-export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
-	props
-) => {
-	const primary = useThemeColor({}, "primary");
-	const accent = useThemeColor({}, "accent");
+export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> =
+	() => {
+		const primary = useThemeColor({}, "primary");
+		const accent = useThemeColor({}, "accent");
 
-	// 録音データ保存先
-	const [RecordedURI, SetRecordedURI] = useState<string | null>("");
-	// マイクの使用許可
-	const [AudioPerm, SetAudioPerm] = useState<boolean>(false);
-	// レコーディング中
-	const [isRecording, SetisRecording] = useState<boolean>(false);
+		// 録音データ保存先
+		const [RecordedURI, SetRecordedURI] = useState<string | null>("");
+		// マイクの使用許可
+		const [AudioPerm, SetAudioPerm] = useState<boolean>(false);
+		// レコーディング中
+		const [isRecording, SetisRecording] = useState<boolean>(false);
 
-	const getPermission = async () => {
-		// マイクの使用を尋ねる
-		const getAudioPerm = await Audio.requestPermissionsAsync();
-		// iOSおよびAndroidでのオーディオエクスペリエンスをカスタマイズ
-		await Audio.setAudioModeAsync({
-			// iOSで記録を有効にするか
-			allowsRecordingIOS: true,
-			// iOSでエクスペリエンスのオーディオをサイレントモードで再生するか
-			playsInSilentModeIOS: true,
-		});
-		SetAudioPerm(getAudioPerm.granted);
-	};
+		const getPermission = async () => {
+			// マイクの使用を尋ねる
+			const getAudioPerm = await Audio.requestPermissionsAsync();
+			// iOSおよびAndroidでのオーディオエクスペリエンスをカスタマイズ
+			await Audio.setAudioModeAsync({
+				// iOSで記録を有効にするか
+				allowsRecordingIOS: true,
+				// iOSでエクスペリエンスのオーディオをサイレントモードで再生するか
+				playsInSilentModeIOS: true,
+			});
+			SetAudioPerm(getAudioPerm.granted);
+		};
 
-	useEffect(() => {
-		getPermission();
-	}, []);
+		useEffect(() => {
+			getPermission();
+		}, []);
 
-	const onStartRecording = async () => {
-		if (AudioPerm === true) {
+		const onStartRecording = async () => {
+			if (AudioPerm === true) {
+				try {
+					await recording.prepareToRecordAsync(
+						Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+					);
+					await recording.startAsync();
+					SetisRecording(true);
+				} catch (error) {
+					console.info(error);
+				}
+			} else {
+				getPermission();
+			}
+		};
+
+		const onStopRecording = async () => {
 			try {
-				await recording.prepareToRecordAsync(
-					Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-				);
-				await recording.startAsync();
-				SetisRecording(true);
+				await recording.stopAndUnloadAsync();
+				const result = recording.getURI();
+				SetRecordedURI(result);
+				recording = new Audio.Recording();
+				SetisRecording(false);
 			} catch (error) {
 				console.info(error);
 			}
-		} else {
-			getPermission();
-		}
+		};
+
+		console.info(RecordedURI);
+
+		return (
+			<Layout>
+				{!RecordedURI ? (
+					<>
+						<Text style={styles.word}>「 フーペイ 」</Text>
+						<Text style={styles.subText}>と言ってください</Text>
+						<View
+							lightBgColor={isRecording ? accent : primary}
+							darkBgColor={isRecording ? accent : primary}
+							style={styles.iconWraper}
+						>
+							<MaterialIcons
+								name="keyboard-voice"
+								size={150}
+								color="white"
+								// eslint-disable-next-line react/jsx-handler-names
+								onPress={
+									isRecording
+										? () => onStopRecording()
+										: () => onStartRecording()
+								}
+							/>
+						</View>
+						<Text style={styles.subText}>発言するときはマイクボタンを</Text>
+						<Text style={styles.subText}>長押ししてください</Text>
+					</>
+				) : (
+					<>
+						<AntDesign name="checkcircleo" size={150} color={primary} />
+						<Text style={styles.result}>録音が完了しました</Text>
+					</>
+				)}
+			</Layout>
+		);
 	};
-
-	const onStopRecording = async () => {
-		try {
-			await recording.stopAndUnloadAsync();
-			const result = recording.getURI();
-			SetRecordedURI(result);
-			recording = new Audio.Recording();
-			SetisRecording(false);
-		} catch (error) {
-			console.info(error);
-		}
-	};
-
-	console.info(RecordedURI);
-
-	const onVoiceAuthentication = useCallback(() => {
-		props.navigation.navigate("VoiceRecord");
-	}, []);
-
-	return (
-		<Layout>
-			{!RecordedURI ? (
-				<>
-					<Text style={styles.word}>「 フーペイ 」</Text>
-					<Text style={styles.subText}>と言ってください</Text>
-					<View
-						lightBgColor={isRecording ? accent : primary}
-						darkBgColor={isRecording ? accent : primary}
-						style={styles.iconWraper}
-					>
-						<MaterialIcons
-							name="keyboard-voice"
-							size={150}
-							color="white"
-							// eslint-disable-next-line react/jsx-handler-names
-							onPress={
-								isRecording ? () => onStopRecording() : () => onStartRecording()
-							}
-						/>
-					</View>
-					<Text style={styles.subText}>発言するときはマイクボタンを</Text>
-					<Text style={styles.subText}>長押ししてください</Text>
-				</>
-			) : (
-				<>
-					<AntDesign name="checkcircleo" size={150} color={primary} />
-					<Text style={styles.result}>本人確認が完了しました</Text>
-					<ColorButton
-						title="暗証番号入力へ"
-						outlineStyle={buttonStyles.outline}
-						onPress={onVoiceAuthentication}
-					/>
-				</>
-			)}
-		</Layout>
-	);
-};
 
 const styles = StyleSheet.create({
 	word: {

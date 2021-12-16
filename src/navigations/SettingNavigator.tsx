@@ -3,7 +3,7 @@ import type { VFC } from "react";
 import React from "react";
 import { useThemeColor } from "src/hooks";
 import { AccountNavigator } from "src/navigations/AccountNavigator";
-import { CreditNavigator } from "src/navigations/CreditNavigator";
+// import { CreditNavigator } from "src/navigations/CreditNavigator";
 import { PasscodeNavigator } from "src/navigations/PasscodeNavigator";
 import { VoiceRecordNavigator } from "src/navigations/VoiceRecordNavigator";
 import { SettingSelectScreen } from "src/screens";
@@ -42,14 +42,14 @@ export const SettingNavigator: VFC = () => {
 				})}
 			/>
 
-			<Setting.Screen
+			{/* <Setting.Screen
 				name="CreditSetting"
 				component={CreditNavigator}
 				options={() => ({
 					title: "クレジットカード",
 					headerShown: false,
 				})}
-			/>
+			/> */}
 
 			<Setting.Screen
 				name="PasscodeSetting"
