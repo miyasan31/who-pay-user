@@ -6,9 +6,9 @@ import { StyleSheet } from "react-native";
 import { TabBarIcon } from "src/components/icon";
 import { useColorScheme } from "src/hooks";
 import { useThemeColor } from "src/hooks/useThemeColor";
-import { HomeNavigator } from "src/navigations/HomeNavigator";
-import { PaymentNavigator } from "src/navigations/PaymentNavigator";
-import { SettingNavigator } from "src/navigations/SettingNavigator";
+import { HomeNavigator } from "src/screens/home";
+import { PaymentNavigator } from "src/screens/payment";
+import { SettingNavigator } from "src/screens/setting";
 import { theme } from "src/styles";
 import type { BottomTabParamList } from "types";
 

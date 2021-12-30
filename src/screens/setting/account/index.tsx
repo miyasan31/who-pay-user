@@ -5,22 +5,24 @@ import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
 import { useThemeColor } from "src/hooks";
-import { CreditScreen, CreditUpdateScreen } from "src/screens";
-import type { CreditScreenProps, CreditStackParamList } from "types";
+import type { AccountScreenProps, AccountStackParamList } from "types";
 
-type Option = CreditScreenProps<"Credit" | "CreditUpdate">;
+import { AccountScreen } from "./AccountScreen";
+import { AccountUpdateScreen } from "./AccountUpdateScreen";
+
+type Option = AccountScreenProps<"Account" | "AccountUpdate">;
 type PrevProps = Option & {
-	screen: "Credit" | "SettingSelect";
+	screen: "Account" | "SettingSelect";
 };
 
-const Credit = createNativeStackNavigator<CreditStackParamList>();
+const Account = createNativeStackNavigator<AccountStackParamList>();
 
-export const CreditNavigator: VFC = () => {
+export const AccountNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
 	return (
-		<Credit.Navigator
-			initialRouteName="Credit"
-			screenOptions={() => ({
+		<Account.Navigator
+			initialRouteName="Account"
+			screenOptions={{
 				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
 				headerLargeTitle: true,
@@ -28,26 +30,26 @@ export const CreditNavigator: VFC = () => {
 					fontWeight: "400",
 					fontSize: 30,
 				},
-			})}
+			}}
 		>
-			<Credit.Screen
-				name="Credit"
-				component={CreditScreen}
+			<Account.Screen
+				name="Account"
+				component={AccountScreen}
 				options={(options: Option) => ({
-					title: "クレジットカード情報",
+					title: "アカウント情報",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Credit.Screen
-				name="CreditUpdate"
-				component={CreditUpdateScreen}
+			<Account.Screen
+				name="AccountUpdate"
+				component={AccountUpdateScreen}
 				options={(options: Option) => ({
-					title: "クレジットカード更新",
-					headerLeft: () => <PrevButton {...options} screen="Credit" />,
+					title: "アカウント更新",
+					headerLeft: () => <PrevButton {...options} screen="Account" />,
 				})}
 			/>
-		</Credit.Navigator>
+		</Account.Navigator>
 	);
 };
 

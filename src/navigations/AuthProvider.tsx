@@ -7,7 +7,7 @@ import { user } from "src/atom";
 import { Progress } from "src/components";
 import { requestFetcher } from "src/functions/fetcher";
 import { getSequreStore, saveSequreStore } from "src/functions/store";
-import { AuthNavigator } from "src/navigations/AuthNavigator";
+import { AuthNavigator } from "src/screens/auth";
 import type { User } from "types/fetcher";
 
 type Props = {
