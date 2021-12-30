@@ -12,6 +12,7 @@ declare global {
 }
 
 export type RootStackParamList = {
+	Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
 	Root: NavigatorScreenParams<BottomTabScreenProps> | undefined;
 	Modal: undefined;
 	NotFound: undefined;
@@ -19,11 +20,26 @@ export type RootStackParamList = {
 export type StackScreenProps<T extends keyof RootStackParamList> =
 	NativeStackScreenProps<RootStackParamList, T>;
 
-/* tabs */
+/* 認証 */
+export type AuthStackParamList = {
+	SigninAction: undefined;
+	Signin: undefined;
+	Signup: undefined;
+	Verify: { phone: string };
+	UserInfoRegister: { phone: string };
+};
+export type AuthScreenProps<T extends keyof AuthStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<AuthStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* 下タブ */
 export type BottomTabParamList = {
-	TabOne: NavigatorScreenParams<TabOneStackParamList> | undefined;
-	TabTwo: NavigatorScreenParams<TabTwoStackParamList> | undefined;
-	TabThree: NavigatorScreenParams<TabThreeStackParamList> | undefined;
+	Top: NavigatorScreenParams<TopStackParamList> | undefined;
+	Payment: NavigatorScreenParams<PaymentStackParamList> | undefined;
+	Setting: NavigatorScreenParams<SettingStackParamList> | undefined;
 };
 export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 	CompositeScreenProps<
@@ -32,35 +48,108 @@ export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
 	>;
 /* ---- */
 
-/* tab1 */
-export type TabOneStackParamList = {
-	TabOneScreen: undefined;
+/* トップ */
+export type TopStackParamList = {
+	Home: undefined;
 };
-export type TabOneScreenProps<T extends keyof TabOneStackParamList> =
+export type TopScreenProps<T extends keyof TopStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<TabOneStackParamList, T>,
+		BottomTabScreenProps<TopStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
 
-/* tab2 */
-export type TabTwoStackParamList = {
-	TabTwoScreen: undefined;
+/* 決済履歴 */
+export type PaymentStackParamList = {
+	PaymentList: undefined;
+	PaymentDetail: {
+		id: number;
+	};
 };
-export type TabTwoScreenProps<T extends keyof TabTwoStackParamList> =
+export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<TabTwoStackParamList, T>,
+		BottomTabScreenProps<PaymentStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
 
-/* tab3 */
-export type TabThreeStackParamList = {
-	TabThreeScreen: undefined;
+/* 設定 */
+export type SettingStackParamList = {
+	SettingSelect: undefined;
+	AccountSetting: NavigatorScreenParams<AccountStackParamList> | undefined;
+	CreditSetting: NavigatorScreenParams<CreditStackParamList> | undefined;
+	PasscodeSetting: NavigatorScreenParams<PasscodeStackParamList> | undefined;
+	VoiceRecordSetting:
+		| NavigatorScreenParams<VoiceRecordStackParamList>
+		| undefined;
 };
-export type TabThreeScreenProps<T extends keyof TabThreeStackParamList> =
+export type SettingScreenProps<T extends keyof SettingStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<TabThreeStackParamList, T>,
+		BottomTabScreenProps<SettingStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
+
+/* アカウント */
+export type AccountStackParamList = {
+	// AccountSettingSelect: undefined;
+	Account: undefined;
+	AccountUpdate: undefined;
+};
+export type AccountScreenProps<T extends keyof AccountStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<AccountStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* クレジット */
+export type CreditStackParamList = {
+	// CreditSettingSelect: undefined;
+	Credit: undefined;
+	CreditUpdate: undefined;
+};
+export type CreditScreenProps<T extends keyof CreditStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<CreditStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* パスコード */
+export type PasscodeStackParamList = {
+	PasscodeSettingSelect: undefined;
+	Passcode: undefined;
+	PasscodeUpdate: undefined;
+};
+export type PasscodeScreenProps<T extends keyof PasscodeStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<PasscodeStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+/* 声紋認証 */
+export type VoiceRecordStackParamList = {
+	VoiceRecordSettingSelect: undefined;
+	VoiceRecord: undefined;
+	VoiceRecordUpdate: undefined;
+};
+export type VoiceRecordScreenProps<T extends keyof VoiceRecordStackParamList> =
+	CompositeScreenProps<
+		BottomTabScreenProps<VoiceRecordStackParamList, T>,
+		NativeStackScreenProps<RootStackParamList>
+	>;
+/* ---- */
+
+// /* 決済 */
+// export type PayStackParamList = {
+// 	VoiceRecord: { price: string };
+// 	Passcode: { price: string };
+// };
+// export type PayScreenProps<T extends keyof PayStackParamList> =
+// 	CompositeScreenProps<
+// 		BottomTabScreenProps<PayStackParamList, T>,
+// 		NativeStackScreenProps<RootStackParamList>
+// 	>;
+// /* ---- */

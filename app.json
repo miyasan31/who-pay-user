@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "expo-template",
-		"slug": "expo-template",
+		"name": "who-pay",
+		"slug": "who-pay",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
