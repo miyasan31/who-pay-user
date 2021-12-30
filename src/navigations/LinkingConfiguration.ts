@@ -6,6 +6,26 @@ export const LinkingConfiguration: LinkingOptions<RootStackParamList> = {
 	prefixes: [Linking.makeUrl("/")],
 	config: {
 		screens: {
+			Auth: {
+				path: "auth",
+				screens: {
+					SigninAction: {
+						path: "signin_action",
+					},
+					Signin: {
+						path: "signin",
+					},
+					Signup: {
+						path: "signup",
+					},
+					Verify: {
+						path: "verify/:phone",
+					},
+					UserInfoRegister: {
+						path: "user_info_register/:phone",
+					},
+				},
+			},
 			// Pay: {
 			// 	path: "pay",
 			// 	screens: {
