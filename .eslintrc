@@ -8,7 +8,8 @@
 		"browser": true,
 		"es2021": true,
 		"node": true,
-		"jest": true
+		"jest": true,
+		"react-native/react-native": true
 	},
 	"extends": [
 		"standard",
@@ -36,13 +37,20 @@
 		"promise",
 		"react", // これパッケージ名（"eslint-plugin-react"でも可）
 		"react-hooks",
-		"simple-import-sort"
+		"simple-import-sort",
+		"react-native"
 	],
 	"rules": {
 		"linebreak-style": ["error", "unix"],
 		"indent": ["error", "tab"],
 		"quotes": ["error", "double"],
 		"semi": ["error", "always"],
+
+		"react-native/no-unused-styles": "warn",
+		"react-native/split-platform-components": "warn",
+		"react-native/no-inline-styles": "warn",
+		"react-native/no-color-literals": "warn",
+		"react-native/no-raw-text": "warn",
 
 		// オブジェクトの最後の要素にカンマをつけるか
 		"comma-dangle": "off",
@@ -69,7 +77,10 @@
 		// アロー関数内に{}を矯正する（省略させない）
 		// "arrow-body-style": ["error", "always"], 省略したい！！！
 
-		"no-use-before-define": ["off", { "paths": [{ "name": "react", "importNames": ["default"] }] }],
+		"no-use-before-define": [
+			"off",
+			{ "paths": [{ "name": "react", "importNames": ["default"] }] }
+		],
 		// "no-restricted-imports": ["error", { "paths": [{ "name": "react", "importNames": ["default"] }] }],
 
 		// reactのドキュメント
@@ -115,7 +126,10 @@
 		// exportされた関数の戻り値が不明な場合の制限
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		// typeを宣言してimportするか
-		"@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+		"@typescript-eslint/consistent-type-imports": [
+			"error",
+			{ "prefer": "type-imports" }
+		],
 		// 未使用の変数の使用許可
 		"@typescript-eslint/no-unused-vars": [
 			"error",
