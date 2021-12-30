@@ -1,9 +1,6 @@
-import { API_URL } from "src/constants/api_url";
+import { API_URL } from "src/constants";
 import fetch from "unfetch";
 
-// const black = "\u001b[30m";
-// const white = "\u001b[37m";
-// const blue = "\u001b[34m";
 const red = "\u001b[31m";
 const green = "\u001b[32m";
 const yellow = "\u001b[33m";

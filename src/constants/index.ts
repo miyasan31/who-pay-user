@@ -1,3 +1,4 @@
-import { layout } from "./Layout";
+import { API_URL } from "./API_URL";
+import { LAYOUT } from "./LAYOUT";
 
-export { layout };
+export { API_URL, LAYOUT };

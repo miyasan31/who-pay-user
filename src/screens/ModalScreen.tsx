@@ -16,7 +16,6 @@ export const ModalScreen: VFC<StackScreenProps<"Modal">> = () => {
 				darkBgColor="rgba(255,255,255,0.1)"
 			/>
 
-			{/*  iOSの簡易的なステータスバーを使用して、モーダルの上の黒いスペースを考慮する  */}
 			<StatusBar style={Platform.OS === "ios" ? "dark" : "auto"} />
 		</View>
 	);
