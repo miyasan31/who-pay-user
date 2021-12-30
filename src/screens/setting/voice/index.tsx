@@ -5,27 +5,26 @@ import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
 import { useThemeColor } from "src/hooks";
-import {
-	PasscodeScreen,
-	PasscodeSettingSelectScreen,
-	PasscodeUpdateScreen,
-} from "src/screens";
-import type { PasscodeScreenProps, PasscodeStackParamList } from "types";
+import type { VoiceRecordScreenProps, VoiceRecordStackParamList } from "types";
 
-type Option = PasscodeScreenProps<
-	"PasscodeSettingSelect" | "Passcode" | "PasscodeUpdate"
+import { VoiceRecordScreen } from "./VoiceRecordScreen";
+import { VoiceRecordSettingSelectScreen } from "./VoiceRecordSettingSelectScreen";
+import { VoiceRecordUpdateScreen } from "./VoiceRecordUpdateScreen";
+
+type Option = VoiceRecordScreenProps<
+	"VoiceRecordSettingSelect" | "VoiceRecord" | "VoiceRecordUpdate"
 >;
 type PrevProps = Option & {
-	screen: "PasscodeSettingSelect" | "SettingSelect";
+	screen: "VoiceRecordSettingSelect" | "SettingSelect";
 };
 
-const Passcode = createNativeStackNavigator<PasscodeStackParamList>();
+const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
 
-export const PasscodeNavigator: VFC = () => {
+export const VoiceRecordNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
 	return (
-		<Passcode.Navigator
-			initialRouteName="PasscodeSettingSelect"
+		<VoiceRecord.Navigator
+			initialRouteName="VoiceRecordSettingSelect"
 			screenOptions={{
 				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
@@ -36,37 +35,37 @@ export const PasscodeNavigator: VFC = () => {
 				},
 			}}
 		>
-			<Passcode.Screen
-				name="PasscodeSettingSelect"
-				component={PasscodeSettingSelectScreen}
+			<VoiceRecord.Screen
+				name="VoiceRecordSettingSelect"
+				component={VoiceRecordSettingSelectScreen}
 				options={(options: Option) => ({
-					title: "パスコード",
+					title: "声紋認証",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Passcode.Screen
-				name="Passcode"
-				component={PasscodeScreen}
+			<VoiceRecord.Screen
+				name="VoiceRecord"
+				component={VoiceRecordScreen}
 				options={(options: Option) => ({
-					title: "パスコード登録",
+					title: "声紋認証登録",
 					headerLeft: () => (
-						<PrevButton {...options} screen="PasscodeSettingSelect" />
+						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
 					),
 				})}
 			/>
 
-			<Passcode.Screen
-				name="PasscodeUpdate"
-				component={PasscodeUpdateScreen}
+			<VoiceRecord.Screen
+				name="VoiceRecordUpdate"
+				component={VoiceRecordUpdateScreen}
 				options={(options: Option) => ({
-					title: "パスコード更新",
+					title: "声紋認証更新",
 					headerLeft: () => (
-						<PrevButton {...options} screen="PasscodeSettingSelect" />
+						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
 					),
 				})}
 			/>
-		</Passcode.Navigator>
+		</VoiceRecord.Navigator>
 	);
 };
 

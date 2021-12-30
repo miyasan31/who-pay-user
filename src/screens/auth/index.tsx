@@ -1,14 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
 import React from "react";
-import {
-	SigninActionScreen,
-	SigninScreen,
-	SignupScreen,
-	UserInfoRegisterScreen,
-	VerifyScreen,
-} from "src/screens";
 import type { AuthStackParamList } from "types";
+
+import { SigninActionScreen } from "./SigninActionScreen";
+import { SigninScreen } from "./SigninScreen";
+import { SignupScreen } from "./SignupScreen";
+import { UserInfoRegisterScreen } from "./UserInfoRegisterScreen";
+import { VerifyScreen } from "./VerifyScreen";
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 

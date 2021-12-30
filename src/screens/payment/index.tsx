@@ -1,3 +1,8 @@
+// import { PaymentDetailScreen } from "./PaymentDetailScreen";
+// import { PaymentListScreen } from "./PaymentListScreen";
+
+// export { PaymentDetailScreen, PaymentListScreen };
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
@@ -5,8 +10,10 @@ import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
 import { useMonthPagenation, useThemeColor } from "src/hooks";
-import { PaymentDetailScreen, PaymentListScreen } from "src/screens";
 import type { PaymentScreenProps, PaymentStackParamList } from "types";
+
+import { PaymentDetailScreen } from "./PaymentDetailScreen";
+import { PaymentListScreen } from "./PaymentListScreen";
 
 type Option = PaymentScreenProps<"PaymentList" | "PaymentDetail">;
 type PrevProps = Option & {

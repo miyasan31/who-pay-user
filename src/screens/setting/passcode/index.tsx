@@ -5,21 +5,26 @@ import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
 import { useThemeColor } from "src/hooks";
-import { AccountScreen, AccountUpdateScreen } from "src/screens";
-import type { AccountScreenProps, AccountStackParamList } from "types";
+import type { PasscodeScreenProps, PasscodeStackParamList } from "types";
 
-type Option = AccountScreenProps<"Account" | "AccountUpdate">;
+import { PasscodeScreen } from "./PasscodeScreen";
+import { PasscodeSettingSelectScreen } from "./PasscodeSettingSelectScreen";
+import { PasscodeUpdateScreen } from "./PasscodeUpdateScreen";
+
+type Option = PasscodeScreenProps<
+	"PasscodeSettingSelect" | "Passcode" | "PasscodeUpdate"
+>;
 type PrevProps = Option & {
-	screen: "Account" | "SettingSelect";
+	screen: "PasscodeSettingSelect" | "SettingSelect";
 };
 
-const Account = createNativeStackNavigator<AccountStackParamList>();
+const Passcode = createNativeStackNavigator<PasscodeStackParamList>();
 
-export const AccountNavigator: VFC = () => {
+export const PasscodeNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
 	return (
-		<Account.Navigator
-			initialRouteName="Account"
+		<Passcode.Navigator
+			initialRouteName="PasscodeSettingSelect"
 			screenOptions={{
 				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
@@ -30,24 +35,37 @@ export const AccountNavigator: VFC = () => {
 				},
 			}}
 		>
-			<Account.Screen
-				name="Account"
-				component={AccountScreen}
+			<Passcode.Screen
+				name="PasscodeSettingSelect"
+				component={PasscodeSettingSelectScreen}
 				options={(options: Option) => ({
-					title: "アカウント情報",
+					title: "パスコード",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<Account.Screen
-				name="AccountUpdate"
-				component={AccountUpdateScreen}
+			<Passcode.Screen
+				name="Passcode"
+				component={PasscodeScreen}
 				options={(options: Option) => ({
-					title: "アカウント更新",
-					headerLeft: () => <PrevButton {...options} screen="Account" />,
+					title: "パスコード登録",
+					headerLeft: () => (
+						<PrevButton {...options} screen="PasscodeSettingSelect" />
+					),
 				})}
 			/>
-		</Account.Navigator>
+
+			<Passcode.Screen
+				name="PasscodeUpdate"
+				component={PasscodeUpdateScreen}
+				options={(options: Option) => ({
+					title: "パスコード更新",
+					headerLeft: () => (
+						<PrevButton {...options} screen="PasscodeSettingSelect" />
+					),
+				})}
+			/>
+		</Passcode.Navigator>
 	);
 };
 

@@ -2,12 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
 import React from "react";
 import { useThemeColor } from "src/hooks";
-import { AccountNavigator } from "src/navigations/AccountNavigator";
-// import { CreditNavigator } from "src/navigations/CreditNavigator";
-import { PasscodeNavigator } from "src/navigations/PasscodeNavigator";
-import { VoiceRecordNavigator } from "src/navigations/VoiceRecordNavigator";
-import { SettingSelectScreen } from "src/screens";
 import type { SettingStackParamList } from "types";
+
+import { AccountNavigator } from "./account";
+import { PasscodeNavigator } from "./passcode";
+import { SettingSelectScreen } from "./SettingSelectScreen";
+import { VoiceRecordNavigator } from "./voice";
 
 const Setting = createNativeStackNavigator<SettingStackParamList>();
 

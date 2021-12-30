@@ -4,8 +4,9 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { user } from "src/atom";
 import { useThemeColor } from "src/hooks";
-import { HomeScreen } from "src/screens";
 import type { TopStackParamList } from "types";
+
+import { HomeScreen } from "./HomeScreen";
 
 const Top = createNativeStackNavigator<TopStackParamList>();
 

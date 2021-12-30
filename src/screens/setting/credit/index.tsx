@@ -5,28 +5,24 @@ import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { Text } from "src/components/custom";
 import { useThemeColor } from "src/hooks";
-import {
-	VoiceRecordScreen,
-	VoiceRecordSettingSelectScreen,
-	VoiceRecordUpdateScreen,
-} from "src/screens";
-import type { VoiceRecordScreenProps, VoiceRecordStackParamList } from "types";
+import type { CreditScreenProps, CreditStackParamList } from "types";
 
-type Option = VoiceRecordScreenProps<
-	"VoiceRecordSettingSelect" | "VoiceRecord" | "VoiceRecordUpdate"
->;
+import { CreditScreen } from "./CreditScreen";
+import { CreditUpdateScreen } from "./CreditUpdateScreen";
+
+type Option = CreditScreenProps<"Credit" | "CreditUpdate">;
 type PrevProps = Option & {
-	screen: "VoiceRecordSettingSelect" | "SettingSelect";
+	screen: "Credit" | "SettingSelect";
 };
 
-const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
+const Credit = createNativeStackNavigator<CreditStackParamList>();
 
-export const VoiceRecordNavigator: VFC = () => {
+export const CreditNavigator: VFC = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
 	return (
-		<VoiceRecord.Navigator
-			initialRouteName="VoiceRecordSettingSelect"
-			screenOptions={{
+		<Credit.Navigator
+			initialRouteName="Credit"
+			screenOptions={() => ({
 				headerBackTitle: "一覧",
 				headerStyle: { backgroundColor: backgroundColor },
 				headerLargeTitle: true,
@@ -34,39 +30,26 @@ export const VoiceRecordNavigator: VFC = () => {
 					fontWeight: "400",
 					fontSize: 30,
 				},
-			}}
+			})}
 		>
-			<VoiceRecord.Screen
-				name="VoiceRecordSettingSelect"
-				component={VoiceRecordSettingSelectScreen}
+			<Credit.Screen
+				name="Credit"
+				component={CreditScreen}
 				options={(options: Option) => ({
-					title: "声紋認証",
+					title: "クレジットカード情報",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
 			/>
 
-			<VoiceRecord.Screen
-				name="VoiceRecord"
-				component={VoiceRecordScreen}
+			<Credit.Screen
+				name="CreditUpdate"
+				component={CreditUpdateScreen}
 				options={(options: Option) => ({
-					title: "声紋認証登録",
-					headerLeft: () => (
-						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
-					),
+					title: "クレジットカード更新",
+					headerLeft: () => <PrevButton {...options} screen="Credit" />,
 				})}
 			/>
-
-			<VoiceRecord.Screen
-				name="VoiceRecordUpdate"
-				component={VoiceRecordUpdateScreen}
-				options={(options: Option) => ({
-					title: "声紋認証更新",
-					headerLeft: () => (
-						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
-					),
-				})}
-			/>
-		</VoiceRecord.Navigator>
+		</Credit.Navigator>
 	);
 };
 
