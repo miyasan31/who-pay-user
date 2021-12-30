@@ -1,9 +1,6 @@
-import { API_URL } from "src/constants/api_url";
+import { API_URL } from "src/constants";
 import fetch from "unfetch";
 
-// const black = "\u001b[30m";
-// const red = "\u001b[31m";
-// const blue = "\u001b[34m";
 const green = "\u001b[32m";
 const yellow = "\u001b[33m";
 const magenta = "\u001b[35m";
@@ -55,15 +52,15 @@ export const authRequestFetcher = async (
 export const requestFetcher = async <R>(
 	url: string,
 	body: unknown,
-	method: Method
-	// token: string
+	method: Method,
+	token: string
 ): Promise<Response<R>> => {
 	console.info(cyan + "| ----------------- fetcher loging ----------------- ");
 	console.info(cyan + "| fetcher  | " + magenta + "requestFetcher");
 	console.info(cyan + "| method   | " + green + method);
 	console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
 	console.info(cyan + "| body     | " + white, body);
-	// console.info(`Bearer token   | ${token}`);
+	console.info(`Bearer token   | ${token}`);
 	console.info(
 		cyan + "| -------------------------------------------------- " + reset
 	);
