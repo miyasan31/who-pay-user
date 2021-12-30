@@ -5,20 +5,19 @@ import { ListItem, Progress } from "src/components";
 import { Text, View } from "src/components/custom";
 import { SafeAreaLayout } from "src/components/layout";
 import { useGetSWRdev, useThemeColor } from "src/hooks";
-import type { PaymentScreenProps } from "types";
+import type { TabTwoScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
-export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
-	props
-) => {
+export const TabTwoScreen: VFC<TabTwoScreenProps<"TabTwoScreen">> = () => {
 	const color = useThemeColor({}, "text2");
 	const { data, isError, isLoading } = useGetSWRdev<Payment[]>("/payment");
 
 	const renderItem = ({ item }: { item: Payment }) => {
 		const onNavigation = () => {
-			props.navigation.navigate("PaymentDetail", {
-				id: item.id,
-			});
+			console.info("item.id", item.id);
+			// props.navigation.navigate("", {
+			// 	id: item.id,
+			// });
 		};
 
 		return (

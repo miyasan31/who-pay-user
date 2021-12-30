@@ -2,7 +2,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { useThemeColor } from "src/hooks";
-import { BottomTabNavigator } from "src/navigations/BottomTabNavigator";
+import { BottomTabNavigator } from "src/navigations/tab";
 import type { RootStackParamList } from "types";
 
 // const Drawer = createDrawerNavigator<RootStackParamList>();
