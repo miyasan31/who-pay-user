@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
 	priceText: {
 		flex: 1,
 		fontSize: 38,
+		paddingLeft: 5,
 		textAlign: "center",
 		letterSpacing: 10,
 	},
