@@ -7,6 +7,7 @@ import { user } from "src/atom";
 import { Progress } from "src/components";
 import { requestFetcher } from "src/functions/fetcher";
 import { getSequreStore, saveSequreStore } from "src/functions/store";
+import { AuthNavigator } from "src/navigations/AuthNavigator";
 import type { User } from "types/fetcher";
 
 type Props = {
@@ -18,14 +19,13 @@ export const AuthProvider: VFC<Props> = (props) => {
 	const [userInfo, setUserInfo] = useRecoilState(user);
 
 	const listenAuthState = useCallback(async () => {
-		const tokenResult = await getSequreStore("template_access_token");
+		const tokenResult = await getSequreStore("access_token");
 		if (tokenResult) {
 			const requestBody = { token: tokenResult };
 			const { statusCode, response } = await requestFetcher<User>(
 				"/auth/session/user",
 				requestBody,
-				"POST",
-				"token"
+				"POST"
 			);
 
 			if (statusCode >= 400) {
@@ -35,7 +35,7 @@ export const AuthProvider: VFC<Props> = (props) => {
 				return;
 			}
 
-			await saveSequreStore("template_access_token", response.token);
+			await saveSequreStore("access_token", response.token);
 			await setUserInfo({
 				id: response.id,
 				firstName: response.firstName,
@@ -67,8 +67,6 @@ export const AuthProvider: VFC<Props> = (props) => {
 	if (isLoading) {
 		return <Progress />;
 	} else {
-		return (
-			<>{userInfo.isSignin ? <>{props.children}</> : <>{props.children}</>}</>
-		);
+		return <>{userInfo.isSignin ? <>{props.children}</> : <AuthNavigator />}</>;
 	}
 };

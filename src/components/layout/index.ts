@@ -1,4 +1,5 @@
+import { AuthLayout } from "./AuthLayout";
 import { Layout } from "./Layout";
 import { SafeAreaLayout } from "./SafeAreaLayout";
 
-export { Layout, SafeAreaLayout };
+export { AuthLayout, Layout, SafeAreaLayout };
