@@ -6,9 +6,9 @@ import { StyleSheet } from "react-native";
 import { TabBarIcon } from "src/components/icon";
 import { useColorScheme } from "src/hooks";
 import { useThemeColor } from "src/hooks/useThemeColor";
-import { HomeNavigator } from "src/navigations/HomeNavigator";
-import { PaymentNavigator } from "src/navigations/PaymentNavigator";
-import { SettingNavigator } from "src/navigations/SettingNavigator";
+import { TabOneNavigator } from "src/navigations/tab/TabOneNavigator";
+import { TabThreeNavigator } from "src/navigations/tab/TabThreeNavigator";
+import { TabTwoNavigator } from "src/navigations/tab/TabTwoNavigator";
 import { theme } from "src/styles";
 import type { BottomTabParamList } from "types";
 
@@ -20,7 +20,7 @@ export const BottomTabNavigator: VFC = () => {
 
 	return (
 		<BottomTab.Navigator
-			initialRouteName="Top"
+			initialRouteName="TabOne"
 			screenOptions={{
 				headerShown: false,
 				tabBarActiveTintColor: theme[colorScheme].primary,
@@ -31,31 +31,30 @@ export const BottomTabNavigator: VFC = () => {
 			}}
 		>
 			<BottomTab.Screen
-				name="Top"
-				component={HomeNavigator}
+				name="TabOne"
+				component={TabOneNavigator}
 				options={{
-					tabBarLabel: "ホーム",
+					tabBarLabel: "TabOne",
 					tabBarIcon: ({ color }) => (
 						<TabBarIcon name="home-outline" color={color} />
 					),
 				}}
 			/>
 			<BottomTab.Screen
-				name="Payment"
-				component={PaymentNavigator}
+				name="TabTwo"
+				component={TabTwoNavigator}
 				options={() => ({
-					title: "決済履歴",
+					title: "TabTwo",
 					tabBarIcon: ({ color }) => (
 						<TabBarIcon name="list-outline" color={color} />
 					),
 				})}
 			/>
-
 			<BottomTab.Screen
-				name="Setting"
-				component={SettingNavigator}
+				name="TabThree"
+				component={TabThreeNavigator}
 				options={() => ({
-					title: "設定",
+					title: "TabThree",
 					tabBarIcon: ({ color }) => (
 						<TabBarIcon name="settings-outline" color={color} />
 					),
