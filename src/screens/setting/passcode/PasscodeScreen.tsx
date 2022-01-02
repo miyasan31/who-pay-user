@@ -56,7 +56,7 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
 			</View>
 
 			<ColorButton
-				title={passcode.isVerify ? "確定" : "送信"}
+				title={passcode.isVerify ? "保存" : "確定"}
 				outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
 				onPress={onSubmit}
 			/>

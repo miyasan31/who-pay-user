@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
+import { useRecoilValue } from "recoil";
+import { user } from "src/atom";
+import { requestFetcher } from "src/functions/fetcher";
 import type { PasscodeScreenProps } from "types";
 
 type Props = PasscodeScreenProps<"Passcode" | "PasscodeUpdate"> & {
@@ -7,6 +10,7 @@ type Props = PasscodeScreenProps<"Passcode" | "PasscodeUpdate"> & {
 };
 
 export const usePasscodeUpsert = (props: Props) => {
+	const userInfo = useRecoilValue(user);
 	const [passcode, setPasscode] = useState({
 		isVerify: false,
 		input: "",
@@ -88,22 +92,26 @@ export const usePasscodeUpsert = (props: Props) => {
 			icon: "💁‍♂️",
 		});
 
-		/*
-			ここでリクエスト処理&エラー処理
-		*/
+		const requestBody = { passcode: passcode.verify };
+		const { statusCode } = await requestFetcher(
+			`/user/${userInfo.id}`,
+			requestBody,
+			"PUT"
+		);
 
-		if (props.screen === "Passcode") {
-			console.info("登録処理");
-		}
-
-		if (props.screen === "PasscodeUpdate") {
-			console.info("更新処理");
+		if (statusCode >= 400) {
+			toast("エラーが発生しました", {
+				id: toastId,
+				icon: "🤦‍♂️",
+			});
+			return;
 		}
 
 		await new Promise((resolve) => setTimeout(resolve, 800));
 		// await new Promise((resolve) => setTimeout(resolve,400));
 
-		toast.success("パスコードを更新しました", {
+		const isCreate = props.screen === "Passcode";
+		toast.success(`パスコードを${isCreate ? "登録" : "更新"}しました`, {
 			duration: 1500,
 			id: toastId,
 			icon: "🙆‍♂️",
@@ -111,7 +119,7 @@ export const usePasscodeUpsert = (props: Props) => {
 
 		// 一致したらバックエンドに送信
 		props.navigation.navigate("PasscodeSettingSelect");
-	}, [passcode, props]);
+	}, [userInfo, passcode, props]);
 
 	useEffect(() => {
 		return () => {
