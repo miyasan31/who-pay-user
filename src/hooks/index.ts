@@ -6,6 +6,7 @@ import { useMonthPagenation } from "./useMonthPagenation";
 import { usePasscodeUpsert } from "./usePasscodeUpsert";
 import { useSignout } from "./useSignout";
 import { useThemeColor } from "./useThemeColor";
+import { useVoiceRecord } from "./useVoiceRecord";
 
 export {
 	useCachedResources,
@@ -16,4 +17,5 @@ export {
 	usePasscodeUpsert,
 	useSignout,
 	useThemeColor,
+	useVoiceRecord,
 };
