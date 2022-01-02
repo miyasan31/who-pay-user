@@ -25,6 +25,7 @@ export const theme = {
 		text3: "#fff",
 		bg0: "#2c3848",
 		bg1: "#242e3a",
+		// bg1: "#22272e",
 		bg2: "#354355aa",
 		bg3: "#42546c",
 		icon1: icon1Color,

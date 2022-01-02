@@ -10,38 +10,38 @@ import { Layout } from "src/components/layout";
 import { useThemeColor } from "src/hooks";
 import type { AccountScreenProps } from "types";
 
-export const AccountScreen: VFC<AccountScreenProps<"Account">> = (props) => {
+export const AccountScreen: VFC<AccountScreenProps<"Account">> = () => {
 	const icon1 = useThemeColor({}, "icon1");
 	const userInfo = useRecoilValue(user);
 
 	// List["screen"] ルックアップタイプ
 	const onNavigation = () => {
-		props.navigation.navigate("AccountUpdate");
+		console.info("aaa");
 	};
 
 	return (
 		<Layout style={styles.full}>
 			<ListItem style={styles.list} onPress={onNavigation}>
 				<View style={styles.listbox}>
-					<Text style={styles.key}>
-						{userInfo.firstName}
-						{userInfo.lastName}
-					</Text>
-					<MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
+					<Text style={styles.key}>{userInfo.firstName}</Text>
+				</View>
+			</ListItem>
+
+			<ListItem style={styles.list} onPress={onNavigation}>
+				<View style={styles.listbox}>
+					<Text style={styles.key}>{userInfo.lastName}</Text>
 				</View>
 			</ListItem>
 
 			<ListItem style={styles.list} onPress={onNavigation}>
 				<View style={styles.listbox}>
 					<Text style={styles.key}>{userInfo.phone}</Text>
-					<MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
 				</View>
 			</ListItem>
 
 			<ListItem style={styles.list} onPress={onNavigation}>
 				<View style={styles.listbox}>
 					<Text style={styles.key}>{userInfo.email}</Text>
-					<MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
 				</View>
 			</ListItem>
 
