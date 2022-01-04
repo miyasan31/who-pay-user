@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const textStyles = StyleSheet.create({
 	title: {
-		paddingBottom: 15,
+		paddingVertical: 15,
 		fontSize: 25,
 	},
 	subtitle: {

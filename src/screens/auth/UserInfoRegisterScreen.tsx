@@ -18,139 +18,163 @@ import type { User } from "types/fetcher";
 type FormDataType = {
 	firstName: string;
 	lastName: string;
-	email: string;
+	email?: string;
+	phone?: string;
 };
 
-export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
-	(props) => {
-		const color = useThemeColor({}, "text2");
-		const [userInfo, setUserInfo] = useRecoilState(user);
+export const UserInfoRegisterScreen: VFC<
+	AuthScreenProps<"UserInfoRegister">
+> = () => {
+	const color = useThemeColor({}, "text2");
+	const [userInfo, setUserInfo] = useRecoilState(user);
 
-		const {
-			control,
-			handleSubmit,
-			formState: { errors },
-		} = useForm<FormDataType>();
+	const {
+		control,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<FormDataType>();
 
-		const onSubmitPress = useCallback(async (body: FormDataType) => {
-			const toastId = toast.loading("処理中...", {
-				icon: "💁‍♂️",
-			});
+	const onSubmitPress = useCallback(async (body: FormDataType) => {
+		const toastId = toast.loading("処理中...", {
+			icon: "💁‍♂️",
+		});
 
-			const { phone } = props.route.params;
-			const requestBody = {
-				...body,
-				id: userInfo.id,
-				phone: phone,
-				token: userInfo.token,
-			};
-			const { statusCode, response } = await requestFetcher<User>(
-				"/auth/register/user",
-				requestBody,
-				"POST"
-			);
+		const requestBody = {
+			...body,
+			id: userInfo.id,
+			phone: body.phone || userInfo.phone,
+			email: body.email || userInfo.email,
+			token: userInfo.token,
+		};
 
-			if (statusCode >= 400) {
-				toast("エラーが発生しました", {
-					id: toastId,
-					icon: "🤦‍♂️",
-				});
-				return;
-			}
+		const { statusCode, response } = await requestFetcher<User>(
+			"/auth/register/user",
+			requestBody,
+			"POST"
+		);
 
-			toast.success("ユーザー情報を登録しました", {
-				duration: 1500,
+		if (statusCode >= 400) {
+			toast("エラーが発生しました", {
 				id: toastId,
-				icon: "🙆‍♂️",
+				icon: "🤦‍♂️",
 			});
-			await new Promise((resolve) => setTimeout(resolve, 400));
+			return;
+		}
 
-			await saveSequreStore("access_token", response.token);
-			await setUserInfo((prev) => ({
-				...prev,
-				isSignin: true,
-			}));
-		}, []);
+		toast.success("ユーザー情報を登録しました", {
+			duration: 1500,
+			id: toastId,
+			icon: "🙆‍♂️",
+		});
+		await new Promise((resolve) => setTimeout(resolve, 400));
 
-		return (
-			<AuthLayout>
-				<Text style={textStyles.title}>お客様情報登録</Text>
+		await saveSequreStore("access_token", response.token);
+		await setUserInfo((prev) => ({
+			...prev,
+			isSignin: true,
+		}));
+	}, []);
 
-				<View style={viewStyles.horizontal}>
-					<View style={viewStyles.flex1}>
-						<Text
-							lightTextColor={color}
-							darkTextColor={color}
-							style={textStyles.label}
-						>
-							姓
-						</Text>
-						<Controller
-							control={control}
-							name="firstName"
-							defaultValue=""
-							rules={{
-								required: {
-									value: true,
-									message: "必須入力項目です",
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<TextInput
-									bgStyle={textInputStyles.half}
-									onChangeText={onChange}
-									value={value}
-									placeholder=""
-								/>
-							)}
-						/>
-						{errors.firstName && (
-							<ErrorMessage message={errors.firstName.message} />
+	return (
+		<AuthLayout>
+			<Text style={textStyles.title}>お客様情報登録</Text>
+
+			<View style={viewStyles.horizontal}>
+				<View style={viewStyles.flex1}>
+					<Text
+						lightTextColor={color}
+						darkTextColor={color}
+						style={textStyles.label}
+					>
+						姓
+					</Text>
+					<Controller
+						control={control}
+						name="firstName"
+						defaultValue=""
+						rules={{
+							required: {
+								value: true,
+								message: "必須入力項目です",
+							},
+						}}
+						render={({ field: { onChange, value } }) => (
+							<TextInput
+								bgStyle={textInputStyles.half}
+								onChangeText={onChange}
+								value={value}
+								placeholder=""
+							/>
 						)}
-					</View>
-
-					<View style={viewStyles.space}></View>
-
-					<View style={viewStyles.flex1}>
-						<Text
-							lightTextColor={color}
-							darkTextColor={color}
-							style={textStyles.label}
-						>
-							名
-						</Text>
-						<Controller
-							control={control}
-							name="lastName"
-							defaultValue=""
-							rules={{
-								required: {
-									value: true,
-									message: "必須入力項目です",
-								},
-							}}
-							render={({ field: { onChange, value } }) => (
-								<TextInput
-									bgStyle={textInputStyles.half}
-									onChangeText={onChange}
-									value={value}
-									placeholder=""
-								/>
-							)}
-						/>
-						{errors.lastName && (
-							<ErrorMessage message={errors.lastName.message} />
-						)}
-					</View>
+					/>
+					{errors.firstName && (
+						<ErrorMessage message={errors.firstName.message} />
+					)}
 				</View>
 
-				<Text
-					lightTextColor={color}
-					darkTextColor={color}
-					style={textStyles.label}
-				>
-					メールアドレス
-				</Text>
+				<View style={viewStyles.space}></View>
+
+				<View style={viewStyles.flex1}>
+					<Text
+						lightTextColor={color}
+						darkTextColor={color}
+						style={textStyles.label}
+					>
+						名
+					</Text>
+					<Controller
+						control={control}
+						name="lastName"
+						defaultValue=""
+						rules={{
+							required: {
+								value: true,
+								message: "必須入力項目です",
+							},
+						}}
+						render={({ field: { onChange, value } }) => (
+							<TextInput
+								bgStyle={textInputStyles.half}
+								onChangeText={onChange}
+								value={value}
+								placeholder=""
+							/>
+						)}
+					/>
+					{errors.lastName && (
+						<ErrorMessage message={errors.lastName.message} />
+					)}
+				</View>
+			</View>
+
+			<Text
+				lightTextColor={color}
+				darkTextColor={color}
+				style={textStyles.label}
+			>
+				{userInfo.email ? "電話番号" : "メールアドレス"}
+			</Text>
+			{userInfo.email ? (
+				<Controller
+					control={control}
+					name="phone"
+					defaultValue=""
+					rules={{
+						required: {
+							value: true,
+							message: "必須入力項目です",
+						},
+					}}
+					render={({ field: { onChange, value } }) => (
+						<TextInput
+							bgStyle={textInputStyles.bg}
+							onChangeText={onChange}
+							value={value}
+							placeholder=""
+						/>
+					)}
+				/>
+			) : (
 				<Controller
 					control={control}
 					name="email"
@@ -174,14 +198,16 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> =
 						/>
 					)}
 				/>
-				{errors.email && <ErrorMessage message={errors.email.message} />}
+			)}
+			{errors.phone && <ErrorMessage message={errors.phone.message} />}
+			{errors.email && <ErrorMessage message={errors.email.message} />}
 
-				<ColorButton
-					title="登録"
-					outlineStyle={buttonStyles.outline}
-					// eslint-disable-next-line react/jsx-handler-names
-					onPress={handleSubmit(onSubmitPress)}
-				/>
-			</AuthLayout>
-		);
-	};
+			<ColorButton
+				title="登録"
+				outlineStyle={buttonStyles.outline}
+				// eslint-disable-next-line react/jsx-handler-names
+				onPress={handleSubmit(onSubmitPress)}
+			/>
+		</AuthLayout>
+	);
+};

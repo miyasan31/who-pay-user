@@ -58,20 +58,17 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 			setUserInfo((prev) => ({
 				...prev,
 				id: response.user.id,
+				phone: phone,
 				token: response.access_token,
 			}));
 			setIsCertified(true);
-			props.navigation.navigate("UserInfoRegister", {
-				phone: phone,
-			});
+			props.navigation.navigate("UserInfoRegister");
 		},
 		[props]
 	);
 
 	const onNavigate = useCallback(() => {
-		props.navigation.navigate("UserInfoRegister", {
-			phone: phone,
-		});
+		props.navigation.navigate("UserInfoRegister");
 	}, []);
 
 	return (

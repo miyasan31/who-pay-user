@@ -26,7 +26,7 @@ export type AuthStackParamList = {
 	Signin: undefined;
 	Signup: undefined;
 	Verify: { phone: string };
-	UserInfoRegister: { phone: string };
+	UserInfoRegister: undefined;
 };
 export type AuthScreenProps<T extends keyof AuthStackParamList> =
 	CompositeScreenProps<
