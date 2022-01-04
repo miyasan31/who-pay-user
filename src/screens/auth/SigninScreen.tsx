@@ -10,18 +10,20 @@ import { ColorButton, Text, TextInput } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
 import { requestFetcher } from "src/functions/fetcher";
 import { saveSequreStore } from "src/functions/store";
-import { useThemeColor } from "src/hooks";
+import { useTab, useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
 import type { User } from "types/fetcher";
 
 type FormDataType = {
-	phone: string;
+	email?: string;
+	phone?: string;
 	password: string;
 };
 
 export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 	const color = useThemeColor({}, "text2");
+	const { select, Tab } = useTab();
 	const setUserInfo = useSetRecoilState(user);
 
 	const {
@@ -30,72 +32,105 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 		formState: { errors },
 	} = useForm<FormDataType>();
 
-	const onSubmitPress = useCallback(async (body: FormDataType) => {
-		const toastId = toast.loading("処理中...", {
-			icon: "💁‍♂️",
-		});
-
-		const hashedPassword = sha512(body.password);
-		const requestBody = { phone: "81" + body.phone, password: hashedPassword };
-		const { statusCode, response } = await requestFetcher<User>(
-			"/auth/signin/user",
-			requestBody,
-			"POST"
-		);
-
-		if (statusCode >= 400) {
-			toast.error("エラーが発生しました", {
-				id: toastId,
-				icon: "🤦‍♂️",
+	const onSubmitPress = useCallback(
+		async (body: FormDataType) => {
+			const toastId = toast.loading("処理中...", {
+				icon: "💁‍♂️",
 			});
-			return;
-		}
 
-		toast.success("サインインしました", {
-			duration: 1500,
-			id: toastId,
-			icon: "🙆‍♂️",
-		});
-		await new Promise((resolve) => setTimeout(resolve, 400));
+			const hashedPassword = sha512(body.password);
+			const requestBody = {
+				phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
+				password: hashedPassword,
+				key: select,
+			};
+			const { statusCode, response } = await requestFetcher<User>(
+				"/auth/signin/user",
+				requestBody,
+				"POST"
+			);
 
-		await saveSequreStore("access_token", response.token);
-		setUserInfo((prev) => ({
-			...prev,
-			isSignin: true,
-		}));
-	}, []);
+			if (statusCode >= 400) {
+				toast.error("エラーが発生しました", {
+					id: toastId,
+					icon: "🤦‍♂️",
+				});
+				return;
+			}
+
+			toast.success("サインインしました", {
+				duration: 1500,
+				id: toastId,
+				icon: "🙆‍♂️",
+			});
+			await new Promise((resolve) => setTimeout(resolve, 400));
+
+			await saveSequreStore("access_token", response.token);
+			setUserInfo((prev) => ({
+				...prev,
+				isSignin: true,
+			}));
+		},
+		[select]
+	);
 
 	return (
-		<AuthLayout>
-			<Text style={textStyles.title}>サインイン</Text>
-
+		<AuthLayout tab={<Tab />}>
 			<Text
 				lightTextColor={color}
 				darkTextColor={color}
 				style={textStyles.label}
 			>
-				電話番号
+				{select === "phone" ? "電話番号" : "メールアドレス"}
 			</Text>
-			<Controller
-				control={control}
-				name="phone"
-				defaultValue=""
-				rules={{
-					required: {
-						value: true,
-						message: "必須入力項目です",
-					},
-				}}
-				render={({ field: { onChange, value } }) => (
-					<TextInput
-						bgStyle={textInputStyles.bg}
-						onChangeText={onChange}
-						value={value}
-						placeholder=""
-					/>
-				)}
-			/>
+
+			{select === "phone" ? (
+				<Controller
+					control={control}
+					name="phone"
+					defaultValue=""
+					rules={{
+						required: {
+							value: true,
+							message: "必須入力項目です",
+						},
+					}}
+					render={({ field: { onChange, value } }) => (
+						<TextInput
+							bgStyle={textInputStyles.bg}
+							onChangeText={onChange}
+							value={value}
+							placeholder=""
+						/>
+					)}
+				/>
+			) : (
+				<Controller
+					control={control}
+					name="email"
+					defaultValue=""
+					rules={{
+						required: {
+							value: true,
+							message: "必須入力項目です",
+						},
+						pattern: {
+							value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+							message: "メールアドレスの形式が正しくありません",
+						},
+					}}
+					render={({ field: { onChange, value } }) => (
+						<TextInput
+							bgStyle={textInputStyles.bg}
+							onChangeText={onChange}
+							value={value}
+							placeholder=""
+						/>
+					)}
+				/>
+			)}
 			{errors.phone && <ErrorMessage message={errors.phone.message} />}
+			{errors.email && <ErrorMessage message={errors.email.message} />}
 
 			<Text
 				lightTextColor={color}
