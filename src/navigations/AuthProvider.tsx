@@ -3,7 +3,7 @@ import type { ReactNode, VFC } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilState } from "recoil";
-import { user } from "src/atom";
+import { user } from "src/atoms";
 import { Progress } from "src/components";
 import { requestFetcher } from "src/functions/fetcher";
 import { getSequreStore, saveSequreStore } from "src/functions/store";

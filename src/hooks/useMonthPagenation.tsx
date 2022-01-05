@@ -3,7 +3,7 @@ import type { VFC } from "react";
 import React, { useCallback, useMemo } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
-import { date } from "src/atom";
+import { date } from "src/atoms";
 import { CustomText as Text } from "src/components/custom/CustomText";
 import { useThemeColor } from "src/hooks/useThemeColor";
 

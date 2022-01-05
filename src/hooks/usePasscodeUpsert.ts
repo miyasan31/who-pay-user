@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilValue } from "recoil";
-import { user } from "src/atom";
+import { user } from "src/atoms";
 import { requestFetcher } from "src/functions/fetcher";
 import type { PasscodeScreenProps } from "types";
 

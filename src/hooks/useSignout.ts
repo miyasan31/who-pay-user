@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
 import { Alert } from "react-native";
 import { useSetRecoilState } from "recoil";
-import { user } from "src/atom";
+import { user } from "src/atoms";
 import { requestFetcher } from "src/functions/fetcher";
 import { deleteSequreStore, getSequreStore } from "src/functions/store";
 

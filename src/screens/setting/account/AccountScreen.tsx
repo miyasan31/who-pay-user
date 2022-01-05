@@ -3,7 +3,7 @@ import type { VFC } from "react";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { useRecoilValue } from "recoil";
-import { user } from "src/atom";
+import { user } from "src/atoms";
 import { ListItem } from "src/components";
 import { Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";

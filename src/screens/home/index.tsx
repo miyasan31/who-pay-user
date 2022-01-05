@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { user } from "src/atom";
+import { user } from "src/atoms";
 import { useThemeColor } from "src/hooks";
 import type { TopStackParamList } from "types";
 
