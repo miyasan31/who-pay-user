@@ -1,4 +1,4 @@
-import { API_URL } from "src/constants/api_url";
+import { API_URL } from "src/constants";
 import fetch from "unfetch";
 
 // const black = "\u001b[30m";
