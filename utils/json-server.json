@@ -1,228 +1,228 @@
 {
-	"amount": {
-		"value": 204000
-	},
-	"payment": [
-		{
-			"id": 1,
-			"userId": "1",
-			"shopId": "1",
-			"voiceId": 1,
-			"amount": 10000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "1",
-				"shopName": "マツモトキヨシ"
-			}
-		},
-		{
-			"id": 2,
-			"userId": "1",
-			"shopId": "2",
-			"voiceId": 2,
-			"amount": 12000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "2",
-				"shopName": "ファミリーマート"
-			}
-		},
-		{
-			"id": 3,
-			"userId": "1",
-			"shopId": "1",
-			"voiceId": 3,
-			"amount": 10000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "1",
-				"shopName": "マツモトキヨシ"
-			}
-		},
-		{
-			"id": 4,
-			"userId": "1",
-			"shopId": "3",
-			"voiceId": 4,
-			"amount": 10000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "3",
-				"shopName": "セブンイレブン"
-			}
-		},
-		{
-			"id": 5,
-			"userId": "1",
-			"shopId": "5",
-			"voiceId": 5,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "5",
-				"shopName": "GUCCI"
-			}
-		},
-		{
-			"id": 6,
-			"userId": "1",
-			"shopId": "6",
-			"voiceId": 6,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "6",
-				"shopName": "ルイヴィトン"
-			}
-		},
-		{
-			"id": 7,
-			"userId": "1",
-			"shopId": "7",
-			"voiceId": 7,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "7",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 8,
-			"userId": "1",
-			"shopId": "8",
-			"voiceId": 8,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "8",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 9,
-			"userId": "1",
-			"shopId": "9",
-			"voiceId": 9,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "9",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 10,
-			"userId": "1",
-			"shopId": "10",
-			"voiceId": 10,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "10",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 11,
-			"userId": "1",
-			"shopId": "11",
-			"voiceId": 11,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "11",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 12,
-			"userId": "1",
-			"shopId": "12",
-			"voiceId": 12,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "12",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 13,
-			"userId": "1",
-			"shopId": "13",
-			"voiceId": 13,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "13",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 14,
-			"userId": "1",
-			"shopId": "14",
-			"voiceId": 14,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "14",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 15,
-			"userId": "1",
-			"shopId": "15",
-			"voiceId": 15,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "15",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 16,
-			"userId": "1",
-			"shopId": "16",
-			"voiceId": 16,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "16",
-				"shopName": "シュプリーム"
-			}
-		},
-		{
-			"id": 17,
-			"userId": "1",
-			"shopId": "17",
-			"voiceId": 17,
-			"amount": 10000000,
-			"createdAt": "2020-01-01T00:00:00.000Z",
-			"updatedAt": "2020-01-01T00:00:00.000Z",
-			"Shop": {
-				"id": "17",
-				"shopName": "シュプリーム"
-			}
-		}
-	]
+  "amount": {
+    "value": 204000
+  },
+  "payment": [
+    {
+      "id": 1,
+      "userId": "1",
+      "shopId": "1",
+      "voiceId": 1,
+      "amount": 10000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "1",
+        "shopName": "マツモトキヨシ"
+      }
+    },
+    {
+      "id": 2,
+      "userId": "1",
+      "shopId": "2",
+      "voiceId": 2,
+      "amount": 12000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "2",
+        "shopName": "ファミリーマート"
+      }
+    },
+    {
+      "id": 3,
+      "userId": "1",
+      "shopId": "1",
+      "voiceId": 3,
+      "amount": 10000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "1",
+        "shopName": "マツモトキヨシ"
+      }
+    },
+    {
+      "id": 4,
+      "userId": "1",
+      "shopId": "3",
+      "voiceId": 4,
+      "amount": 10000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "3",
+        "shopName": "セブンイレブン"
+      }
+    },
+    {
+      "id": 5,
+      "userId": "1",
+      "shopId": "5",
+      "voiceId": 5,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "5",
+        "shopName": "GUCCI"
+      }
+    },
+    {
+      "id": 6,
+      "userId": "1",
+      "shopId": "6",
+      "voiceId": 6,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "6",
+        "shopName": "ルイヴィトン"
+      }
+    },
+    {
+      "id": 7,
+      "userId": "1",
+      "shopId": "7",
+      "voiceId": 7,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "7",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 8,
+      "userId": "1",
+      "shopId": "8",
+      "voiceId": 8,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "8",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 9,
+      "userId": "1",
+      "shopId": "9",
+      "voiceId": 9,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "9",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 10,
+      "userId": "1",
+      "shopId": "10",
+      "voiceId": 10,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "10",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 11,
+      "userId": "1",
+      "shopId": "11",
+      "voiceId": 11,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "11",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 12,
+      "userId": "1",
+      "shopId": "12",
+      "voiceId": 12,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "12",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 13,
+      "userId": "1",
+      "shopId": "13",
+      "voiceId": 13,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "13",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 14,
+      "userId": "1",
+      "shopId": "14",
+      "voiceId": 14,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "14",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 15,
+      "userId": "1",
+      "shopId": "15",
+      "voiceId": 15,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "15",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 16,
+      "userId": "1",
+      "shopId": "16",
+      "voiceId": 16,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "16",
+        "shopName": "シュプリーム"
+      }
+    },
+    {
+      "id": 17,
+      "userId": "1",
+      "shopId": "17",
+      "voiceId": 17,
+      "amount": 10000000,
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updatedAt": "2020-01-01T00:00:00.000Z",
+      "Shop": {
+        "id": "17",
+        "shopName": "シュプリーム"
+      }
+    }
+  ]
 }

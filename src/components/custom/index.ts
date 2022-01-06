@@ -13,10 +13,10 @@ import { CustomView as View } from "./CustomView";
 
 export { Button, ColorButton, SafeAreaView, Text, TextInput, View };
 export type {
-	ButtonProps,
-	ColorButtonProps,
-	SafeAreaViewProps,
-	TextInputProps,
-	TextProps,
-	ViewProps,
+  ButtonProps,
+  ColorButtonProps,
+  SafeAreaViewProps,
+  TextInputProps,
+  TextProps,
+  ViewProps,
 };

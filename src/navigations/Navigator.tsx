@@ -9,17 +9,17 @@ import type { RootStackParamList } from "types";
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export const Navigator = () => {
-	const backgroundColor = useThemeColor({}, "bg1");
-	return (
-		<RootStack.Navigator initialRouteName="Main">
-			<RootStack.Screen
-				name="Main"
-				component={MainBottomTabNavigator}
-				options={{
-					headerShown: false,
-					headerStyle: { backgroundColor: backgroundColor },
-				}}
-			/>
-		</RootStack.Navigator>
-	);
+  const backgroundColor = useThemeColor({}, "bg1");
+  return (
+    <RootStack.Navigator initialRouteName="Main">
+      <RootStack.Screen
+        name="Main"
+        component={MainBottomTabNavigator}
+        options={{
+          headerShown: false,
+          headerStyle: { backgroundColor: backgroundColor },
+        }}
+      />
+    </RootStack.Navigator>
+  );
 };

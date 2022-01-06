@@ -7,31 +7,28 @@ import type { StyleProps } from "types/style";
 export type ButtonProps = StyleProps & NativeButton["props"];
 
 export const CustomButton: VFC<ButtonProps> = memo((props) => {
-	const {
-		lightTextColor,
-		darkTextColor,
-		title,
-		onPress,
-		disabled,
-		testID,
-		accessibilityLabel,
-		...otherProps
-	} = props;
+  const {
+    lightTextColor,
+    darkTextColor,
+    title,
+    onPress,
+    disabled,
+    testID,
+    accessibilityLabel,
+    ...otherProps
+  } = props;
 
-	const textColor = useThemeColor(
-		{ light: lightTextColor, dark: darkTextColor },
-		"text1"
-	);
+  const textColor = useThemeColor({ light: lightTextColor, dark: darkTextColor }, "text1");
 
-	return (
-		<NativeButton
-			title={title}
-			color={textColor}
-			onPress={onPress}
-			disabled={disabled}
-			testID={testID}
-			accessibilityLabel={accessibilityLabel}
-			{...otherProps}
-		/>
-	);
+  return (
+    <NativeButton
+      title={title}
+      color={textColor}
+      onPress={onPress}
+      disabled={disabled}
+      testID={testID}
+      accessibilityLabel={accessibilityLabel}
+      {...otherProps}
+    />
+  );
 });

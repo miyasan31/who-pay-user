@@ -12,36 +12,17 @@ import { VerifyScreen } from "./VerifyScreen";
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator: VFC = () => {
-	return (
-		<AuthStack.Navigator
-			initialRouteName="SigninAction"
-			screenOptions={{ headerShown: false }}
-		>
-			<AuthStack.Screen
-				name="SigninAction"
-				component={SigninActionScreen}
-				options={() => ({})}
-			/>
-			<AuthStack.Screen
-				name="Signin"
-				component={SigninScreen}
-				options={() => ({})}
-			/>
-			<AuthStack.Screen
-				name="Signup"
-				component={SignupScreen}
-				options={() => ({})}
-			/>
-			<AuthStack.Screen
-				name="Verify"
-				component={VerifyScreen}
-				options={() => ({})}
-			/>
-			<AuthStack.Screen
-				name="UserInfoRegister"
-				component={UserInfoRegisterScreen}
-				options={() => ({})}
-			/>
-		</AuthStack.Navigator>
-	);
+  return (
+    <AuthStack.Navigator initialRouteName="SigninAction" screenOptions={{ headerShown: false }}>
+      <AuthStack.Screen name="SigninAction" component={SigninActionScreen} options={() => ({})} />
+      <AuthStack.Screen name="Signin" component={SigninScreen} options={() => ({})} />
+      <AuthStack.Screen name="Signup" component={SignupScreen} options={() => ({})} />
+      <AuthStack.Screen name="Verify" component={VerifyScreen} options={() => ({})} />
+      <AuthStack.Screen
+        name="UserInfoRegister"
+        component={UserInfoRegisterScreen}
+        options={() => ({})}
+      />
+    </AuthStack.Navigator>
+  );
 };

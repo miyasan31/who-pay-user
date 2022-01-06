@@ -12,37 +12,37 @@ import { VoiceRecordNavigator } from "./voice";
 const Setting = createNativeStackNavigator<SettingStackParamList>();
 
 export const SettingNavigator: VFC = () => {
-	const backgroundColor = useThemeColor({}, "bg1");
-	return (
-		<Setting.Navigator
-			initialRouteName="SettingSelect"
-			screenOptions={{
-				headerStyle: { backgroundColor: backgroundColor },
-			}}
-		>
-			<Setting.Screen
-				name="SettingSelect"
-				component={SettingSelectScreen}
-				options={() => ({
-					title: "設定",
-					headerLargeTitle: true,
-					headerLargeTitleStyle: {
-						fontWeight: "400",
-						fontSize: 30,
-					},
-				})}
-			/>
+  const backgroundColor = useThemeColor({}, "bg1");
+  return (
+    <Setting.Navigator
+      initialRouteName="SettingSelect"
+      screenOptions={{
+        headerStyle: { backgroundColor: backgroundColor },
+      }}
+    >
+      <Setting.Screen
+        name="SettingSelect"
+        component={SettingSelectScreen}
+        options={() => ({
+          title: "設定",
+          headerLargeTitle: true,
+          headerLargeTitleStyle: {
+            fontWeight: "400",
+            fontSize: 30,
+          },
+        })}
+      />
 
-			<Setting.Screen
-				name="AccountSetting"
-				component={AccountNavigator}
-				options={() => ({
-					title: "アカウント",
-					headerShown: false,
-				})}
-			/>
+      <Setting.Screen
+        name="AccountSetting"
+        component={AccountNavigator}
+        options={() => ({
+          title: "アカウント",
+          headerShown: false,
+        })}
+      />
 
-			{/* <Setting.Screen
+      {/* <Setting.Screen
 				name="CreditSetting"
 				component={CreditNavigator}
 				options={() => ({
@@ -51,23 +51,23 @@ export const SettingNavigator: VFC = () => {
 				})}
 			/> */}
 
-			<Setting.Screen
-				name="PasscodeSetting"
-				component={PasscodeNavigator}
-				options={() => ({
-					title: "パスコード",
-					headerShown: false,
-				})}
-			/>
+      <Setting.Screen
+        name="PasscodeSetting"
+        component={PasscodeNavigator}
+        options={() => ({
+          title: "パスコード",
+          headerShown: false,
+        })}
+      />
 
-			<Setting.Screen
-				name="VoiceRecordSetting"
-				component={VoiceRecordNavigator}
-				options={() => ({
-					title: "声紋認証",
-					headerShown: false,
-				})}
-			/>
-		</Setting.Navigator>
-	);
+      <Setting.Screen
+        name="VoiceRecordSetting"
+        component={VoiceRecordNavigator}
+        options={() => ({
+          title: "声紋認証",
+          headerShown: false,
+        })}
+      />
+    </Setting.Navigator>
+  );
 };

@@ -11,62 +11,62 @@ import { AuthNavigator } from "src/screens/auth";
 import type { User } from "types/fetcher";
 
 type Props = {
-	children: ReactNode;
+  children: ReactNode;
 };
 
 export const AuthProvider: VFC<Props> = (props) => {
-	const [isLoading, seIsLoading] = useState(true);
-	const [userInfo, setUserInfo] = useRecoilState(user);
+  const [isLoading, seIsLoading] = useState(true);
+  const [userInfo, setUserInfo] = useRecoilState(user);
 
-	const listenAuthState = useCallback(async () => {
-		const tokenResult = await getSequreStore("access_token");
-		if (tokenResult) {
-			const requestBody = { token: tokenResult };
-			const { statusCode, response } = await requestFetcher<User>(
-				"/auth/session/user",
-				requestBody,
-				"POST"
-			);
+  const listenAuthState = useCallback(async () => {
+    const tokenResult = await getSequreStore("access_token");
+    if (tokenResult) {
+      const requestBody = { token: tokenResult };
+      const { statusCode, response } = await requestFetcher<User>(
+        "/auth/session/user",
+        requestBody,
+        "POST",
+      );
 
-			if (statusCode >= 400) {
-				toast("エラーが発生しました", {
-					icon: "🤦‍♂️",
-				});
-				return;
-			}
+      if (statusCode >= 400) {
+        toast("エラーが発生しました", {
+          icon: "🤦‍♂️",
+        });
+        return;
+      }
 
-			await saveSequreStore("access_token", response.token);
-			await setUserInfo({
-				id: response.id,
-				firstName: response.firstName,
-				lastName: response.lastName,
-				email: response.email,
-				phone: response.phone,
-				token: response.token,
-				isSignin: true,
-			});
-		}
-		await new Promise((resolve) => setTimeout(resolve, 500));
-		seIsLoading(false);
-	}, []);
+      await saveSequreStore("access_token", response.token);
+      await setUserInfo({
+        id: response.id,
+        firstName: response.firstName,
+        lastName: response.lastName,
+        email: response.email,
+        phone: response.phone,
+        token: response.token,
+        isSignin: true,
+      });
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    seIsLoading(false);
+  }, []);
 
-	const loadingFalse = useCallback(async () => {
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-		seIsLoading(false);
-	}, []);
+  const loadingFalse = useCallback(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    seIsLoading(false);
+  }, []);
 
-	useEffect(() => {
-		if (!isLoading) seIsLoading(true);
-		if (!userInfo.isSignin) {
-			listenAuthState();
-		} else {
-			loadingFalse();
-		}
-	}, [userInfo.isSignin]);
+  useEffect(() => {
+    if (!isLoading) seIsLoading(true);
+    if (!userInfo.isSignin) {
+      listenAuthState();
+    } else {
+      loadingFalse();
+    }
+  }, [userInfo.isSignin]);
 
-	if (isLoading) {
-		return <Progress />;
-	} else {
-		return <>{userInfo.isSignin ? <>{props.children}</> : <AuthNavigator />}</>;
-	}
+  if (isLoading) {
+    return <Progress />;
+  } else {
+    return <>{userInfo.isSignin ? <>{props.children}</> : <AuthNavigator />}</>;
+  }
 };

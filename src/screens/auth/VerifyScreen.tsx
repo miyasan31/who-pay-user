@@ -14,122 +14,112 @@ import type { AuthScreenProps } from "types";
 import type { VerifyAuth } from "types/fetcher";
 
 type FormDataType = {
-	verifyCode: string;
+  verifyCode: string;
 };
 
 export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
-	const color = useThemeColor({}, "text2");
-	const setUserInfo = useSetRecoilState(user);
-	const [isCertified, setIsCertified] = useState(false);
+  const color = useThemeColor({}, "text2");
+  const setUserInfo = useSetRecoilState(user);
+  const [isCertified, setIsCertified] = useState(false);
 
-	const {
-		control,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<FormDataType>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormDataType>();
 
-	const { phone } = props.route.params;
-	const onSubmitPress = useCallback(
-		async (body: FormDataType) => {
-			const toastId = toast.loading("処理中...", {
-				icon: "💁‍♂️",
-			});
+  const { phone } = props.route.params;
+  const onSubmitPress = useCallback(
+    async (body: FormDataType) => {
+      const toastId = toast.loading("処理中...", {
+        icon: "💁‍♂️",
+      });
 
-			const requestBody = { phone: "81" + phone, token: body.verifyCode };
-			const { statusCode, response } = await requestFetcher<VerifyAuth>(
-				"/auth/verify",
-				requestBody,
-				"POST"
-			);
-			if (statusCode >= 400) {
-				toast("エラーが発生しました", {
-					id: toastId,
-					icon: "🤦‍♂️",
-				});
-				return;
-			}
+      const requestBody = { phone: "81" + phone, token: body.verifyCode };
+      const { statusCode, response } = await requestFetcher<VerifyAuth>(
+        "/auth/verify",
+        requestBody,
+        "POST",
+      );
+      if (statusCode >= 400) {
+        toast("エラーが発生しました", {
+          id: toastId,
+          icon: "🤦‍♂️",
+        });
+        return;
+      }
 
-			toast.success("認証が成功しました", {
-				id: toastId,
-				icon: "🙆‍♂️",
-			});
-			await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast.success("認証が成功しました", {
+        id: toastId,
+        icon: "🙆‍♂️",
+      });
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-			setUserInfo((prev) => ({
-				...prev,
-				id: response.user.id,
-				phone: phone,
-				token: response.access_token,
-			}));
-			setIsCertified(true);
-			props.navigation.navigate("UserInfoRegister");
-		},
-		[props]
-	);
+      setUserInfo((prev) => ({
+        ...prev,
+        id: response.user.id,
+        phone: phone,
+        token: response.access_token,
+      }));
+      setIsCertified(true);
+      props.navigation.navigate("UserInfoRegister");
+    },
+    [props],
+  );
 
-	const onNavigate = useCallback(() => {
-		props.navigation.navigate("UserInfoRegister");
-	}, []);
+  const onNavigate = useCallback(() => {
+    props.navigation.navigate("UserInfoRegister");
+  }, []);
 
-	return (
-		<AuthLayout>
-			<Text style={textStyles.title}>確認コード</Text>
+  return (
+    <AuthLayout>
+      <Text style={textStyles.title}>確認コード</Text>
 
-			<Text
-				lightTextColor={color}
-				darkTextColor={color}
-				style={textStyles.label}
-			>
-				６桁の番号を入力してください
-			</Text>
-			<Controller
-				control={control}
-				name="verifyCode"
-				defaultValue=""
-				rules={{
-					required: {
-						value: true,
-						message: "必須入力項目です",
-					},
-					minLength: {
-						value: 6,
-						message: "6桁の認証コードを入力してください",
-					},
-					maxLength: {
-						value: 6,
-						message: "6桁の認証コードを入力してください",
-					},
-				}}
-				render={({ field: { onChange, value } }) => (
-					<TextInput
-						bgStyle={textInputStyles.bg}
-						onChangeText={onChange}
-						value={value}
-						placeholder=""
-					/>
-				)}
-			/>
-			{errors.verifyCode && (
-				<ErrorMessage message={errors.verifyCode.message} />
-			)}
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+        ６桁の番号を入力してください
+      </Text>
+      <Controller
+        control={control}
+        name="verifyCode"
+        defaultValue=""
+        rules={{
+          required: {
+            value: true,
+            message: "必須入力項目です",
+          },
+          minLength: {
+            value: 6,
+            message: "6桁の認証コードを入力してください",
+          },
+          maxLength: {
+            value: 6,
+            message: "6桁の認証コードを入力してください",
+          },
+        }}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            bgStyle={textInputStyles.bg}
+            onChangeText={onChange}
+            value={value}
+            placeholder=""
+          />
+        )}
+      />
+      {errors.verifyCode && <ErrorMessage message={errors.verifyCode.message} />}
 
-			<ColorButton
-				title={isCertified ? "登録へ進む" : "送信"}
-				outlineStyle={buttonStyles.outline}
-				// eslint-disable-next-line react/jsx-handler-names
-				onPress={isCertified ? onNavigate : handleSubmit(onSubmitPress)}
-			/>
-			{isCertified ? (
-				<Text
-					lightTextColor={color}
-					darkTextColor={color}
-					style={textStyles.error}
-				>
-					登録済みです
-				</Text>
-			) : null}
-		</AuthLayout>
-	);
+      <ColorButton
+        title={isCertified ? "登録へ進む" : "送信"}
+        outlineStyle={buttonStyles.outline}
+        // eslint-disable-next-line react/jsx-handler-names
+        onPress={isCertified ? onNavigate : handleSubmit(onSubmitPress)}
+      />
+      {isCertified ? (
+        <Text lightTextColor={color} darkTextColor={color} style={textStyles.error}>
+          登録済みです
+        </Text>
+      ) : null}
+    </AuthLayout>
+  );
 };
 
 // {

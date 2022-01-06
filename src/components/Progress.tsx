@@ -6,24 +6,19 @@ import { View } from "src/components/custom";
 import { useThemeColor } from "src/hooks/useThemeColor";
 
 export const Progress: VFC = () => {
-	const primary = useThemeColor({}, "primary");
-	return (
-		<View style={defaultStyle.center}>
-			<RNProgress.CircleSnail
-				color={primary}
-				size={60}
-				thickness={4}
-				spinDuration={800}
-			/>
-		</View>
-	);
+  const primary = useThemeColor({}, "primary");
+  return (
+    <View style={defaultStyle.center}>
+      <RNProgress.CircleSnail color={primary} size={60} thickness={4} spinDuration={800} />
+    </View>
+  );
 };
 
 const defaultStyle = StyleSheet.create({
-	center: {
-		flex: 1,
-		paddingTop: 120,
-		width: "100%",
-		alignItems: "center",
-	},
+  center: {
+    flex: 1,
+    paddingTop: 120,
+    width: "100%",
+    alignItems: "center",
+  },
 });

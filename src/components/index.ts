@@ -6,12 +6,4 @@ import { PrevButton } from "./PrevButton";
 import { Progress } from "./Progress";
 import { Toaster } from "./Toaster";
 
-export {
-	CircleKeyButton,
-	ErrorMessage,
-	KeyButton,
-	ListItem,
-	PrevButton,
-	Progress,
-	Toaster,
-};
+export { CircleKeyButton, ErrorMessage, KeyButton, ListItem, PrevButton, Progress, Toaster };

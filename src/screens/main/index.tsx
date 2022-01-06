@@ -15,22 +15,20 @@ import type { MainBottomTabParamList } from "types";
 const MainBottomTab = createBottomTabNavigator<MainBottomTabParamList>();
 
 export const MainBottomTabNavigator: VFC = () => {
-	const colorScheme = useColorScheme();
-	const bg1 = useThemeColor({}, "bg1");
+  const colorScheme = useColorScheme();
+  const bg1 = useThemeColor({}, "bg1");
 
-	return (
-		<MainBottomTab.Navigator
-			initialRouteName="Payment"
-			screenOptions={{
-				headerShown: false,
-				tabBarActiveTintColor: theme[colorScheme].primary,
-				tabBarStyle: { position: "absolute", backgroundColor: bg1 },
-				tabBarBackground: () => (
-					<BlurView intensity={10} style={StyleSheet.absoluteFill} />
-				),
-			}}
-		>
-			{/* <MainBottomTab.Screen
+  return (
+    <MainBottomTab.Navigator
+      initialRouteName="Payment"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: theme[colorScheme].primary,
+        tabBarStyle: { position: "absolute", backgroundColor: bg1 },
+        tabBarBackground: () => <BlurView intensity={10} style={StyleSheet.absoluteFill} />,
+      }}
+    >
+      {/* <MainBottomTab.Screen
 				name="Top"
 				component={HomeNavigator}
 				options={{
@@ -40,27 +38,23 @@ export const MainBottomTabNavigator: VFC = () => {
 					),
 				}}
 			/> */}
-			<MainBottomTab.Screen
-				name="Payment"
-				component={PaymentNavigator}
-				options={() => ({
-					title: "決済履歴",
-					tabBarIcon: ({ color }) => (
-						<TabBarIcon name="list-outline" color={color} />
-					),
-				})}
-			/>
+      <MainBottomTab.Screen
+        name="Payment"
+        component={PaymentNavigator}
+        options={() => ({
+          title: "決済履歴",
+          tabBarIcon: ({ color }) => <TabBarIcon name="list-outline" color={color} />,
+        })}
+      />
 
-			<MainBottomTab.Screen
-				name="Setting"
-				component={SettingNavigator}
-				options={() => ({
-					title: "設定",
-					tabBarIcon: ({ color }) => (
-						<TabBarIcon name="settings-outline" color={color} />
-					),
-				})}
-			/>
-		</MainBottomTab.Navigator>
-	);
+      <MainBottomTab.Screen
+        name="Setting"
+        component={SettingNavigator}
+        options={() => ({
+          title: "設定",
+          tabBarIcon: ({ color }) => <TabBarIcon name="settings-outline" color={color} />,
+        })}
+      />
+    </MainBottomTab.Navigator>
+  );
 };

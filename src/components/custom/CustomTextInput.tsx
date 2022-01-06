@@ -9,39 +9,33 @@ import type { StyleProps } from "types/style";
 export type TextInputProps = StyleProps & ViewProps & NativeTextInput["props"];
 
 export const CustomTextInput: VFC<TextInputProps> = memo((props) => {
-	const {
-		textStyle,
-		lightTextColor,
-		darkTextColor,
-		lightBgColor,
-		darkBgColor,
-		bgStyle,
-		...otherProps
-	} = props;
+  const {
+    textStyle,
+    lightTextColor,
+    darkTextColor,
+    lightBgColor,
+    darkBgColor,
+    bgStyle,
+    ...otherProps
+  } = props;
 
-	const color = useThemeColor(
-		{ light: lightTextColor, dark: darkTextColor },
-		"text1"
-	);
-	const backgroundColor = useThemeColor(
-		{ light: lightBgColor, dark: darkBgColor },
-		"bg2"
-	);
+  const color = useThemeColor({ light: lightTextColor, dark: darkTextColor }, "text1");
+  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg2");
 
-	return (
-		<View
-			style={[defaultStyles.bg, bgStyle]}
-			lightBgColor={backgroundColor}
-			darkBgColor={backgroundColor}
-		>
-			<NativeTextInput style={[textStyle, { color }]} {...otherProps} />
-		</View>
-	);
+  return (
+    <View
+      style={[defaultStyles.bg, bgStyle]}
+      lightBgColor={backgroundColor}
+      darkBgColor={backgroundColor}
+    >
+      <NativeTextInput style={[textStyle, { color }]} {...otherProps} />
+    </View>
+  );
 });
 
 const defaultStyles = StyleSheet.create({
-	bg: {
-		width: "100%",
-		padding: 10,
-	},
+  bg: {
+    width: "100%",
+    padding: 10,
+  },
 });

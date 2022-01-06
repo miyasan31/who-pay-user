@@ -4,13 +4,13 @@ import { Text } from "src/components/custom";
 import { textStyles } from "src/styles";
 
 type Props = {
-	message?: string;
+  message?: string;
 };
 
 export const ErrorMessage: VFC<Props> = memo((props) => {
-	return (
-		<Text lightTextColor="red" darkTextColor="red" style={textStyles.error}>
-			{props.message}
-		</Text>
-	);
+  return (
+    <Text lightTextColor="red" darkTextColor="red" style={textStyles.error}>
+      {props.message}
+    </Text>
+  );
 });

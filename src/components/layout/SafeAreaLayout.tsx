@@ -7,24 +7,19 @@ import { KeyboardAvoiding } from "src/components/layout/KeyboardAvoiding";
 import { useThemeColor } from "src/hooks";
 
 type Props = SafeAreaViewProps & {
-	children: ReactNode;
+  children: ReactNode;
 };
 
 export const SafeAreaLayout: VFC<Props> = (props) => {
-	const { style, lightBgColor, darkBgColor, children } = props;
+  const { style, lightBgColor, darkBgColor, children } = props;
 
-	const backgroundColor = useThemeColor(
-		{ light: lightBgColor, dark: darkBgColor },
-		"bg1"
-	);
+  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg1");
 
-	return (
-		<KeyboardAvoiding>
-			<SafeAreaView style={[style, { backgroundColor }]}>
-				{children}
-			</SafeAreaView>
-		</KeyboardAvoiding>
-	);
+  return (
+    <KeyboardAvoiding>
+      <SafeAreaView style={[style, { backgroundColor }]}>{children}</SafeAreaView>
+    </KeyboardAvoiding>
+  );
 };
 
 // const defaultStyle = StyleSheet.create({});

@@ -7,24 +7,24 @@ import { useGetSWRdev } from "src/hooks";
 import type { TopScreenProps } from "types";
 
 type Amount = {
-	value: number;
+  value: number;
 };
 
 export const HomeScreen: VFC<TopScreenProps<"Home">> = () => {
-	const { data, isError, isLoading } = useGetSWRdev<Amount>("/amount");
+  const { data, isError, isLoading } = useGetSWRdev<Amount>("/amount");
 
-	return (
-		<Layout>
-			{isLoading ? (
-				<Progress />
-			) : isError ? (
-				<Text>Error</Text>
-			) : (
-				<>
-					<Text>今月の利用可能額は</Text>
-					<Text>{data?.value}</Text>
-				</>
-			)}
-		</Layout>
-	);
+  return (
+    <Layout>
+      {isLoading ? (
+        <Progress />
+      ) : isError ? (
+        <Text>Error</Text>
+      ) : (
+        <>
+          <Text>今月の利用可能額は</Text>
+          <Text>{data?.value}</Text>
+        </>
+      )}
+    </Layout>
+  );
 };

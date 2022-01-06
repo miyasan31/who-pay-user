@@ -9,45 +9,37 @@ import { KeyboardAvoiding } from "src/components/layout/KeyboardAvoiding";
 import { useThemeColor } from "src/hooks";
 
 type Props = ViewProps & {
-	children: ReactNode;
+  children: ReactNode;
 };
 
 export const Layout: VFC<Props> = (props) => {
-	const { style, lightBgColor, darkBgColor, children } = props;
+  const { style, lightBgColor, darkBgColor, children } = props;
 
-	const tabBarHeight = useBottomTabBarHeight();
+  const tabBarHeight = useBottomTabBarHeight();
 
-	const backgroundColor = useThemeColor(
-		{ light: lightBgColor, dark: darkBgColor },
-		"bg1"
-	);
-	return (
-		<KeyboardAvoiding>
-			<View
-				style={[
-					defaultStyle.full,
-					style,
-					{ backgroundColor },
-					{ marginBottom: tabBarHeight || 0 },
-				]}
-			>
-				{children}
-			</View>
-		</KeyboardAvoiding>
-	);
+  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg1");
+  return (
+    <KeyboardAvoiding>
+      <View
+        style={[defaultStyle.full, style, { backgroundColor }, { marginBottom: tabBarHeight || 0 }]}
+      >
+        {children}
+      </View>
+    </KeyboardAvoiding>
+  );
 };
 
 const defaultStyle = StyleSheet.create({
-	full: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	semi: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
+  full: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  semi: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
 
-		paddingHorizontal: "10%",
-	},
+    paddingHorizontal: "10%",
+  },
 });

@@ -4,27 +4,27 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect, useState } from "react";
 
 export const useCachedResources = () => {
-	const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-	const loadResourcesAndDataAsync = useCallback(async () => {
-		try {
-			SplashScreen.preventAutoHideAsync();
-			// Load fonts
-			await Font.loadAsync({
-				...FontAwesome.font,
-				"space-mono": require("assets/fonts/SpaceMono-Regular.ttf"),
-			});
-		} catch (e) {
-			console.warn(e);
-		} finally {
-			setLoadingComplete(true);
-			SplashScreen.hideAsync();
-		}
-	}, []);
+  const loadResourcesAndDataAsync = useCallback(async () => {
+    try {
+      SplashScreen.preventAutoHideAsync();
+      // Load fonts
+      await Font.loadAsync({
+        ...FontAwesome.font,
+        "space-mono": require("assets/fonts/SpaceMono-Regular.ttf"),
+      });
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      setLoadingComplete(true);
+      SplashScreen.hideAsync();
+    }
+  }, []);
 
-	useEffect(() => {
-		loadResourcesAndDataAsync();
-	}, [loadResourcesAndDataAsync]);
+  useEffect(() => {
+    loadResourcesAndDataAsync();
+  }, [loadResourcesAndDataAsync]);
 
-	return isLoadingComplete;
+  return isLoadingComplete;
 };
