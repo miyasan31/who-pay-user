@@ -13,7 +13,7 @@ declare global {
 
 export type RootStackParamList = {
 	Auth: NavigatorScreenParams<AuthStackParamList> | undefined;
-	Root: NavigatorScreenParams<BottomTabScreenProps> | undefined;
+	Main: NavigatorScreenParams<MainBottomTabParamList> | undefined;
 	Modal: undefined;
 	NotFound: undefined;
 };
@@ -30,20 +30,20 @@ export type AuthStackParamList = {
 };
 export type AuthScreenProps<T extends keyof AuthStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<AuthStackParamList, T>,
+		NativeStackScreenProps<AuthStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
 
 /* 下タブ */
-export type BottomTabParamList = {
-	Top: NavigatorScreenParams<TopStackParamList> | undefined;
-	Payment: NavigatorScreenParams<PaymentStackParamList> | undefined;
-	Setting: NavigatorScreenParams<SettingStackParamList> | undefined;
+export type MainBottomTabParamList = {
+	Top: NativeStackScreenProps<TopStackParamList> | undefined;
+	Payment: NativeStackScreenProps<PaymentStackParamList> | undefined;
+	Setting: NativeStackScreenProps<SettingStackParamList> | undefined;
 };
-export type BottomTabScreenProps<T extends keyof BottomTabParamList> =
+export type MainBottomTabScreenProps<T extends keyof MainBottomTabParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<BottomTabParamList, T>,
+		BottomTabScreenProps<MainBottomTabParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -54,7 +54,7 @@ export type TopStackParamList = {
 };
 export type TopScreenProps<T extends keyof TopStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<TopStackParamList, T>,
+		NativeStackScreenProps<TopStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -68,7 +68,7 @@ export type PaymentStackParamList = {
 };
 export type PaymentScreenProps<T extends keyof PaymentStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<PaymentStackParamList, T>,
+		NativeStackScreenProps<PaymentStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -85,7 +85,7 @@ export type SettingStackParamList = {
 };
 export type SettingScreenProps<T extends keyof SettingStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<SettingStackParamList, T>,
+		NativeStackScreenProps<SettingStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -98,7 +98,7 @@ export type AccountStackParamList = {
 };
 export type AccountScreenProps<T extends keyof AccountStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<AccountStackParamList, T>,
+		NativeStackScreenProps<AccountStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -111,7 +111,7 @@ export type CreditStackParamList = {
 };
 export type CreditScreenProps<T extends keyof CreditStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<CreditStackParamList, T>,
+		NativeStackScreenProps<CreditStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -124,7 +124,7 @@ export type PasscodeStackParamList = {
 };
 export type PasscodeScreenProps<T extends keyof PasscodeStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<PasscodeStackParamList, T>,
+		NativeStackScreenProps<PasscodeStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
@@ -137,19 +137,7 @@ export type VoiceRecordStackParamList = {
 };
 export type VoiceRecordScreenProps<T extends keyof VoiceRecordStackParamList> =
 	CompositeScreenProps<
-		BottomTabScreenProps<VoiceRecordStackParamList, T>,
+		NativeStackScreenProps<VoiceRecordStackParamList, T>,
 		NativeStackScreenProps<RootStackParamList>
 	>;
 /* ---- */
-
-// /* 決済 */
-// export type PayStackParamList = {
-// 	VoiceRecord: { price: string };
-// 	Passcode: { price: string };
-// };
-// export type PayScreenProps<T extends keyof PayStackParamList> =
-// 	CompositeScreenProps<
-// 		BottomTabScreenProps<PayStackParamList, T>,
-// 		NativeStackScreenProps<RootStackParamList>
-// 	>;
-// /* ---- */
