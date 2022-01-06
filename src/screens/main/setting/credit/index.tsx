@@ -1,19 +1,14 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
-import React, { useCallback } from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { Text } from "src/components/custom";
+import React from "react";
+import { PrevButton } from "src/components";
 import { useThemeColor } from "src/hooks";
 import type { CreditScreenProps, CreditStackParamList } from "types";
 
 import { CreditScreen } from "./CreditScreen";
 import { CreditUpdateScreen } from "./CreditUpdateScreen";
 
-type Option = CreditScreenProps<"Credit" | "CreditUpdate">;
-type PrevProps = Option & {
-	screen: "Credit" | "SettingSelect";
-};
+type Option<T extends keyof CreditStackParamList> = CreditScreenProps<T>;
 
 const Credit = createNativeStackNavigator<CreditStackParamList>();
 
@@ -35,7 +30,7 @@ export const CreditNavigator: VFC = () => {
 			<Credit.Screen
 				name="Credit"
 				component={CreditScreen}
-				options={(options: Option) => ({
+				options={(options: Option<"Credit">) => ({
 					title: "クレジットカード情報",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
@@ -44,7 +39,7 @@ export const CreditNavigator: VFC = () => {
 			<Credit.Screen
 				name="CreditUpdate"
 				component={CreditUpdateScreen}
-				options={(options: Option) => ({
+				options={(options: Option<"CreditUpdate">) => ({
 					title: "クレジットカード更新",
 					headerLeft: () => <PrevButton {...options} screen="Credit" />,
 				})}
@@ -52,41 +47,3 @@ export const CreditNavigator: VFC = () => {
 		</Credit.Navigator>
 	);
 };
-
-const PrevButton: VFC<PrevProps> = (props) => {
-	const icon1 = useThemeColor({}, "icon1");
-
-	const onPrevScreen = useCallback((navigation) => {
-		navigation.navigate(props.screen);
-	}, []);
-
-	return (
-		<Pressable
-			onPress={() => onPrevScreen(props.navigation)}
-			style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.prev]}
-		>
-			<MaterialIcons name="keyboard-arrow-left" size={24} color={icon1} />
-			<Text
-				style={styles.buttonLabel}
-				lightTextColor={icon1}
-				darkTextColor={icon1}
-			>
-				戻る
-			</Text>
-		</Pressable>
-	);
-};
-
-const styles = StyleSheet.create({
-	buttonLabel: {
-		fontWeight: "400",
-	},
-	prev: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "flex-end",
-
-		width: 40,
-		marginLeft: 20,
-	},
-});

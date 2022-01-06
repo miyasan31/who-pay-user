@@ -1,9 +1,7 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";
-import React, { useCallback } from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { Text } from "src/components/custom";
+import React from "react";
+import { PrevButton } from "src/components";
 import { useThemeColor } from "src/hooks";
 import type { VoiceRecordScreenProps, VoiceRecordStackParamList } from "types";
 
@@ -11,12 +9,8 @@ import { VoiceRecordScreen } from "./VoiceRecordScreen";
 import { VoiceRecordSettingSelectScreen } from "./VoiceRecordSettingSelectScreen";
 import { VoiceRecordUpdateScreen } from "./VoiceRecordUpdateScreen";
 
-type Option = VoiceRecordScreenProps<
-	"VoiceRecordSettingSelect" | "VoiceRecord" | "VoiceRecordUpdate"
->;
-type PrevProps = Option & {
-	screen: "VoiceRecordSettingSelect" | "SettingSelect";
-};
+type Option<T extends keyof VoiceRecordStackParamList> =
+	VoiceRecordScreenProps<T>;
 
 const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
 
@@ -38,7 +32,7 @@ export const VoiceRecordNavigator: VFC = () => {
 			<VoiceRecord.Screen
 				name="VoiceRecordSettingSelect"
 				component={VoiceRecordSettingSelectScreen}
-				options={(options: Option) => ({
+				options={(options: Option<"VoiceRecordSettingSelect">) => ({
 					title: "声紋認証",
 					headerLeft: () => <PrevButton {...options} screen="SettingSelect" />,
 				})}
@@ -47,7 +41,7 @@ export const VoiceRecordNavigator: VFC = () => {
 			<VoiceRecord.Screen
 				name="VoiceRecord"
 				component={VoiceRecordScreen}
-				options={(options: Option) => ({
+				options={(options: Option<"VoiceRecord">) => ({
 					title: "声紋認証登録",
 					headerLeft: () => (
 						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
@@ -58,7 +52,7 @@ export const VoiceRecordNavigator: VFC = () => {
 			<VoiceRecord.Screen
 				name="VoiceRecordUpdate"
 				component={VoiceRecordUpdateScreen}
-				options={(options: Option) => ({
+				options={(options: Option<"VoiceRecordUpdate">) => ({
 					title: "声紋認証更新",
 					headerLeft: () => (
 						<PrevButton {...options} screen="VoiceRecordSettingSelect" />
@@ -68,41 +62,3 @@ export const VoiceRecordNavigator: VFC = () => {
 		</VoiceRecord.Navigator>
 	);
 };
-
-const PrevButton: VFC<PrevProps> = (props) => {
-	const icon1 = useThemeColor({}, "icon1");
-
-	const onPrevScreen = useCallback((navigation) => {
-		navigation.navigate(props.screen);
-	}, []);
-
-	return (
-		<Pressable
-			onPress={() => onPrevScreen(props.navigation)}
-			style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.prev]}
-		>
-			<MaterialIcons name="keyboard-arrow-left" size={24} color={icon1} />
-			<Text
-				style={styles.buttonLabel}
-				lightTextColor={icon1}
-				darkTextColor={icon1}
-			>
-				戻る
-			</Text>
-		</Pressable>
-	);
-};
-
-const styles = StyleSheet.create({
-	buttonLabel: {
-		fontWeight: "400",
-	},
-	prev: {
-		flexDirection: "row",
-		alignItems: "center",
-		justifyContent: "flex-end",
-
-		width: 40,
-		marginLeft: 20,
-	},
-});
