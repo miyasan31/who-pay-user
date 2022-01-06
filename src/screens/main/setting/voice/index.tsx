@@ -9,7 +9,8 @@ import { VoiceRecordScreen } from "./VoiceRecordScreen";
 import { VoiceRecordSettingSelectScreen } from "./VoiceRecordSettingSelectScreen";
 import { VoiceRecordUpdateScreen } from "./VoiceRecordUpdateScreen";
 
-type Option<T extends keyof VoiceRecordStackParamList> = VoiceRecordScreenProps<T>;
+type Option<T extends keyof VoiceRecordStackParamList> =
+  VoiceRecordScreenProps<T>;
 
 const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
 
@@ -42,7 +43,9 @@ export const VoiceRecordNavigator: VFC = () => {
         component={VoiceRecordScreen}
         options={(options: Option<"VoiceRecord">) => ({
           title: "声紋認証登録",
-          headerLeft: () => <PrevButton {...options} screen="VoiceRecordSettingSelect" />,
+          headerLeft: () => (
+            <PrevButton {...options} screen="VoiceRecordSettingSelect" />
+          ),
         })}
       />
 
@@ -51,7 +54,9 @@ export const VoiceRecordNavigator: VFC = () => {
         component={VoiceRecordUpdateScreen}
         options={(options: Option<"VoiceRecordUpdate">) => ({
           title: "声紋認証更新",
-          headerLeft: () => <PrevButton {...options} screen="VoiceRecordSettingSelect" />,
+          headerLeft: () => (
+            <PrevButton {...options} screen="VoiceRecordSettingSelect" />
+          ),
         })}
       />
     </VoiceRecord.Navigator>

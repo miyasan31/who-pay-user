@@ -13,18 +13,25 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
   const color = useThemeColor({}, "text2");
   const backGroundColor = useThemeColor({}, "bg1");
 
-  const { passcode, secretView, onClick, onDelete, onSubmit } = usePasscodeUpsert({
-    ...props,
-    screen: "Passcode",
-  });
+  const { passcode, secretView, onClick, onDelete, onSubmit } =
+    usePasscodeUpsert({
+      ...props,
+      screen: "Passcode",
+    });
 
   return (
     <Layout>
       <Text style={styles.passCodeTitle}>
-        {passcode.isVerify ? "もう一度入力してください" : "パスワードを入力してください"}
+        {passcode.isVerify
+          ? "もう一度入力してください"
+          : "パスワードを入力してください"}
       </Text>
 
-      <View lightBgColor={backGroundColor} darkBgColor={backGroundColor} style={styles.priceArea}>
+      <View
+        lightBgColor={backGroundColor}
+        darkBgColor={backGroundColor}
+        style={styles.priceArea}
+      >
         <Text style={styles.priceText}>{secretView}</Text>
       </View>
 

@@ -17,18 +17,27 @@ export const AuthLayout: VFC<Props> = (props) => {
   const bg0 = useThemeColor({}, "bg0");
 
   const positionStyle = useMemo(() => {
-    return props.overPositionStyle ? defaultStyle.position1 : defaultStyle.position2;
+    return props.overPositionStyle
+      ? defaultStyle.position1
+      : defaultStyle.position2;
   }, []);
 
   return (
     <KeyboardAvoiding>
       <View style={defaultStyle.full}>
-        <View lightBgColor={primary} darkBgColor={primary} style={defaultStyle.twoToneTop}>
+        <View
+          lightBgColor={primary}
+          darkBgColor={primary}
+          style={defaultStyle.twoToneTop}
+        >
           <WhoPay />
         </View>
         <View style={defaultStyle.twoToneBottom} darkBgColor={bg0} />
 
-        <View style={[positionStyle, defaultStyle.fixedLayout]} darkBgColor={bg0}>
+        <View
+          style={[positionStyle, defaultStyle.fixedLayout]}
+          darkBgColor={bg0}
+        >
           {props.tab}
           <View style={defaultStyle.mainLayout}>{props.children}</View>
         </View>

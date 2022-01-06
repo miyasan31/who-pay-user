@@ -42,7 +42,11 @@ export const PrevButton: VFC<PrevProps> = (props) => {
       style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.prev]}
     >
       <MaterialIcons name="keyboard-arrow-left" size={24} color={icon1} />
-      <Text style={styles.buttonLabel} lightTextColor={icon1} darkTextColor={icon1}>
+      <Text
+        style={styles.buttonLabel}
+        lightTextColor={icon1}
+        darkTextColor={icon1}
+      >
         戻る
       </Text>
     </Pressable>

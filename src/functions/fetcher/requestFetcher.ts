@@ -20,14 +20,16 @@ type Response<R> = {
 export const authRequestFetcher = async (
   url: string,
   body: unknown,
-  method: Method,
+  method: Method
 ): Promise<{ statusCode: number }> => {
   console.info(cyan + "| ----------------- fetcher loging ----------------- ");
   console.info(cyan + "| fetcher  | " + magenta + "authRequestFetcher");
   console.info(cyan + "| method   | " + green + method);
   console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
   console.info(cyan + "| body     | " + white, body);
-  console.info(cyan + "| -------------------------------------------------- " + reset);
+  console.info(
+    cyan + "| -------------------------------------------------- " + reset
+  );
 
   // ローディングUIを表示させるために0.4秒待つ
   await new Promise((resolve) => setTimeout(resolve, 400));
@@ -53,7 +55,7 @@ export const authRequestFetcher = async (
 export const requestFetcher = async <R>(
   url: string,
   body: unknown,
-  method: Method,
+  method: Method
   // token: string
 ): Promise<Response<R>> => {
   console.info(cyan + "| ----------------- fetcher loging ----------------- ");
@@ -62,7 +64,9 @@ export const requestFetcher = async <R>(
   console.info(cyan + "| endpoint | " + yellow + `${API_URL}${url}`);
   console.info(cyan + "| body     | " + white, body);
   // console.info(`Bearer token   | ${token}`);
-  console.info(cyan + "| -------------------------------------------------- " + reset);
+  console.info(
+    cyan + "| -------------------------------------------------- " + reset
+  );
 
   // ローディングUIを表示させるために0.4秒待つ
   await new Promise((resolve) => setTimeout(resolve, 400));

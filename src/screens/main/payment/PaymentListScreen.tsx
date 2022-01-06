@@ -8,7 +8,9 @@ import { useGetSWRdev, useThemeColor } from "src/hooks";
 import type { PaymentScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
-export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (props) => {
+export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
+  props
+) => {
   const color = useThemeColor({}, "text2");
   const { data, isError, isLoading } = useGetSWRdev<Payment[]>("/payment");
 
@@ -23,12 +25,20 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (props)
       <ListItem style={styles.list} onPress={onNavigation}>
         <View style={styles.leftLayout}>
           <Text style={styles.shopName}>{item.Shop.shopName}</Text>
-          <Text style={styles.date} lightTextColor={color} darkTextColor={color}>
+          <Text
+            style={styles.date}
+            lightTextColor={color}
+            darkTextColor={color}
+          >
             2021/12/01
           </Text>
         </View>
         <View style={styles.rightLayout}>
-          <Text style={styles.frequency} lightTextColor={color} darkTextColor={color}>
+          <Text
+            style={styles.frequency}
+            lightTextColor={color}
+            darkTextColor={color}
+          >
             1回払い
           </Text>
           <Text style={styles.price}>
@@ -49,7 +59,11 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (props)
       ) : !data ? (
         <Text>データがありません</Text>
       ) : data ? (
-        <FlatList data={data} renderItem={renderItem} keyExtractor={(item, _) => String(item.id)} />
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item, _) => String(item.id)}
+        />
       ) : null}
     </SafeAreaLayout>
   );

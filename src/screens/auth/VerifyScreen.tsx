@@ -39,7 +39,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
       const { statusCode, response } = await requestFetcher<VerifyAuth>(
         "/auth/verify",
         requestBody,
-        "POST",
+        "POST"
       );
       if (statusCode >= 400) {
         toast("エラーが発生しました", {
@@ -64,7 +64,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
       setIsCertified(true);
       props.navigation.navigate("UserInfoRegister");
     },
-    [props],
+    [props]
   );
 
   const onNavigate = useCallback(() => {
@@ -75,7 +75,11 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
     <AuthLayout>
       <Text style={textStyles.title}>確認コード</Text>
 
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         ６桁の番号を入力してください
       </Text>
       <Controller
@@ -105,7 +109,9 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
           />
         )}
       />
-      {errors.verifyCode && <ErrorMessage message={errors.verifyCode.message} />}
+      {errors.verifyCode && (
+        <ErrorMessage message={errors.verifyCode.message} />
+      )}
 
       <ColorButton
         title={isCertified ? "登録へ進む" : "送信"}
@@ -114,7 +120,11 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
         onPress={isCertified ? onNavigate : handleSubmit(onSubmitPress)}
       />
       {isCertified ? (
-        <Text lightTextColor={color} darkTextColor={color} style={textStyles.error}>
+        <Text
+          lightTextColor={color}
+          darkTextColor={color}
+          style={textStyles.error}
+        >
           登録済みです
         </Text>
       ) : null}

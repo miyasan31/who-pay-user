@@ -11,7 +11,11 @@ import type { SettingScreenProps } from "types";
 type List = {
   id: string;
   label: string;
-  screen: "AccountSetting" | "CreditSetting" | "PasscodeSetting" | "VoiceRecordSetting";
+  screen:
+    | "AccountSetting"
+    | "CreditSetting"
+    | "PasscodeSetting"
+    | "VoiceRecordSetting";
 };
 
 const data: Readonly<List[]> = [
@@ -20,7 +24,9 @@ const data: Readonly<List[]> = [
   { id: "3", screen: "VoiceRecordSetting", label: "声紋認証" },
 ];
 
-export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (props) => {
+export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (
+  props
+) => {
   const icon1 = useThemeColor({}, "icon1");
   const accent = useThemeColor({}, "accent");
   const { onSignoutDialog } = useSignout();
@@ -34,10 +40,18 @@ export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (pr
     <Layout style={styles.full}>
       {data.map((item) => {
         return (
-          <ListItem key={item.id} style={styles.list} onPress={() => onNavigation(item.screen)}>
+          <ListItem
+            key={item.id}
+            style={styles.list}
+            onPress={() => onNavigation(item.screen)}
+          >
             <View style={styles.listbox}>
               <Text style={styles.key}>{item.label}</Text>
-              <MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                size={24}
+                color={icon1}
+              />
             </View>
           </ListItem>
         );
@@ -45,7 +59,11 @@ export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (pr
 
       <ListItem style={styles.list} onPress={onSignoutDialog}>
         <View style={[styles.listbox, styles.borderNone]}>
-          <Text style={styles.key} lightTextColor={accent} darkTextColor={accent}>
+          <Text
+            style={styles.key}
+            lightTextColor={accent}
+            darkTextColor={accent}
+          >
             サインアウト
           </Text>
         </View>

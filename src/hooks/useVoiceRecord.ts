@@ -36,7 +36,9 @@ export const useVoiceRecord = (props: Props) => {
   const onStartRecording = useCallback(async () => {
     if (audioPerm) {
       try {
-        await recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+        await recording.prepareToRecordAsync(
+          Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        );
         await recording.startAsync();
 
         setisRecording(true);
@@ -76,7 +78,11 @@ export const useVoiceRecord = (props: Props) => {
           User: { connect: { id: userInfo.id } },
           voiceFile: base64,
         };
-        const { statusCode } = await requestFetcher("/voice", requestBody, "POST");
+        const { statusCode } = await requestFetcher(
+          "/voice",
+          requestBody,
+          "POST"
+        );
 
         if (statusCode >= 400) {
           toast("エラーが発生しました", {

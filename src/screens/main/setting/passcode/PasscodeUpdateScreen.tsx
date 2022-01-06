@@ -9,22 +9,31 @@ import { usePasscodeUpsert, useThemeColor } from "src/hooks";
 import { buttonStyles } from "src/styles";
 import type { PasscodeScreenProps } from "types";
 
-export const PasscodeUpdateScreen: VFC<PasscodeScreenProps<"PasscodeUpdate">> = (props) => {
+export const PasscodeUpdateScreen: VFC<
+  PasscodeScreenProps<"PasscodeUpdate">
+> = (props) => {
   const color = useThemeColor({}, "text2");
   const backGroundColor = useThemeColor({}, "bg1");
 
-  const { passcode, secretView, onClick, onDelete, onSubmit } = usePasscodeUpsert({
-    ...props,
-    screen: "PasscodeUpdate",
-  });
+  const { passcode, secretView, onClick, onDelete, onSubmit } =
+    usePasscodeUpsert({
+      ...props,
+      screen: "PasscodeUpdate",
+    });
 
   return (
     <Layout>
       <Text style={styles.passCodeTitle}>
-        {passcode.isVerify ? "確認のためもう一度入力してください" : "パスワードを入力してください"}
+        {passcode.isVerify
+          ? "確認のためもう一度入力してください"
+          : "パスワードを入力してください"}
       </Text>
 
-      <View lightBgColor={backGroundColor} darkBgColor={backGroundColor} style={styles.priceArea}>
+      <View
+        lightBgColor={backGroundColor}
+        darkBgColor={backGroundColor}
+        style={styles.priceArea}
+      >
         <Text style={styles.priceText}>{secretView}</Text>
       </View>
 

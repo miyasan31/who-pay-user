@@ -10,7 +10,11 @@ export const SignupScreen: VFC<AuthScreenProps<"Signup">> = (props) => {
 
   return (
     <AuthLayout tab={<Tab />}>
-      {select === "email" ? <SignupEmailForm {...props} /> : <SignupPhoneForm {...props} />}
+      {select === "email" ? (
+        <SignupEmailForm {...props} />
+      ) : (
+        <SignupPhoneForm {...props} />
+      )}
     </AuthLayout>
   );
 };

@@ -41,7 +41,7 @@ export const SignupEmailForm: VFC<any> = (props) => {
       const { statusCode, response } = await requestFetcher<VerifyAuth>(
         "/auth/signup/email",
         requestBody,
-        "POST",
+        "POST"
       );
 
       if (statusCode >= 400) {
@@ -67,12 +67,16 @@ export const SignupEmailForm: VFC<any> = (props) => {
 
       props.navigation.navigate("UserInfoRegister");
     },
-    [props],
+    [props]
   );
 
   return (
     <>
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         メールアドレス
       </Text>
 
@@ -101,7 +105,11 @@ export const SignupEmailForm: VFC<any> = (props) => {
       />
       {errors.email && <ErrorMessage message={errors.email.message} />}
 
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         パスワード
       </Text>
       <Controller

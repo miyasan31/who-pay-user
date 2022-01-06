@@ -7,9 +7,9 @@ import { Layout } from "src/components/layout";
 import { useThemeColor, useVoiceRecord } from "src/hooks";
 import type { VoiceRecordScreenProps } from "types";
 
-export const VoiceRecordUpdateScreen: VFC<VoiceRecordScreenProps<"VoiceRecordUpdate">> = (
-  props,
-) => {
+export const VoiceRecordUpdateScreen: VFC<
+  VoiceRecordScreenProps<"VoiceRecordUpdate">
+> = (props) => {
   const primary = useThemeColor({}, "primary");
   const accent = useThemeColor({}, "accent");
 

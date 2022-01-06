@@ -11,7 +11,9 @@ import { useThemeColor } from "src/hooks";
 import { buttonStyles } from "src/styles";
 import type { AccountScreenProps } from "types";
 
-export const AccountUpdateScreen: VFC<AccountScreenProps<"AccountUpdate">> = () => {
+export const AccountUpdateScreen: VFC<
+  AccountScreenProps<"AccountUpdate">
+> = () => {
   const accent = useThemeColor({}, "accent");
   // const setUserInfo = useSetRecoilState(user);
 

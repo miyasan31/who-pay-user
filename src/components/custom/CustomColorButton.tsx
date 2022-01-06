@@ -1,6 +1,9 @@
 import type { VFC } from "react";
 import React, { memo } from "react";
-import { StyleSheet, TouchableOpacity as NativeTouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity as NativeTouchableOpacity,
+} from "react-native";
 import type { TextProps } from "src/components/custom/CustomText";
 import { CustomText as Text } from "src/components/custom/CustomText";
 import { CustomView as View } from "src/components/custom/CustomView";
@@ -30,8 +33,14 @@ export const CustomColorButton: VFC<ColorButtonProps> = memo((props) => {
     onPress,
   } = props;
 
-  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "primary");
-  const color = useThemeColor({ light: lightTextColor, dark: darkTextColor }, "text3");
+  const backgroundColor = useThemeColor(
+    { light: lightBgColor, dark: darkBgColor },
+    "primary"
+  );
+  const color = useThemeColor(
+    { light: lightTextColor, dark: darkTextColor },
+    "text3"
+  );
 
   return (
     <View style={[defaultStyles.outline, outlineStyle]}>

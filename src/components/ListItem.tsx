@@ -1,6 +1,9 @@
 import type { ReactNode, VFC } from "react";
 import React, { memo } from "react";
-import { StyleSheet, TouchableOpacity as NativeTouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity as NativeTouchableOpacity,
+} from "react-native";
 import { useThemeColor } from "src/hooks";
 import type { StyleProps } from "types/style";
 
@@ -13,7 +16,10 @@ export type ColorButtonProps = StyleProps &
 export const ListItem: VFC<ColorButtonProps> = memo((props) => {
   const { style, lightBgColor, darkBgColor, ...otherProps } = props;
 
-  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg1");
+  const backgroundColor = useThemeColor(
+    { light: lightBgColor, dark: darkBgColor },
+    "bg1"
+  );
 
   return (
     <NativeTouchableOpacity

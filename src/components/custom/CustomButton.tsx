@@ -18,7 +18,10 @@ export const CustomButton: VFC<ButtonProps> = memo((props) => {
     ...otherProps
   } = props;
 
-  const textColor = useThemeColor({ light: lightTextColor, dark: darkTextColor }, "text1");
+  const textColor = useThemeColor(
+    { light: lightTextColor, dark: darkTextColor },
+    "text1"
+  );
 
   return (
     <NativeButton

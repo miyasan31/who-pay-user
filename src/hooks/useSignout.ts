@@ -23,7 +23,11 @@ export const useSignout = () => {
       icon: "💁‍♂️",
     });
     const tokenResult = await getSequreStore("access_token");
-    const { statusCode } = await requestFetcher("/auth/signout", { token: tokenResult }, "POST");
+    const { statusCode } = await requestFetcher(
+      "/auth/signout",
+      { token: tokenResult },
+      "POST"
+    );
     if (statusCode >= 400) {
       toast("エラーが発生しました", {
         id: toastId,

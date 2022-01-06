@@ -30,14 +30,15 @@ export const usePasscodeUpsert = (props: Props) => {
     (number?: string) => {
       setPasscode((prevPrice) => {
         if (prevPrice[result].length === 4) return prevPrice;
-        if (number && prevPrice[result] === "" && ["00"].includes(number)) return prevPrice;
+        if (number && prevPrice[result] === "" && ["00"].includes(number))
+          return prevPrice;
         return {
           ...prevPrice,
           [result]: prevPrice[result] + number,
         };
       });
     },
-    [result],
+    [result]
   );
 
   const onDelete = useCallback(() => {
@@ -92,7 +93,11 @@ export const usePasscodeUpsert = (props: Props) => {
     });
 
     const requestBody = { passcode: passcode.verify };
-    const { statusCode } = await requestFetcher(`/user/${userInfo.id}`, requestBody, "PUT");
+    const { statusCode } = await requestFetcher(
+      `/user/${userInfo.id}`,
+      requestBody,
+      "PUT"
+    );
 
     if (statusCode >= 400) {
       toast("エラーが発生しました", {

@@ -47,7 +47,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       const { statusCode, response } = await requestFetcher<User>(
         "/auth/signin/user",
         requestBody,
-        "POST",
+        "POST"
       );
 
       if (statusCode >= 400) {
@@ -71,12 +71,16 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
         isSignin: true,
       }));
     },
-    [select],
+    [select]
   );
 
   return (
     <AuthLayout tab={<Tab />}>
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         {select === "phone" ? "電話番号" : "メールアドレス"}
       </Text>
 
@@ -128,7 +132,11 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       {errors.phone && <ErrorMessage message={errors.phone.message} />}
       {errors.email && <ErrorMessage message={errors.email.message} />}
 
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         パスワード
       </Text>
       <Controller

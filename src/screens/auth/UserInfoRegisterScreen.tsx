@@ -22,7 +22,9 @@ type FormDataType = {
   phone?: string;
 };
 
-export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = () => {
+export const UserInfoRegisterScreen: VFC<
+  AuthScreenProps<"UserInfoRegister">
+> = () => {
   const color = useThemeColor({}, "text2");
   const [userInfo, setUserInfo] = useRecoilState(user);
 
@@ -48,7 +50,7 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = 
     const { statusCode, response } = await requestFetcher<User>(
       "/auth/register/user",
       requestBody,
-      "POST",
+      "POST"
     );
 
     if (statusCode >= 400) {
@@ -79,7 +81,11 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = 
 
       <View style={viewStyles.horizontal}>
         <View style={viewStyles.flex1}>
-          <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+          <Text
+            lightTextColor={color}
+            darkTextColor={color}
+            style={textStyles.label}
+          >
             姓
           </Text>
           <Controller
@@ -101,13 +107,19 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = 
               />
             )}
           />
-          {errors.firstName && <ErrorMessage message={errors.firstName.message} />}
+          {errors.firstName && (
+            <ErrorMessage message={errors.firstName.message} />
+          )}
         </View>
 
         <View style={viewStyles.space}></View>
 
         <View style={viewStyles.flex1}>
-          <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+          <Text
+            lightTextColor={color}
+            darkTextColor={color}
+            style={textStyles.label}
+          >
             名
           </Text>
           <Controller
@@ -129,11 +141,17 @@ export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = 
               />
             )}
           />
-          {errors.lastName && <ErrorMessage message={errors.lastName.message} />}
+          {errors.lastName && (
+            <ErrorMessage message={errors.lastName.message} />
+          )}
         </View>
       </View>
 
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         {userInfo.email ? "電話番号" : "メールアドレス"}
       </Text>
       {userInfo.email ? (

@@ -34,7 +34,11 @@ export const SignupPhoneForm: VFC<any> = (props) => {
         phone: "81" + body.phone,
         password: hashedPassword,
       };
-      const { statusCode } = await authRequestFetcher("/auth/signup/phone", requestBody, "POST");
+      const { statusCode } = await authRequestFetcher(
+        "/auth/signup/phone",
+        requestBody,
+        "POST"
+      );
 
       if (statusCode >= 400) {
         toast.error("エラーが発生しました", {
@@ -52,12 +56,16 @@ export const SignupPhoneForm: VFC<any> = (props) => {
 
       props.navigation.navigate("Verify", { phone: body.phone });
     },
-    [props],
+    [props]
   );
 
   return (
     <>
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         電話番号
       </Text>
 
@@ -82,7 +90,11 @@ export const SignupPhoneForm: VFC<any> = (props) => {
       />
       {errors.phone && <ErrorMessage message={errors.phone.message} />}
 
-      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
+      <Text
+        lightTextColor={color}
+        darkTextColor={color}
+        style={textStyles.label}
+      >
         パスワード
       </Text>
       <Controller

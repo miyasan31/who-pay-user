@@ -8,7 +8,9 @@ import { useGetSWRdev } from "src/hooks";
 import type { PaymentScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
-export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (props) => {
+export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (
+  props
+) => {
   const { id } = props.route.params;
   const { data, isError, isLoading } = useGetSWRdev<Payment>(`/payment/${id}`);
 
@@ -49,7 +51,11 @@ export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (pr
             <Text style={styles.value}>本人</Text>
           </View>
 
-          <TouchableOpacity style={styles.btn} activeOpacity={0.4} onPress={onPress}>
+          <TouchableOpacity
+            style={styles.btn}
+            activeOpacity={0.4}
+            onPress={onPress}
+          >
             <Text style={styles.btnLabel}>
               身に覚えがない場合は
               <Text style={styles.kochira}>こちら</Text>
