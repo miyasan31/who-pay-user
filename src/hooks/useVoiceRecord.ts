@@ -103,6 +103,8 @@ export const useVoiceRecord = (props: Props) => {
 			// 録音状態をfalseにする
 			setisRecording(false);
 
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+
 			props.navigation.navigate("VoiceRecordSettingSelect");
 		} catch (error) {
 			console.info(error);
