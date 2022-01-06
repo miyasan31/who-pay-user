@@ -6,20 +6,20 @@ import { StyleSheet } from "react-native";
 import { TabBarIcon } from "src/components/icon";
 import { useColorScheme } from "src/hooks";
 import { useThemeColor } from "src/hooks/useThemeColor";
-import { HomeNavigator } from "src/screens/home";
-import { PaymentNavigator } from "src/screens/payment";
-import { SettingNavigator } from "src/screens/setting";
+import { HomeNavigator } from "src/screens/main/home";
+import { PaymentNavigator } from "src/screens/main/payment";
+import { SettingNavigator } from "src/screens/main/setting";
 import { theme } from "src/styles";
-import type { BottomTabParamList } from "types";
+import type { MainBottomTabParamList } from "types";
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const MainBottomTab = createBottomTabNavigator<MainBottomTabParamList>();
 
-export const BottomTabNavigator: VFC = () => {
+export const MainBottomTabNavigator: VFC = () => {
 	const colorScheme = useColorScheme();
 	const bg1 = useThemeColor({}, "bg1");
 
 	return (
-		<BottomTab.Navigator
+		<MainBottomTab.Navigator
 			initialRouteName="Top"
 			screenOptions={{
 				headerShown: false,
@@ -30,7 +30,7 @@ export const BottomTabNavigator: VFC = () => {
 				),
 			}}
 		>
-			<BottomTab.Screen
+			<MainBottomTab.Screen
 				name="Top"
 				component={HomeNavigator}
 				options={{
@@ -40,7 +40,7 @@ export const BottomTabNavigator: VFC = () => {
 					),
 				}}
 			/>
-			<BottomTab.Screen
+			<MainBottomTab.Screen
 				name="Payment"
 				component={PaymentNavigator}
 				options={() => ({
@@ -51,7 +51,7 @@ export const BottomTabNavigator: VFC = () => {
 				})}
 			/>
 
-			<BottomTab.Screen
+			<MainBottomTab.Screen
 				name="Setting"
 				component={SettingNavigator}
 				options={() => ({
@@ -61,6 +61,6 @@ export const BottomTabNavigator: VFC = () => {
 					),
 				})}
 			/>
-		</BottomTab.Navigator>
+		</MainBottomTab.Navigator>
 	);
 };

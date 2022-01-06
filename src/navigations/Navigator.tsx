@@ -2,20 +2,19 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { useThemeColor } from "src/hooks";
+import { MainBottomTabNavigator } from "src/screens/main";
 import type { RootStackParamList } from "types";
-
-import { BottomTabNavigator } from "./BottomTabNavigator";
 
 // const Drawer = createDrawerNavigator<RootStackParamList>();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
-export const RootNavigator = () => {
+export const Navigator = () => {
 	const backgroundColor = useThemeColor({}, "bg1");
 	return (
-		<RootStack.Navigator initialRouteName="Root">
+		<RootStack.Navigator initialRouteName="Main">
 			<RootStack.Screen
-				name="Root"
-				component={BottomTabNavigator}
+				name="Main"
+				component={MainBottomTabNavigator}
 				options={{
 					headerShown: false,
 					headerStyle: { backgroundColor: backgroundColor },

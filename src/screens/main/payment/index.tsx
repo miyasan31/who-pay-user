@@ -1,8 +1,3 @@
-// import { PaymentDetailScreen } from "./PaymentDetailScreen";
-// import { PaymentListScreen } from "./PaymentListScreen";
-
-// export { PaymentDetailScreen, PaymentListScreen };
-
 import { MaterialIcons } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { VFC } from "react";

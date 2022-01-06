@@ -4,13 +4,13 @@ import { Progress } from "src/components";
 import { Text } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useGetSWRdev } from "src/hooks";
-import type { BottomTabScreenProps } from "types";
+import type { TopScreenProps } from "types";
 
 type Amount = {
 	value: number;
 };
 
-export const HomeScreen: VFC<BottomTabScreenProps<"Top">> = () => {
+export const HomeScreen: VFC<TopScreenProps<"Home">> = () => {
 	const { data, isError, isLoading } = useGetSWRdev<Amount>("/amount");
 
 	return (
