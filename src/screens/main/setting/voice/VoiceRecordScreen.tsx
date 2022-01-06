@@ -36,7 +36,7 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
 						/>
 					</View>
 					<Text style={styles.subText}>発言するときはマイクボタンを</Text>
-					<Text style={styles.subText}>長押ししてください</Text>
+					<Text style={styles.subText}>押してください</Text>
 				</>
 			) : (
 				<>
