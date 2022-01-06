@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 import { TabBarIcon } from "src/components/icon";
 import { useColorScheme } from "src/hooks";
 import { useThemeColor } from "src/hooks/useThemeColor";
-import { HomeNavigator } from "src/screens/main/home";
+// import { HomeNavigator } from "src/screens/main/home";
 import { PaymentNavigator } from "src/screens/main/payment";
 import { SettingNavigator } from "src/screens/main/setting";
 import { theme } from "src/styles";
@@ -20,7 +20,7 @@ export const MainBottomTabNavigator: VFC = () => {
 
 	return (
 		<MainBottomTab.Navigator
-			initialRouteName="Top"
+			initialRouteName="Payment"
 			screenOptions={{
 				headerShown: false,
 				tabBarActiveTintColor: theme[colorScheme].primary,
@@ -30,7 +30,7 @@ export const MainBottomTabNavigator: VFC = () => {
 				),
 			}}
 		>
-			<MainBottomTab.Screen
+			{/* <MainBottomTab.Screen
 				name="Top"
 				component={HomeNavigator}
 				options={{
@@ -39,7 +39,7 @@ export const MainBottomTabNavigator: VFC = () => {
 						<TabBarIcon name="home-outline" color={color} />
 					),
 				}}
-			/>
+			/> */}
 			<MainBottomTab.Screen
 				name="Payment"
 				component={PaymentNavigator}
