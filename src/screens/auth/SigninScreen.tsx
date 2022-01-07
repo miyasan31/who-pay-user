@@ -32,6 +32,11 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 		formState: { errors },
 	} = useForm<FormDataType>();
 
+	// const secretView = useMemo(() => {
+	// 	const length = passcode[result].length;
+	// 	return "●".repeat(length);
+	// }, []);
+
 	const onSubmitPress = useCallback(
 		async (body: FormDataType) => {
 			const toastId = toast.loading("処理中...", {
@@ -160,6 +165,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 						onChangeText={onChange}
 						value={value}
 						placeholder=""
+						secureTextEntry
 					/>
 				)}
 			/>
