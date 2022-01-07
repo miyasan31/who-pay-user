@@ -3,7 +3,7 @@ import type { VFC } from "react";
 import React from "react";
 import { FlatList, StyleSheet } from "react-native";
 import { useRecoilValue } from "recoil";
-import { user } from "src/atoms";
+import { date, user } from "src/atoms";
 import { ListItem, Progress } from "src/components";
 import { Text, View } from "src/components/custom";
 import { SafeAreaLayout } from "src/components/layout";
@@ -16,10 +16,11 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
 ) => {
 	const color = useThemeColor({}, "text2");
 	const userInfo = useRecoilValue(user);
+	const dateInfo = useRecoilValue(date);
 	const { data, isError, isLoading } = useGetSWR<Payment[]>(
-		`/payment/user/${userInfo.id}`,
+		`/payment/user/${userInfo.id}/${dateInfo.year}/${dateInfo.month}`,
 		{
-			enabled: !!userInfo.id,
+			enabled: !!userInfo.id && !!dateInfo.year && !!dateInfo.month,
 		}
 	);
 
