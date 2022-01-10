@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast/src/core/toast";
 import { Alert } from "react-native";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
+import { SEQURE_TOKEN_KEY } from "src/constants";
 import { requestFetcher } from "src/functions/fetcher";
 import { deleteSequreStore, getSequreStore } from "src/functions/store";
 
@@ -22,7 +23,7 @@ export const useSignout = () => {
     const toastId = toast.loading("処理中...", {
       icon: "💁‍♂️",
     });
-    const tokenResult = await getSequreStore("access_token");
+    const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
     const { statusCode } = await requestFetcher(
       "/auth/signout",
       { token: tokenResult },
@@ -40,8 +41,9 @@ export const useSignout = () => {
       id: toastId,
       icon: "🙆‍♂️",
     });
+
     await new Promise((resolve) => setTimeout(resolve, 400));
-    await deleteSequreStore("access_token");
+    await deleteSequreStore(SEQURE_TOKEN_KEY);
     setUserInfo({
       id: "",
       firstName: "",

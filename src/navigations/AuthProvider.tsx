@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import type { ReactNode, VFC } from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { Progress } from "src/components";
+import { SEQURE_TOKEN_KEY } from "src/constants";
 import { requestFetcher } from "src/functions/fetcher";
 import { getSequreStore, saveSequreStore } from "src/functions/store";
 import { AuthNavigator } from "src/screens/auth";
@@ -19,7 +19,7 @@ export const AuthProvider: VFC<Props> = (props) => {
   const [userInfo, setUserInfo] = useRecoilState(user);
 
   const listenAuthState = useCallback(async () => {
-    const tokenResult = await getSequreStore("access_token");
+    const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
     if (tokenResult) {
       const requestBody = { token: tokenResult };
       const { statusCode, response } = await requestFetcher<User>(
@@ -35,7 +35,7 @@ export const AuthProvider: VFC<Props> = (props) => {
         return;
       }
 
-      await saveSequreStore("access_token", response.token);
+      await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
       await setUserInfo({
         id: response.id,
         firstName: response.firstName,

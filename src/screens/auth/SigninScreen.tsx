@@ -8,6 +8,7 @@ import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
+import { SEQURE_TOKEN_KEY } from "src/constants";
 import { requestFetcher } from "src/functions/fetcher";
 import { saveSequreStore } from "src/functions/store";
 import { useTab, useThemeColor } from "src/hooks";
@@ -70,7 +71,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       });
       await new Promise((resolve) => setTimeout(resolve, 400));
 
-      await saveSequreStore("access_token", response.token);
+      await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
       setUserInfo({
         id: response.id,
         firstName: response.firstName,
