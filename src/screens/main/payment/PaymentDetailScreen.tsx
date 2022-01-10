@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import type { VFC } from "react";
-import React, { useCallback } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { Progress } from "src/components";
 import { Text, View } from "src/components/custom";
@@ -20,9 +20,7 @@ export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (
     }
   );
 
-  const resultDate = useCallback((date: Date) => {
-    return format(new Date(date), "yyyy年M月d日");
-  }, []);
+  const resultDate = (date: Date) => format(new Date(date), "yyyy年M月d日");
 
   return (
     <Layout style={styles.full}>

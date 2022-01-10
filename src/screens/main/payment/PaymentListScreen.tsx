@@ -17,6 +17,7 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
   const color = useThemeColor({}, "text2");
   const userInfo = useRecoilValue(user);
   const dateInfo = useRecoilValue(date);
+
   const { data, isError, isLoading } = useGetSWR<Payment[]>(
     `/payment/user/${userInfo.id}/${dateInfo.year}/${dateInfo.month}`,
     {
@@ -24,13 +25,33 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
     }
   );
 
-  const renderItem = ({ item }: { item: Payment }) => {
+  return (
+    <SafeAreaLayout>
+      {isLoading ? (
+        <Progress />
+      ) : isError ? (
+        <Text>エラーが発生しました</Text>
+      ) : !data ? (
+        <Text>データがありません</Text>
+      ) : data ? (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item, _) => String(item.id)}
+        />
+      ) : null}
+    </SafeAreaLayout>
+  );
+
+  // eslint-disable-next-line func-style
+  function renderItem({ item }: { item: Payment }) {
+    const date = format(new Date(item.updatedAt), "yyyy年M月d日");
+
     const onNavigation = () => {
       props.navigation.navigate("PaymentDetail", {
         id: item.id,
       });
     };
-    const date = format(new Date(item.updatedAt), "yyyy年M月d日");
 
     return (
       <ListItem style={styles.list} onPress={onNavigation}>
@@ -59,38 +80,10 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
         </View>
       </ListItem>
     );
-  };
-
-  return (
-    <SafeAreaLayout>
-      {isLoading ? (
-        <Progress />
-      ) : isError ? (
-        <Text>エラーが発生しました</Text>
-      ) : !data ? (
-        <Text>データがありません</Text>
-      ) : data ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item, _) => String(item.id)}
-        />
-      ) : null}
-    </SafeAreaLayout>
-  );
+  }
 };
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: "center",
-    justifyContent: "center",
-
-    height: 60,
-    width: "100%",
-
-    borderBottomWidth: 1,
-    borderBottomColor: "#b3b3b333",
-  },
   list: {
     flex: 1,
     flexDirection: "row",
