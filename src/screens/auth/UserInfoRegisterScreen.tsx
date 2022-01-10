@@ -6,7 +6,12 @@ import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput, View } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
-import { SEQURE_TOKEN_KEY } from "src/constants";
+import {
+  EMAIL_RULE,
+  PHONE_RULE,
+  REQUIRE,
+  SEQURE_TOKEN_KEY,
+} from "src/constants";
 import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -78,12 +83,7 @@ export const UserInfoRegisterScreen: VFC<
             control={control}
             name="firstName"
             defaultValue=""
-            rules={{
-              required: {
-                value: true,
-                message: "必須入力項目です",
-              },
-            }}
+            rules={REQUIRE}
             render={({ field: { onChange, value } }) => (
               <TextInput
                 bgStyle={textInputStyles.half}
@@ -112,12 +112,7 @@ export const UserInfoRegisterScreen: VFC<
             control={control}
             name="lastName"
             defaultValue=""
-            rules={{
-              required: {
-                value: true,
-                message: "必須入力項目です",
-              },
-            }}
+            rules={REQUIRE}
             render={({ field: { onChange, value } }) => (
               <TextInput
                 bgStyle={textInputStyles.half}
@@ -145,18 +140,13 @@ export const UserInfoRegisterScreen: VFC<
           control={control}
           name="phone"
           defaultValue=""
-          rules={{
-            required: {
-              value: true,
-              message: "必須入力項目です",
-            },
-          }}
+          rules={PHONE_RULE}
           render={({ field: { onChange, value } }) => (
             <TextInput
               bgStyle={textInputStyles.bg}
               onChangeText={onChange}
               value={value}
-              placeholder=""
+              placeholder="ハイフンなし"
             />
           )}
         />
@@ -165,22 +155,13 @@ export const UserInfoRegisterScreen: VFC<
           control={control}
           name="email"
           defaultValue=""
-          rules={{
-            required: {
-              value: true,
-              message: "必須入力項目です",
-            },
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "メールアドレスの形式が正しくありません",
-            },
-          }}
+          rules={EMAIL_RULE}
           render={({ field: { onChange, value } }) => (
             <TextInput
               bgStyle={textInputStyles.bg}
               onChangeText={onChange}
               value={value}
-              placeholder=""
+              placeholder="example@co.jp"
             />
           )}
         />

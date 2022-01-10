@@ -7,7 +7,12 @@ import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
-import { SEQURE_TOKEN_KEY } from "src/constants";
+import {
+  EMAIL_RULE,
+  PASSWORD_RULE,
+  PHONE_RULE,
+  SEQURE_TOKEN_KEY,
+} from "src/constants";
 import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useTab, useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -70,20 +75,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
           control={control}
           name="phone"
           defaultValue=""
-          rules={{
-            required: {
-              value: true,
-              message: "必須入力項目です",
-            },
-            minLength: {
-              value: 11,
-              message: "11桁で入力してください",
-            },
-            maxLength: {
-              value: 11,
-              message: "6桁の認証コードを入力してください",
-            },
-          }}
+          rules={PHONE_RULE}
           render={({ field: { onChange, value } }) => (
             <TextInput
               bgStyle={textInputStyles.bg}
@@ -98,16 +90,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
           control={control}
           name="email"
           defaultValue=""
-          rules={{
-            required: {
-              value: true,
-              message: "必須入力項目です",
-            },
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "メールアドレスの形式が正しくありません",
-            },
-          }}
+          rules={EMAIL_RULE}
           render={({ field: { onChange, value } }) => (
             <TextInput
               bgStyle={textInputStyles.bg}
@@ -132,20 +115,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
         control={control}
         name="password"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          minLength: {
-            value: 8,
-            message: "パスワードは8文字以上です",
-          },
-          pattern: {
-            value: /^[a-zA-Z0-9]+$/,
-            message: "パスワードは半角英数字です",
-          },
-        }}
+        rules={PASSWORD_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}

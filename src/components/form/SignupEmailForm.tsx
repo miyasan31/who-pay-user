@@ -6,6 +6,7 @@ import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
+import { EMAIL_RULE, PASSWORD_RULE } from "src/constants";
 import { requestFetcher, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -69,16 +70,7 @@ export const SignupEmailForm: VFC<any> = (props) => {
         control={control}
         name="email"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "メールアドレスの形式が正しくありません",
-          },
-        }}
+        rules={EMAIL_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}
@@ -101,20 +93,7 @@ export const SignupEmailForm: VFC<any> = (props) => {
         control={control}
         name="password"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          minLength: {
-            value: 8,
-            message: "パスワードは8文字以上です",
-          },
-          pattern: {
-            value: /^[a-zA-Z0-9]+$/,
-            message: "パスワードは半角英数字です",
-          },
-        }}
+        rules={PASSWORD_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}

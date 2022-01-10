@@ -6,6 +6,7 @@ import { user } from "src/atoms";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
 import { AuthLayout } from "src/components/layout";
+import { VERIFY_RULE } from "src/constants";
 import { requestFetcher, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -77,20 +78,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
         control={control}
         name="verifyCode"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          minLength: {
-            value: 6,
-            message: "6桁の認証コードを入力してください",
-          },
-          maxLength: {
-            value: 6,
-            message: "6桁の認証コードを入力してください",
-          },
-        }}
+        rules={VERIFY_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}

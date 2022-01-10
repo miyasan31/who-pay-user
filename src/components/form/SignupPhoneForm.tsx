@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
+import { PASSWORD_RULE, PHONE_RULE } from "src/constants";
 import { authRequestFetcher, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -59,20 +60,7 @@ export const SignupPhoneForm: VFC<any> = (props) => {
         control={control}
         name="phone"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          minLength: {
-            value: 11,
-            message: "11桁の数字で入力してください",
-          },
-          maxLength: {
-            value: 11,
-            message: "11桁の数字で入力してください",
-          },
-        }}
+        rules={PHONE_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}
@@ -95,20 +83,7 @@ export const SignupPhoneForm: VFC<any> = (props) => {
         control={control}
         name="password"
         defaultValue=""
-        rules={{
-          required: {
-            value: true,
-            message: "必須入力項目です",
-          },
-          minLength: {
-            value: 8,
-            message: "パスワードは8文字以上です",
-          },
-          pattern: {
-            value: /^[a-zA-Z0-9]+$/,
-            message: "パスワードは半角英数字です",
-          },
-        }}
+        rules={PASSWORD_RULE}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}
