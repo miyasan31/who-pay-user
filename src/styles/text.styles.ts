@@ -21,4 +21,11 @@ export const textStyles = StyleSheet.create({
     fontSize: 12,
     textAlign: "right",
   },
+  fetchResult: {
+    paddingVertical: 15,
+    paddingLeft: 15,
+    fontSize: 20,
+    fontWeight: "normal",
+    textAlign: "left",
+  },
 });

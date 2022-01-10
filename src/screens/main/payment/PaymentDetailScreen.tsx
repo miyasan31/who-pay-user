@@ -6,6 +6,7 @@ import { Progress } from "src/components";
 import { Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
 import { useGetSWR } from "src/hooks";
+import { textStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 import type { PaymentDetail } from "types/fetcher";
 
@@ -27,9 +28,7 @@ export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (
       {isLoading ? (
         <Progress />
       ) : isError ? (
-        <Text>エラーが発生しました</Text>
-      ) : !data ? (
-        <Text>データがありません</Text>
+        <Text style={textStyles.fetchResult}>エラーが発生しました</Text>
       ) : data ? (
         <>
           <View style={styles.box1}>

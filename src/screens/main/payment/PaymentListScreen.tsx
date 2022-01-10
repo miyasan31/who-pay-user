@@ -8,6 +8,7 @@ import { ListItem, Progress } from "src/components";
 import { Text, View } from "src/components/custom";
 import { SafeAreaLayout } from "src/components/layout";
 import { useGetSWR, useThemeColor } from "src/hooks";
+import { textStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
@@ -30,9 +31,9 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
       {isLoading ? (
         <Progress />
       ) : isError ? (
-        <Text>エラーが発生しました</Text>
-      ) : !data ? (
-        <Text>データがありません</Text>
+        <Text style={textStyles.fetchResult}>エラーが発生しました</Text>
+      ) : data?.length === 0 ? (
+        <Text style={textStyles.fetchResult}>データがありません</Text>
       ) : data ? (
         <FlatList
           data={data}
