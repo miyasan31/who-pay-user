@@ -11,6 +11,8 @@ import type {
   CreditStackParamList,
   PasscodeScreenProps,
   PasscodeStackParamList,
+  PaymentScreenProps,
+  PaymentStackParamList,
   VoiceRecordScreenProps,
   VoiceRecordStackParamList,
 } from "types";
@@ -20,8 +22,10 @@ type PrevProps = (
   | VoiceRecordScreenProps<keyof VoiceRecordStackParamList>
   | PasscodeScreenProps<keyof PasscodeStackParamList>
   | CreditScreenProps<keyof CreditStackParamList>
+  | PaymentScreenProps<keyof PaymentStackParamList>
 ) & {
   screen:
+    | "PaymentList"
     | "SettingSelect"
     | "Account"
     | "Credit"
