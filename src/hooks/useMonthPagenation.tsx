@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import type { VFC } from "react";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { useRecoilState } from "recoil";
 import { date } from "src/atoms";
@@ -11,6 +11,12 @@ export const useMonthPagenation = () => {
   const icon1 = useThemeColor({}, "icon1");
 
   const [dateInfo, setDateInfo] = useRecoilState(date);
+
+  const prevLabel = dateInfo.month === 1 ? 12 : dateInfo.month - 1;
+  const nextLabel = dateInfo.month === 12 ? 1 : dateInfo.month + 1;
+  const isThisMonth =
+    new Date().getFullYear() === dateInfo.year &&
+    new Date().getMonth() + 1 === dateInfo.month;
 
   const onPrevMonth = useCallback(() => {
     setDateInfo((prev) => {
@@ -29,25 +35,6 @@ export const useMonthPagenation = () => {
       };
     });
   }, []);
-
-  const prevLabel = useMemo(() => {
-    return dateInfo.month === 1 ? 12 : dateInfo.month - 1;
-  }, [dateInfo]);
-
-  const nextLabel = useMemo(() => {
-    return dateInfo.month === 12 ? 1 : dateInfo.month + 1;
-  }, [dateInfo]);
-
-  const isThisMonth = useMemo(() => {
-    if (
-      new Date().getFullYear() === dateInfo.year &&
-      new Date().getMonth() + 1 === dateInfo.month
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  }, [nextLabel, dateInfo]);
 
   const PrevMounth: VFC = () => {
     return (
@@ -85,16 +72,7 @@ export const useMonthPagenation = () => {
     );
   };
 
-  return {
-    dateInfo,
-    onPrevMonth,
-    onNextMonth,
-    prevLabel,
-    nextLabel,
-    isThisMonth,
-    PrevMounth,
-    NextMounth,
-  };
+  return { dateInfo, isThisMonth, PrevMounth, NextMounth };
 };
 
 const styles = StyleSheet.create({
