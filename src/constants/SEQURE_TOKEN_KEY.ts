@@ -1,0 +1,3 @@
+import { REACT_NATIVE_PUBLIC_SEQURE_TOKEN_KEY } from "@env";
+
+export const SEQURE_TOKEN_KEY = REACT_NATIVE_PUBLIC_SEQURE_TOKEN_KEY as string;
