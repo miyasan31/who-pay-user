@@ -8,12 +8,13 @@ import type { AuthScreenProps } from "types";
 export const SigninActionScreen: VFC<AuthScreenProps<"SigninAction">> = (
   props
 ) => {
-  const onNavigate = useCallback(
-    (screen: "Signin" | "Signup") => {
-      props.navigation.navigate(screen);
-    },
-    [props]
-  );
+  const onNavigateSignin = useCallback(() => {
+    props.navigation.navigate("Signin");
+  }, [props]);
+
+  const onNavigateSignup = useCallback(() => {
+    props.navigation.navigate("Signup");
+  }, [props]);
 
   return (
     <AuthLayout>
@@ -25,12 +26,12 @@ export const SigninActionScreen: VFC<AuthScreenProps<"SigninAction">> = (
       <ColorButton
         title="サインイン"
         outlineStyle={buttonStyles.outline}
-        onPress={() => onNavigate("Signin")}
+        onPress={onNavigateSignin}
       />
       <ColorButton
         title="サインアップ"
         outlineStyle={buttonStyles.outline}
-        onPress={() => onNavigate("Signup")}
+        onPress={onNavigateSignup}
       />
     </AuthLayout>
   );
