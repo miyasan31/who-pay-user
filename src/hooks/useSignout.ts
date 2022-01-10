@@ -1,11 +1,14 @@
 import { useCallback } from "react";
-import { toast } from "react-hot-toast/src/core/toast";
 import { Alert } from "react-native";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { SEQURE_TOKEN_KEY } from "src/constants";
-import { requestFetcher } from "src/functions/fetcher";
-import { deleteSequreStore, getSequreStore } from "src/functions/store";
+import {
+  deleteSequreStore,
+  getSequreStore,
+  requestFetcher,
+  ToastKit,
+} from "src/functions";
 
 export const useSignout = () => {
   const setUserInfo = useSetRecoilState(user);
@@ -20,27 +23,16 @@ export const useSignout = () => {
   }, []);
 
   const onSignout = useCallback(async () => {
-    const toastId = toast.loading("処理中...", {
-      icon: "💁‍♂️",
-    });
+    const { ErrorToast, SuccessToast } = ToastKit();
+
     const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
     const { statusCode } = await requestFetcher(
       "/auth/signout",
       { token: tokenResult },
       "POST"
     );
-    if (statusCode >= 400) {
-      toast("エラーが発生しました", {
-        id: toastId,
-        icon: "🤦‍♂️",
-      });
-      return;
-    }
-    toast.success("サインアウトしました", {
-      duration: 1500,
-      id: toastId,
-      icon: "🙆‍♂️",
-    });
+    if (statusCode >= 400) return ErrorToast("エラーが発生しました");
+    SuccessToast("サインアウトしました", 1500);
 
     await new Promise((resolve) => setTimeout(resolve, 400));
     await deleteSequreStore(SEQURE_TOKEN_KEY);
@@ -55,7 +47,5 @@ export const useSignout = () => {
     });
   }, []);
 
-  return {
-    onSignoutDialog,
-  };
+  return { onSignoutDialog };
 };

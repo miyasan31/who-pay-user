@@ -2,15 +2,13 @@ import sha512 from "js-sha512";
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast/src/core/toast";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
 import { SEQURE_TOKEN_KEY } from "src/constants";
-import { requestFetcher } from "src/functions/fetcher";
-import { saveSequreStore } from "src/functions/store";
+import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useTab, useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -29,60 +27,32 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
 
   const {
     control,
-    handleSubmit,
+    handleSubmit: onSubmit,
     formState: { errors },
   } = useForm<FormDataType>();
 
-  // const secretView = useMemo(() => {
-  // 	const length = passcode[result].length;
-  // 	return "●".repeat(length);
-  // }, []);
-
   const onSubmitPress = useCallback(
     async (body: FormDataType) => {
-      const toastId = toast.loading("処理中...", {
-        icon: "💁‍♂️",
-      });
+      const { ErrorToast, SuccessToast } = ToastKit();
 
-      const hashedPassword = sha512(body.password);
-      const requestBody = {
-        phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
-        password: hashedPassword,
-        key: select,
-      };
       const { statusCode, response } = await requestFetcher<User>(
         "/auth/signin/user",
-        requestBody,
+        {
+          phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
+          password: sha512(body.password),
+          key: select,
+        },
         "POST"
       );
 
-      if (statusCode >= 400) {
-        toast.error("エラーが発生しました", {
-          id: toastId,
-          icon: "🤦‍♂️",
-        });
-        return;
-      }
+      if (statusCode >= 400) return ErrorToast("サインインに失敗しました");
+      SuccessToast("サインインしました", 1500);
 
-      toast.success("サインインしました", {
-        duration: 1500,
-        id: toastId,
-        icon: "🙆‍♂️",
-      });
       await new Promise((resolve) => setTimeout(resolve, 400));
-
       await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
-      setUserInfo({
-        id: response.id,
-        firstName: response.firstName,
-        lastName: response.lastName,
-        email: response.email,
-        phone: response.phone,
-        token: response.token,
-        isSignin: true,
-      });
+      setUserInfo({ ...response, isSignin: true });
     },
-    [select]
+    [select, setUserInfo]
   );
 
   return (
@@ -105,13 +75,21 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
               value: true,
               message: "必須入力項目です",
             },
+            minLength: {
+              value: 11,
+              message: "11桁で入力してください",
+            },
+            maxLength: {
+              value: 11,
+              message: "6桁の認証コードを入力してください",
+            },
           }}
           render={({ field: { onChange, value } }) => (
             <TextInput
               bgStyle={textInputStyles.bg}
               onChangeText={onChange}
               value={value}
-              placeholder=""
+              placeholder="ハイフンなし"
             />
           )}
         />
@@ -135,7 +113,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
               bgStyle={textInputStyles.bg}
               onChangeText={onChange}
               value={value}
-              placeholder=""
+              placeholder="example@co.jp"
             />
           )}
         />
@@ -159,13 +137,21 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
             value: true,
             message: "必須入力項目です",
           },
+          minLength: {
+            value: 8,
+            message: "パスワードは8文字以上です",
+          },
+          pattern: {
+            value: /^[a-zA-Z0-9]+$/,
+            message: "パスワードは半角英数字です",
+          },
         }}
         render={({ field: { onChange, value } }) => (
           <TextInput
             bgStyle={textInputStyles.bg}
             onChangeText={onChange}
             value={value}
-            placeholder=""
+            placeholder="8文字以上の半角英数字"
             secureTextEntry
           />
         )}
@@ -175,8 +161,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       <ColorButton
         title="サインイン"
         outlineStyle={buttonStyles.outline}
-        // eslint-disable-next-line react/jsx-handler-names
-        onPress={handleSubmit(onSubmitPress)}
+        onPress={onSubmit(onSubmitPress)}
       />
     </AuthLayout>
   );

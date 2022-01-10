@@ -1,15 +1,13 @@
 import type { VFC } from "react";
 import React, { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput, View } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
 import { SEQURE_TOKEN_KEY } from "src/constants";
-import { requestFetcher } from "src/functions/fetcher/requestFetcher";
-import { saveSequreStore } from "src/functions/store";
+import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import { viewStyles } from "src/styles/view.styles";
@@ -31,50 +29,37 @@ export const UserInfoRegisterScreen: VFC<
 
   const {
     control,
-    handleSubmit,
+    handleSubmit: onSubmit,
     formState: { errors },
   } = useForm<FormDataType>();
 
-  const onSubmitPress = useCallback(async (body: FormDataType) => {
-    const toastId = toast.loading("処理中...", {
-      icon: "💁‍♂️",
-    });
+  const onSubmitPress = useCallback(
+    async (body: FormDataType) => {
+      const { ErrorToast, SuccessToast } = ToastKit();
 
-    const requestBody = {
-      ...body,
-      id: userInfo.id,
-      phone: body.phone || userInfo.phone,
-      email: body.email || userInfo.email,
-      token: userInfo.token,
-    };
+      const { statusCode, response } = await requestFetcher<User>(
+        "/auth/register/user",
+        {
+          ...body,
+          id: userInfo.id,
+          phone: body.phone || userInfo.phone,
+          email: body.email || userInfo.email,
+          token: userInfo.token,
+        },
+        "POST"
+      );
 
-    const { statusCode, response } = await requestFetcher<User>(
-      "/auth/register/user",
-      requestBody,
-      "POST"
-    );
+      if (statusCode >= 400)
+        return ErrorToast("ユーザー情報の登録に失敗しました");
+      SuccessToast("ユーザー情報を登録しました", 1500);
 
-    if (statusCode >= 400) {
-      toast("エラーが発生しました", {
-        id: toastId,
-        icon: "🤦‍♂️",
-      });
-      return;
-    }
+      await new Promise((resolve) => setTimeout(resolve, 400));
 
-    toast.success("ユーザー情報を登録しました", {
-      duration: 1500,
-      id: toastId,
-      icon: "🙆‍♂️",
-    });
-    await new Promise((resolve) => setTimeout(resolve, 400));
-
-    await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
-    await setUserInfo((prev) => ({
-      ...prev,
-      isSignin: true,
-    }));
-  }, []);
+      await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
+      setUserInfo({ ...response, isSignin: true });
+    },
+    [userInfo, setUserInfo]
+  );
 
   return (
     <AuthLayout>
@@ -206,8 +191,7 @@ export const UserInfoRegisterScreen: VFC<
       <ColorButton
         title="登録"
         outlineStyle={buttonStyles.outline}
-        // eslint-disable-next-line react/jsx-handler-names
-        onPress={handleSubmit(onSubmitPress)}
+        onPress={onSubmit(onSubmitPress)}
       />
     </AuthLayout>
   );

@@ -5,8 +5,7 @@ import { useRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { Progress } from "src/components";
 import { SEQURE_TOKEN_KEY } from "src/constants";
-import { requestFetcher } from "src/functions/fetcher";
-import { getSequreStore, saveSequreStore } from "src/functions/store";
+import { getSequreStore, requestFetcher, saveSequreStore } from "src/functions";
 import { AuthNavigator } from "src/screens/auth";
 import type { User } from "types/fetcher";
 
@@ -20,48 +19,39 @@ export const AuthProvider: VFC<Props> = (props) => {
 
   const listenAuthState = useCallback(async () => {
     const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
+
     if (tokenResult) {
-      const requestBody = { token: tokenResult };
       const { statusCode, response } = await requestFetcher<User>(
         "/auth/session/user",
-        requestBody,
+        {
+          token: tokenResult,
+        },
         "POST"
       );
 
       if (statusCode >= 400) {
-        toast("エラーが発生しました", {
+        return toast("エラーが発生しました", {
           icon: "🤦‍♂️",
         });
-        return;
       }
 
       await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
-      await setUserInfo({
-        id: response.id,
-        firstName: response.firstName,
-        lastName: response.lastName,
-        email: response.email,
-        phone: response.phone,
-        token: response.token,
-        isSignin: true,
-      });
+      setUserInfo({ ...response, isSignin: true });
     }
+
     await new Promise((resolve) => setTimeout(resolve, 500));
     seIsLoading(false);
   }, []);
 
   const loadingFalse = useCallback(async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     seIsLoading(false);
   }, []);
 
   useEffect(() => {
     if (!isLoading) seIsLoading(true);
-    if (!userInfo.isSignin) {
-      listenAuthState();
-    } else {
-      loadingFalse();
-    }
+    if (!userInfo.isSignin) listenAuthState();
+    loadingFalse();
   }, [userInfo.isSignin]);
 
   if (isLoading) {

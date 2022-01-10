@@ -1,13 +1,12 @@
 import type { VFC } from "react";
 import React, { useCallback, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast/src/core/toast";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { ErrorMessage } from "src/components/ErrorMessage";
 import { AuthLayout } from "src/components/layout";
-import { requestFetcher } from "src/functions/fetcher";
+import { requestFetcher, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
 import type { AuthScreenProps } from "types";
@@ -24,52 +23,44 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 
   const {
     control,
-    handleSubmit,
+    handleSubmit: onSubmit,
     formState: { errors },
   } = useForm<FormDataType>();
 
-  const { phone } = props.route.params;
   const onSubmitPress = useCallback(
     async (body: FormDataType) => {
-      const toastId = toast.loading("処理中...", {
-        icon: "💁‍♂️",
-      });
+      const { ErrorToast, SuccessToast } = ToastKit();
 
-      const requestBody = { phone: "81" + phone, token: body.verifyCode };
+      const { phone } = props.route.params;
       const { statusCode, response } = await requestFetcher<VerifyAuth>(
         "/auth/verify",
-        requestBody,
+        {
+          phone: "81" + phone,
+          token: body.verifyCode,
+        },
         "POST"
       );
-      if (statusCode >= 400) {
-        toast("エラーが発生しました", {
-          id: toastId,
-          icon: "🤦‍♂️",
-        });
-        return;
-      }
 
-      toast.success("認証が成功しました", {
-        id: toastId,
-        icon: "🙆‍♂️",
-      });
+      if (statusCode >= 400) return ErrorToast("認証に失敗しました");
+      SuccessToast("認証が成功しました");
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      setIsCertified(true);
       setUserInfo((prev) => ({
         ...prev,
         id: response.user.id,
         phone: phone,
         token: response.access_token,
       }));
-      setIsCertified(true);
       props.navigation.navigate("UserInfoRegister");
     },
-    [props]
+    [props, setUserInfo]
   );
 
   const onNavigate = useCallback(() => {
     props.navigation.navigate("UserInfoRegister");
-  }, []);
+  }, [props]);
 
   return (
     <AuthLayout>
@@ -117,7 +108,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
         title={isCertified ? "登録へ進む" : "送信"}
         outlineStyle={buttonStyles.outline}
         // eslint-disable-next-line react/jsx-handler-names
-        onPress={isCertified ? onNavigate : handleSubmit(onSubmitPress)}
+        onPress={isCertified ? onNavigate : onSubmit(onSubmitPress)}
       />
       {isCertified ? (
         <Text
@@ -131,13 +122,3 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
     </AuthLayout>
   );
 };
-
-// {
-//   "phone": "8108027120301",
-//   "result":  {
-//     "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjM4NzY1MTk3LCJzdWIiOiI5YzcyNjEwZS03ZDM2LTQyZTAtODY5MC03MDdhMWE3OTE5YTIiLCJlbWFpbCI6IiIsInBob25lIjoiODEwODAyNzEyMDMwMSIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6InBob25lIiwicHJvdmlkZXJzIjpbInBob25lIl19LCJ1c2VyX21ldGFkYXRhIjp7fSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQifQ.Yjn2xozX97k1uzow-wO9HXEMyVdrNj0-ImbiEYfUyy0",
-//     "expires_in": 3600,
-//     "refresh_token": "MWjOy7hMIMhhiH-OsqGHRQ",
-//     "token_type": "bearer",
-//     "user": null,
-// }

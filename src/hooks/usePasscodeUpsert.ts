@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilValue } from "recoil";
 import { user } from "src/atoms";
-import { requestFetcher } from "src/functions/fetcher";
+import { requestFetcher, ToastKit } from "src/functions";
 import type { PasscodeScreenProps } from "types";
 
 type Props = PasscodeScreenProps<"Passcode" | "PasscodeUpdate"> & {
@@ -17,14 +17,8 @@ export const usePasscodeUpsert = (props: Props) => {
     verify: "",
   });
 
-  const result = useMemo(() => {
-    return passcode.isVerify ? "verify" : "input";
-  }, [passcode.isVerify]);
-
-  const secretView = useMemo(() => {
-    const length = passcode[result].length;
-    return "●".repeat(length);
-  }, [result, passcode]);
+  const result = passcode.isVerify ? "verify" : "input";
+  const secretView = "●".repeat(passcode[result].length);
 
   const onClick = useCallback(
     (number?: string) => {
@@ -51,85 +45,49 @@ export const usePasscodeUpsert = (props: Props) => {
   }, [result]);
 
   const onSubmit = useCallback(async () => {
+    // １回目のパスコード入力
     if (!passcode.isVerify) {
       if (passcode.input.length !== 4) {
-        toast.error("４桁入力してください", {
+        return toast.error("４桁入力してください", {
           icon: "🤦‍♂️",
         });
-        return;
       }
-
-      setPasscode((prev) => {
-        return {
-          ...prev,
-          isVerify: true,
-        };
-      });
-      return;
+      return setPasscode((prev) => ({ ...prev, isVerify: true }));
     }
 
+    // ２回目のパスコード入力
     if (passcode.verify.length !== 4) {
-      toast.error("４桁入力してください", {
+      return toast.error("４桁入力してください", {
         icon: "🤦‍♂️",
       });
-      return;
     }
 
+    // パスコード照合
     if (passcode.input !== passcode.verify) {
       toast.error("パスコードが一致しません", {
         icon: "🤦‍♂️",
       });
-      setPasscode((prev) => {
-        return {
-          ...prev,
-          verify: "",
-        };
-      });
-      return;
+      return setPasscode((prev) => ({ ...prev, verify: "" }));
     }
 
-    const toastId = toast.loading("処理中...", {
-      icon: "💁‍♂️",
-    });
+    const { ErrorToast, SuccessToast } = ToastKit();
 
-    const requestBody = { passcode: passcode.verify };
     const { statusCode } = await requestFetcher(
       `/user/${userInfo.id}`,
-      requestBody,
+      { passcode: passcode.verify },
       "PUT"
     );
 
-    if (statusCode >= 400) {
-      toast("エラーが発生しました", {
-        id: toastId,
-        icon: "🤦‍♂️",
-      });
-      return;
-    }
+    if (statusCode >= 400) return ErrorToast("エラーが発生しました");
+    SuccessToast(
+      `パスコードを${props.screen === "Passcode" ? "登録" : "更新"}しました`,
+      1500
+    );
 
     await new Promise((resolve) => setTimeout(resolve, 800));
-    // await new Promise((resolve) => setTimeout(resolve,400));
 
-    const isCreate = props.screen === "Passcode";
-    toast.success(`パスコードを${isCreate ? "登録" : "更新"}しました`, {
-      duration: 1500,
-      id: toastId,
-      icon: "🙆‍♂️",
-    });
-
-    // 一致したらバックエンドに送信
     props.navigation.navigate("PasscodeSettingSelect");
   }, [userInfo, passcode, props]);
-
-  useEffect(() => {
-    return () => {
-      setPasscode({
-        isVerify: false,
-        input: "",
-        verify: "",
-      });
-    };
-  }, []);
 
   return {
     passcode,
