@@ -31,7 +31,6 @@ export const SettingSelectScreen: VFC<SettingScreenProps<"SettingSelect">> = (
   const accent = useThemeColor({}, "accent");
   const { onSignoutDialog } = useSignout();
 
-  // List["screen"] ルックアップタイプ
   const onNavigation = (screen: List["screen"]) => {
     props.navigation.navigate(screen);
   };

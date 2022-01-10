@@ -33,7 +33,6 @@ export const VoiceRecordUpdateScreen: VFC<
               name="keyboard-voice"
               size={150}
               color="white"
-              // eslint-disable-next-line react/jsx-handler-names
               onPress={onRecordingEvent}
             />
           </View>

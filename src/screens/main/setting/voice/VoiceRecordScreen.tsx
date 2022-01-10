@@ -12,6 +12,7 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
 ) => {
   const primary = useThemeColor({}, "primary");
   const accent = useThemeColor({}, "accent");
+
   const { isRecording, recordedURI, onRecordingEvent } = useVoiceRecord({
     ...props,
     screen: "VoiceRecord",

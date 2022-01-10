@@ -24,7 +24,6 @@ export const PasscodeSettingSelectScreen: VFC<
 > = (props) => {
   const icon1 = useThemeColor({}, "icon1");
 
-  // List["screen"] ルックアップタイプ
   const onNavigation = (screen: List["screen"]) => {
     props.navigation.navigate(screen);
   };
