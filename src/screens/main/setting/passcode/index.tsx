@@ -15,6 +15,7 @@ const Passcode = createNativeStackNavigator<PasscodeStackParamList>();
 
 export const PasscodeNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
+
   return (
     <Passcode.Navigator
       initialRouteName="PasscodeSettingSelect"

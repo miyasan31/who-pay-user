@@ -17,30 +17,13 @@ export const AuthNavigator: VFC = () => {
       initialRouteName="SigninAction"
       screenOptions={{ headerShown: false }}
     >
-      <AuthStack.Screen
-        name="SigninAction"
-        component={SigninActionScreen}
-        options={() => ({})}
-      />
-      <AuthStack.Screen
-        name="Signin"
-        component={SigninScreen}
-        options={() => ({})}
-      />
-      <AuthStack.Screen
-        name="Signup"
-        component={SignupScreen}
-        options={() => ({})}
-      />
-      <AuthStack.Screen
-        name="Verify"
-        component={VerifyScreen}
-        options={() => ({})}
-      />
+      <AuthStack.Screen name="SigninAction" component={SigninActionScreen} />
+      <AuthStack.Screen name="Signin" component={SigninScreen} />
+      <AuthStack.Screen name="Signup" component={SignupScreen} />
+      <AuthStack.Screen name="Verify" component={VerifyScreen} />
       <AuthStack.Screen
         name="UserInfoRegister"
         component={UserInfoRegisterScreen}
-        options={() => ({})}
       />
     </AuthStack.Navigator>
   );

@@ -13,6 +13,7 @@ const Top = createNativeStackNavigator<TopStackParamList>();
 export const HomeNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
   const userInfo = useRecoilValue(user);
+
   return (
     <Top.Navigator
       initialRouteName="Home"

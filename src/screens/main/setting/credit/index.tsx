@@ -14,6 +14,7 @@ const Credit = createNativeStackNavigator<CreditStackParamList>();
 
 export const CreditNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
+
   return (
     <Credit.Navigator
       initialRouteName="Credit"

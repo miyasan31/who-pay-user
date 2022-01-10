@@ -16,6 +16,7 @@ const VoiceRecord = createNativeStackNavigator<VoiceRecordStackParamList>();
 
 export const VoiceRecordNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
+
   return (
     <VoiceRecord.Navigator
       initialRouteName="VoiceRecordSettingSelect"

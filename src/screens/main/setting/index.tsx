@@ -13,6 +13,7 @@ const Setting = createNativeStackNavigator<SettingStackParamList>();
 
 export const SettingNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
+
   return (
     <Setting.Navigator
       initialRouteName="SettingSelect"
@@ -41,15 +42,6 @@ export const SettingNavigator: VFC = () => {
           headerShown: false,
         })}
       />
-
-      {/* <Setting.Screen
-				name="CreditSetting"
-				component={CreditNavigator}
-				options={() => ({
-					title: "クレジットカード",
-					headerShown: false,
-				})}
-			/> */}
 
       <Setting.Screen
         name="PasscodeSetting"

@@ -14,6 +14,7 @@ const Account = createNativeStackNavigator<AccountStackParamList>();
 
 export const AccountNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
+
   return (
     <Account.Navigator
       initialRouteName="Account"
