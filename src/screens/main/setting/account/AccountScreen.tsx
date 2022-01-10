@@ -1,4 +1,3 @@
-// import { MaterialIcons } from "@expo/vector-icons";
 import type { VFC } from "react";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -7,16 +6,13 @@ import { user } from "src/atoms";
 import { ListItem } from "src/components";
 import { Text, View } from "src/components/custom";
 import { Layout } from "src/components/layout";
-// import { useThemeColor } from "src/hooks";
 import type { AccountScreenProps } from "types";
 
 export const AccountScreen: VFC<AccountScreenProps<"Account">> = () => {
-  // const icon1 = useThemeColor({}, "icon1");
   const userInfo = useRecoilValue(user);
 
-  // List["screen"] ルックアップタイプ
   const onNavigation = () => {
-    console.info("aaa");
+    console.info("click");
   };
 
   return (
@@ -44,13 +40,6 @@ export const AccountScreen: VFC<AccountScreenProps<"Account">> = () => {
           <Text style={styles.key}>{userInfo.email}</Text>
         </View>
       </ListItem>
-
-      {/* <ListItem style={styles.list} onPress={onNavigation}>
-        <View style={styles.listbox}>
-          <Text style={styles.key}>クレジットカード</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
-        </View>
-      </ListItem> */}
     </Layout>
   );
 };
