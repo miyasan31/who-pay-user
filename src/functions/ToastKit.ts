@@ -12,7 +12,7 @@ export const ToastKit = (loadingText = "処理中...") => {
     });
   };
 
-  const SuccessToast = (successText: string, duration = 1500) => {
+  const SuccessToast = (successText: string, duration = 2000) => {
     return toast.success(successText, {
       duration: duration,
       id: toastId,
