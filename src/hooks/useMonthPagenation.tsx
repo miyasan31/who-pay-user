@@ -15,8 +15,8 @@ export const useMonthPagenation = () => {
   const prevLabel = dateInfo.month === 1 ? 12 : dateInfo.month - 1;
   const nextLabel = dateInfo.month === 12 ? 1 : dateInfo.month + 1;
   const isThisMonth =
-    new Date().getFullYear() === dateInfo.year &&
-    new Date().getMonth() + 1 === dateInfo.month;
+    new Date().getFullYear() !== dateInfo.year &&
+    new Date().getMonth() + 1 !== dateInfo.month;
 
   const onPrevMonth = useCallback(() => {
     setDateInfo((prev) => {
