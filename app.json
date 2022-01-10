@@ -1,32 +1,32 @@
 {
-	"expo": {
-		"name": "who-pay",
-		"slug": "who-pay",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/who-pay-icon.png",
-		"scheme": "myapp",
-		"userInterfaceStyle": "automatic",
-		"splash": {
-			"image": "./assets/images/who-pay.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#fff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			}
-		},
-		"web": {
-			"favicon": "./assets/images/favicon.png"
-		}
-	}
+  "expo": {
+    "name": "who-pay",
+    "slug": "who-pay",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/who-pay-icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/who-pay.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    }
+  }
 }
