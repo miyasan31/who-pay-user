@@ -16,10 +16,10 @@ export const useVoiceRecord = (props: Props) => {
   const userInfo = useRecoilValue(user);
   // マイクの使用許可
   const [audioPerm, setAudioPerm] = useState<boolean>(false);
-  // レコーディング中
-  const [isRecording, setisRecording] = useState<boolean>(false);
-  // 録音データ保存先URI
-  const [isRecorded, setIsRecorded] = useState(false);
+  const [recordingStatus, setRecordingStatus] = useState({
+    isRecording: false,
+    isRecorded: false,
+  });
 
   // 録音開始
   const onStartRecording = useCallback(async () => {
@@ -28,8 +28,10 @@ export const useVoiceRecord = (props: Props) => {
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
       await recording.startAsync();
-
-      setisRecording(true);
+      setRecordingStatus((prev) => ({
+        ...prev,
+        isRecording: true,
+      }));
     } else {
       getPermission();
     }
@@ -71,8 +73,10 @@ export const useVoiceRecord = (props: Props) => {
     );
 
     // 録音状態をfalseにする
-    setisRecording(false);
-    setIsRecorded(true);
+    setRecordingStatus({
+      isRecording: false,
+      isRecorded: true,
+    });
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     props.navigation.navigate("VoiceRecordSettingSelect");
@@ -97,8 +101,7 @@ export const useVoiceRecord = (props: Props) => {
   }, []);
 
   return {
-    isRecording,
-    isRecorded,
+    recordingStatus,
     onStartRecording,
     onStopRecording,
   };

@@ -13,21 +13,22 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
   const primary = useThemeColor({}, "primary");
   const accent = useThemeColor({}, "accent");
 
-  const { isRecording, isRecorded, onStartRecording, onStopRecording } =
-    useVoiceRecord({
+  const { recordingStatus, onStartRecording, onStopRecording } = useVoiceRecord(
+    {
       ...props,
       screen: "VoiceRecord",
-    });
+    }
+  );
 
   return (
     <Layout>
-      {!isRecorded ? (
+      {!recordingStatus.isRecorded ? (
         <>
           <Text style={styles.word}>「 フーペイ 」</Text>
           <Text style={styles.subText}>と言ってください</Text>
           <View
-            lightBgColor={isRecording ? accent : primary}
-            darkBgColor={isRecording ? accent : primary}
+            lightBgColor={recordingStatus.isRecording ? accent : primary}
+            darkBgColor={recordingStatus.isRecording ? accent : primary}
             style={styles.iconWraper}
           >
             <MaterialIcons
@@ -35,7 +36,9 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
               size={150}
               color="white"
               // eslint-disable-next-line react/jsx-handler-names
-              onPress={isRecording ? onStopRecording : onStartRecording}
+              onPress={
+                recordingStatus.isRecording ? onStopRecording : onStartRecording
+              }
             />
           </View>
           <Text style={styles.subText}>発言するときはマイクボタンを</Text>
