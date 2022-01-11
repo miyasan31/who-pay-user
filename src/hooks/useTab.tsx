@@ -6,8 +6,11 @@ import { CustomView as View } from "src/components/custom/CustomView";
 export const useTab = () => {
   const [select, setSelect] = useState<"phone" | "email">("phone");
 
-  const onTabPress = useCallback((select: "phone" | "email") => {
-    setSelect(select);
+  const onPhoneTabPress = useCallback(() => {
+    setSelect("phone");
+  }, []);
+  const onEmailTabPress = useCallback(() => {
+    setSelect("email");
   }, []);
 
   const Tab = () => {
@@ -16,7 +19,7 @@ export const useTab = () => {
         <TouchableOpacity
           style={[styles.tab, select === "phone" ? styles.activeTab : null]}
           activeOpacity={0.4}
-          onPress={() => onTabPress("phone")}
+          onPress={onPhoneTabPress}
         >
           <Text
             style={styles.tabLabel}
@@ -29,7 +32,7 @@ export const useTab = () => {
         <TouchableOpacity
           style={[styles.tab, select === "email" ? styles.activeTab : null]}
           activeOpacity={0.4}
-          onPress={() => onTabPress("email")}
+          onPress={onEmailTabPress}
         >
           <Text
             style={styles.tabLabel}
