@@ -64,7 +64,7 @@ export type Payment = {
 /**
  * Model PaymentDetail
  */
-type PaymentDetail = {
+export type PaymentDetail = {
   id: number;
   amount: number;
   updatedAt: Date;
@@ -89,5 +89,4 @@ export type VerifyAuth = {
   expires_in: number;
   refresh_token: string;
   token_type: string;
-  user: null;
 };
