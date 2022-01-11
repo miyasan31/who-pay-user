@@ -26,11 +26,9 @@ export const useSignout = () => {
     const { ErrorToast, SuccessToast } = ToastKit();
 
     const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
-    const { statusCode } = await requestFetcher(
-      "/auth/signout",
-      { token: tokenResult },
-      "POST"
-    );
+    const { statusCode } = await requestFetcher("POST", "/auth/signout", {
+      token: tokenResult,
+    });
     if (statusCode >= 400) return ErrorToast("エラーが発生しました");
     SuccessToast("サインアウトしました", 1500);
 
