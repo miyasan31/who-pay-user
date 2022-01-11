@@ -1,5 +1,5 @@
 import type { VFC } from "react";
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet } from "react-native";
 import { useRecoilValue } from "recoil";
 import { user } from "src/atoms";
@@ -11,9 +11,9 @@ import type { AccountScreenProps } from "types";
 export const AccountScreen: VFC<AccountScreenProps<"Account">> = () => {
   const userInfo = useRecoilValue(user);
 
-  const onNavigation = () => {
+  const onNavigation = useCallback(() => {
     console.info("click");
-  };
+  }, []);
 
   return (
     <Layout style={styles.full}>
