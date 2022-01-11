@@ -13,19 +13,35 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
   const color = useThemeColor({}, "text2");
   const backGroundColor = useThemeColor({}, "bg1");
 
-  const { passcode, secretView, onClick, onDelete, onSubmit } =
-    usePasscodeUpsert({
-      ...props,
-      screen: "Passcode",
-    });
+  const {
+    error,
+    passcode,
+    secretView,
+    onKeyPress,
+    onDeletePress,
+    onSubmitPress,
+  } = usePasscodeUpsert({
+    ...props,
+    screen: "PasscodeUpdate",
+  });
 
   return (
     <Layout>
-      <Text style={styles.passCodeTitle}>
-        {passcode.isVerify
-          ? "もう一度入力してください"
-          : "パスワードを入力してください"}
-      </Text>
+      {error.isError ? (
+        <Text
+          lightTextColor="red"
+          darkTextColor="red"
+          style={styles.passcodeError}
+        >
+          {error.message}
+        </Text>
+      ) : (
+        <Text style={styles.passCodeTitle}>
+          {passcode.isVerify
+            ? "確認のためもう一度入力してください"
+            : "パスワードを入力してください"}
+        </Text>
+      )}
 
       <View
         lightBgColor={backGroundColor}
@@ -36,24 +52,24 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
       </View>
 
       <View style={styles.keyRow}>
-        <CircleKeyButton title="1" onPress={onClick} />
-        <CircleKeyButton title="2" onPress={onClick} />
-        <CircleKeyButton title="3" onPress={onClick} />
+        <CircleKeyButton title="1" onPress={onKeyPress} />
+        <CircleKeyButton title="2" onPress={onKeyPress} />
+        <CircleKeyButton title="3" onPress={onKeyPress} />
       </View>
       <View style={styles.keyRow}>
-        <CircleKeyButton title="4" onPress={onClick} />
-        <CircleKeyButton title="5" onPress={onClick} />
-        <CircleKeyButton title="6" onPress={onClick} />
+        <CircleKeyButton title="4" onPress={onKeyPress} />
+        <CircleKeyButton title="5" onPress={onKeyPress} />
+        <CircleKeyButton title="6" onPress={onKeyPress} />
       </View>
       <View style={styles.keyRow}>
-        <CircleKeyButton title="7" onPress={onClick} />
-        <CircleKeyButton title="8" onPress={onClick} />
-        <CircleKeyButton title="9" onPress={onClick} />
+        <CircleKeyButton title="7" onPress={onKeyPress} />
+        <CircleKeyButton title="8" onPress={onKeyPress} />
+        <CircleKeyButton title="9" onPress={onKeyPress} />
       </View>
       <View style={styles.keyRow}>
         <View style={styles.keyOutline}></View>
-        <CircleKeyButton title="0" onPress={onClick} />
-        <CircleKeyButton onPress={onDelete}>
+        <CircleKeyButton title="0" onPress={onKeyPress} />
+        <CircleKeyButton onPress={onDeletePress}>
           <Ionicons name="backspace" size={40} color={color} />
         </CircleKeyButton>
       </View>
@@ -61,7 +77,7 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
       <ColorButton
         title={passcode.isVerify ? "保存" : "確定"}
         outlineStyle={[buttonStyles.outline, buttonStyles.semi]}
-        onPress={onSubmit}
+        onPress={onSubmitPress}
       />
     </Layout>
   );
@@ -71,13 +87,15 @@ const styles = StyleSheet.create({
   passCodeTitle: {
     paddingBottom: 30,
   },
+  passcodeError: {
+    paddingBottom: 30,
+  },
 
   priceArea: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
     width: "100%",
-    // paddingBottom: 25,
     height: 40,
     marginBottom: 30,
   },
@@ -101,12 +119,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "33%",
     opacity: 0,
-  },
-  deleteKey: {
-    borderColor: "#ffffff00",
-  },
-
-  buttonOutline: {
-    marginTop: 10,
   },
 });

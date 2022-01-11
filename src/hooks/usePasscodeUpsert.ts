@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast/src/core/toast";
 import { useRecoilValue } from "recoil";
 import { user } from "src/atoms";
 import { requestFetcher, ToastKit } from "src/functions";
@@ -16,11 +15,15 @@ export const usePasscodeUpsert = (props: Props) => {
     input: "",
     verify: "",
   });
+  const [error, setError] = useState({
+    isError: false,
+    message: "",
+  });
 
   const result = passcode.isVerify ? "verify" : "input";
   const secretView = "●".repeat(passcode[result].length);
 
-  const onClick = useCallback(
+  const onKeyPress = useCallback(
     (number?: string) => {
       setPasscode((prevPrice) => {
         if (prevPrice[result].length === 4) return prevPrice;
@@ -35,7 +38,7 @@ export const usePasscodeUpsert = (props: Props) => {
     [result]
   );
 
-  const onDelete = useCallback(() => {
+  const onDeletePress = useCallback(() => {
     setPasscode((prevPrice) => {
       return {
         ...prevPrice,
@@ -44,32 +47,48 @@ export const usePasscodeUpsert = (props: Props) => {
     });
   }, [result]);
 
-  const onSubmit = useCallback(async () => {
-    // １回目のパスコード入力
+  const onSubmitPress = useCallback(() => {
+    if (error.isError) {
+      setError({
+        isError: false,
+        message: "",
+      });
+    }
+
+    // １回目のパスコード入力チェック
     if (!passcode.isVerify) {
       if (passcode.input.length !== 4) {
-        return toast.error("４桁入力してください", {
-          icon: "🤦‍♂️",
+        return setError({
+          isError: true,
+          message: "４桁入力してください",
         });
       }
       return setPasscode((prev) => ({ ...prev, isVerify: true }));
     }
 
-    // ２回目のパスコード入力
+    // ２回目のパスコード入力チェック
     if (passcode.verify.length !== 4) {
-      return toast.error("４桁入力してください", {
-        icon: "🤦‍♂️",
+      return setError({
+        isError: true,
+        message: "４桁入力してください",
       });
     }
 
     // パスコード照合
     if (passcode.input !== passcode.verify) {
-      toast.error("パスコードが一致しません", {
-        icon: "🤦‍♂️",
+      setError({
+        isError: true,
+        message: "パスコードが一致しません",
       });
       return setPasscode((prev) => ({ ...prev, verify: "" }));
     }
 
+    // パスコード更新
+    onPasscodeUpsert();
+  }, [passcode, error]);
+
+  // 更新処理
+  const onPasscodeUpsert = useCallback(async () => {
     const { ErrorToast, SuccessToast } = ToastKit();
 
     const { statusCode } = await requestFetcher(
@@ -87,13 +106,14 @@ export const usePasscodeUpsert = (props: Props) => {
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     props.navigation.navigate("PasscodeSettingSelect");
-  }, [userInfo, passcode, props]);
+  }, [props, userInfo, passcode]);
 
   return {
+    error,
     passcode,
     secretView,
-    onClick,
-    onDelete,
-    onSubmit,
+    onKeyPress,
+    onDeletePress,
+    onSubmitPress,
   };
 };
