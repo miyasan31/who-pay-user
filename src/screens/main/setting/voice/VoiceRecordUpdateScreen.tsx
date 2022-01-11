@@ -13,14 +13,15 @@ export const VoiceRecordUpdateScreen: VFC<
   const primary = useThemeColor({}, "primary");
   const accent = useThemeColor({}, "accent");
 
-  const { isRecording, recordedURI, onRecordingEvent } = useVoiceRecord({
-    ...props,
-    screen: "VoiceRecord",
-  });
+  const { isRecording, isRecorded, onStartRecording, onStopRecording } =
+    useVoiceRecord({
+      ...props,
+      screen: "VoiceRecord",
+    });
 
   return (
     <Layout>
-      {!recordedURI.uri ? (
+      {!isRecorded ? (
         <>
           <Text style={styles.word}>「 フーペイ 」</Text>
           <Text style={styles.subText}>と言ってください</Text>
@@ -33,7 +34,8 @@ export const VoiceRecordUpdateScreen: VFC<
               name="keyboard-voice"
               size={150}
               color="white"
-              onPress={onRecordingEvent}
+              // eslint-disable-next-line react/jsx-handler-names
+              onPress={isRecording ? onStopRecording : onStartRecording}
             />
           </View>
           <Text style={styles.subText}>発言するときはマイクボタンを</Text>
