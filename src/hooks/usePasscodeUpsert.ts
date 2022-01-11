@@ -97,7 +97,12 @@ export const usePasscodeUpsert = (props: Props) => {
       "PUT"
     );
 
-    if (statusCode >= 400) return ErrorToast("エラーが発生しました");
+    if (statusCode >= 400)
+      return ErrorToast(
+        `パスコードの${
+          props.screen === "Passcode" ? "登録" : "更新"
+        }に失敗しました`
+      );
     SuccessToast(
       `パスコードを${props.screen === "Passcode" ? "登録" : "更新"}しました`,
       1500
