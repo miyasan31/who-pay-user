@@ -28,12 +28,12 @@ export const SignupPhoneForm: VFC<any> = (props) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
       const { statusCode } = await authRequestFetcher(
+        "POST",
         "/auth/signup/phone",
         {
           phone: "81" + body.phone,
           password: sha512(body.password),
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");

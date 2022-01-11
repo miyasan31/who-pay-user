@@ -34,12 +34,12 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
 
       const { phone } = props.route.params;
       const { statusCode, response } = await requestFetcher<VerifyAuth>(
+        "POST",
         "/auth/verify",
         {
           phone: "81" + phone,
           token: body.verifyCode,
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");

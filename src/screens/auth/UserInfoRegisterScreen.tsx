@@ -43,6 +43,7 @@ export const UserInfoRegisterScreen: VFC<
       const { ErrorToast, SuccessToast } = ToastKit();
 
       const { statusCode, response } = await requestFetcher<User>(
+        "POST",
         "/auth/register/user",
         {
           ...body,
@@ -50,8 +51,7 @@ export const UserInfoRegisterScreen: VFC<
           phone: body.phone || userInfo.phone,
           email: body.email || userInfo.email,
           token: userInfo.token,
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400)

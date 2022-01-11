@@ -53,14 +53,10 @@ export const useVoiceRecord = (props: Props) => {
       encoding: "base64",
     });
 
-    const { statusCode } = await requestFetcher(
-      "/voice",
-      {
-        userId: userInfo.id,
-        voiceFile: base64,
-      },
-      "POST"
-    );
+    const { statusCode } = await requestFetcher("POST", "/voice", {
+      userId: userInfo.id,
+      voiceFile: base64,
+    });
 
     if (statusCode >= 400)
       return ErrorToast(

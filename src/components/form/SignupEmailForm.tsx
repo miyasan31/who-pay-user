@@ -32,12 +32,12 @@ export const SignupEmailForm: VFC<any> = (props) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
       const { statusCode, response } = await requestFetcher<VerifyAuth>(
+        "POST",
         "/auth/signup/email",
         {
           email: body.email,
           password: sha512(body.password),
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");

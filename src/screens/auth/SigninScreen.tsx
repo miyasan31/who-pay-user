@@ -41,13 +41,13 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
       const { statusCode, response } = await requestFetcher<User>(
+        "POST",
         "/auth/signin/user",
         {
           phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
           password: sha512(body.password),
           key: select,
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400) return ErrorToast("サインインに失敗しました");

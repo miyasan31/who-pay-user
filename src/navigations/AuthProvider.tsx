@@ -22,11 +22,11 @@ export const AuthProvider: VFC<Props> = (props) => {
 
     if (tokenResult) {
       const { statusCode, response } = await requestFetcher<User>(
+        "POST",
         "/auth/session/user",
         {
           token: tokenResult,
-        },
-        "POST"
+        }
       );
 
       if (statusCode >= 400) {

@@ -91,11 +91,9 @@ export const usePasscodeUpsert = (props: Props) => {
   const onPasscodeUpsert = useCallback(async () => {
     const { ErrorToast, SuccessToast } = ToastKit();
 
-    const { statusCode } = await requestFetcher(
-      `/user/${userInfo.id}`,
-      { passcode: passcode.verify },
-      "PUT"
-    );
+    const { statusCode } = await requestFetcher("PUT", `/user/${userInfo.id}`, {
+      passcode: passcode.verify,
+    });
 
     if (statusCode >= 400)
       return ErrorToast(
