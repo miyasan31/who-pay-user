@@ -1,4 +1,2 @@
-import { SignupEmailForm } from "./SignupEmailForm";
-import { SignupPhoneForm } from "./SignupPhoneForm";
-
-export { SignupEmailForm, SignupPhoneForm };
+export { SignupEmailForm } from "./SignupEmailForm";
+export { SignupPhoneForm } from "./SignupPhoneForm";
