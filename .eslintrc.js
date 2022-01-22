@@ -1,33 +1,32 @@
-{
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+module.exports = {
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true,
-    "jest": true,
-    "react-native/react-native": true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    jest: true,
   },
-  "extends": [
+  extends: [
     "standard",
     "prettier",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
   ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": 13,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+    ecmaVersion: 13,
+    sourceType: "module",
+    project: "./tsconfig.json",
   },
-  "plugins": [
+  plugins: [
     "react",
     "@typescript-eslint",
     "import",
@@ -38,14 +37,10 @@
     "react", // これパッケージ名（"eslint-plugin-react"でも可）
     "react-hooks",
     "simple-import-sort",
-    "react-native"
+    "react-native",
   ],
-  "rules": {
+  rules: {
     "linebreak-style": ["error", "unix"],
-    // "indent": ["error", 2],
-    // "quotes": ["error", "double"],
-    // "semi": ["error", "always"],
-    // "no-tabs": "off",
 
     "react-native/no-unused-styles": "warn",
     "react-native/split-platform-components": "warn",
@@ -58,12 +53,12 @@
     // 宣言されていない変数をどうするか
     "no-undef": "warn",
     // 出しても良いコンソールタイプ（log以外はOK）
-    "no-console": ["warn", { "allow": ["warn", "info", "error"] }],
+    "no-console": ["warn", { allow: ["warn", "info", "error"] }],
     // 禁止構文を設定
     "no-restricted-syntax": [
       "error",
       // Enum型を禁止
-      { "selector": "TSEnumDeclaration", "message": "Don't declare enums" }
+      { selector: "TSEnumDeclaration", message: "Don't declare enums" },
     ],
     // アロー関数でコールバックを記述
     "prefer-arrow-callback": "error",
@@ -73,15 +68,12 @@
     "func-style": [
       "error",
       // 関数宣言より関数式を推奨
-      "expression"
+      "expression",
     ],
     // アロー関数内に{}を矯正する（省略させない）
     // "arrow-body-style": ["error", "always"], 省略したい！！！
 
-    "no-use-before-define": [
-      "off",
-      { "paths": [{ "name": "react", "importNames": ["default"] }] }
-    ],
+    "no-use-before-define": ["off", { paths: [{ name: "react", importNames: ["default"] }] }],
     // "no-restricted-imports": ["error", { "paths": [{ "name": "react", "importNames": ["default"] }] }],
 
     // reactのドキュメント
@@ -93,11 +85,11 @@
     "react/jsx-handler-names": [
       "error",
       {
-        "eventHandlerPrefix": "on", // イベントハンドラの接頭辞
-        "eventHandlerPropPrefix": "on", //
-        "checkLocalVariables": true, // イベントハンドラ内で変数を定義するか
-        "checkInlineFunction": true // イベントハンドラ内で関数を定義するか
-      }
+        eventHandlerPrefix: "on", // イベントハンドラの接頭辞
+        eventHandlerPropPrefix: "on", //
+        checkLocalVariables: true, // イベントハンドラ内で変数を定義するか
+        checkInlineFunction: true, // イベントハンドラ内で関数を定義するか
+      },
     ],
     // propsをコンポーネントの引数で展開するか？(しない→never)
     "react/destructuring-assignment": ["error", "never"],
@@ -127,17 +119,14 @@
     // exportされた関数の戻り値が不明な場合の制限
     "@typescript-eslint/explicit-module-boundary-types": "off",
     // typeを宣言してimportするか
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      { "prefer": "type-imports" }
-    ],
+    "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
     // 未使用の変数の使用許可
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "varsIgnorePattern": "^_", // 変数の文字が_から始まる変数は許可する
-        "argsIgnorePattern": "^_" // 関数の引数の文字が_から始まる変数は許可する
-      }
+        varsIgnorePattern: "^_", // 変数の文字が_から始まる変数は許可する
+        argsIgnorePattern: "^_", // 関数の引数の文字が_から始まる変数は許可する
+      },
     ],
     // 型定義の名前の付け方
     // "@typescript-eslint/naming-convention": [
@@ -166,18 +155,18 @@
       "error",
       // NextjsのLinkにhref属性をオーバーライドしてる？
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
-      }
-    ]
+        components: ["Link"],
+        specialLink: ["hrefLeft", "hrefRight"],
+        aspects: ["invalidHref", "preferButton"],
+      },
+    ],
   },
-  "overrides": [
+  overrides: [
     {
-      "files": ["**/*.spec.js", "**/*.spec.jsx"],
-      "env": {
-        "jest": true
-      }
-    }
-  ]
-}
+      files: ["**/*.spec.js", "**/*.spec.jsx"],
+      env: {
+        jest: true,
+      },
+    },
+  ],
+};
