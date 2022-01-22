@@ -33,14 +33,10 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
       const { phone } = props.route.params;
-      const { statusCode, response } = await requestFetcher<VerifyAuth>(
-        "POST",
-        "/auth/verify",
-        {
-          phone: "81" + phone,
-          token: body.verifyCode,
-        }
-      );
+      const { statusCode, response } = await requestFetcher<VerifyAuth>("POST", "/auth/verify", {
+        phone: "81" + phone,
+        token: body.verifyCode,
+      });
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");
       SuccessToast("認証が成功しました");
@@ -56,7 +52,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
       }));
       props.navigation.navigate("UserInfoRegister");
     },
-    [props, setUserInfo]
+    [props, setUserInfo],
   );
 
   const onNavigate = useCallback(() => {
@@ -67,11 +63,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
     <AuthLayout>
       <Text style={textStyles.title}>確認コード</Text>
 
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         ６桁の番号を入力してください
       </Text>
       <Controller
@@ -88,9 +80,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
           />
         )}
       />
-      {errors.verifyCode && (
-        <ErrorMessage message={errors.verifyCode.message} />
-      )}
+      {errors.verifyCode && <ErrorMessage message={errors.verifyCode.message} />}
 
       <ColorButton
         title={isCertified ? "登録へ進む" : "送信"}
@@ -99,11 +89,7 @@ export const VerifyScreen: VFC<AuthScreenProps<"Verify">> = (props) => {
         onPress={isCertified ? onNavigate : onSubmit(onSubmitPress)}
       />
       {isCertified ? (
-        <Text
-          lightTextColor={color}
-          darkTextColor={color}
-          style={textStyles.error}
-        >
+        <Text lightTextColor={color} darkTextColor={color} style={textStyles.error}>
           登録済みです
         </Text>
       ) : null}

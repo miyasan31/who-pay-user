@@ -17,19 +17,11 @@ export const Layout: VFC<Props> = (props) => {
 
   const tabBarHeight = useBottomTabBarHeight();
 
-  const backgroundColor = useThemeColor(
-    { light: lightBgColor, dark: darkBgColor },
-    "bg1"
-  );
+  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg1");
   return (
     <KeyboardAvoiding>
       <View
-        style={[
-          defaultStyle.full,
-          style,
-          { backgroundColor },
-          { marginBottom: tabBarHeight || 0 },
-        ]}
+        style={[defaultStyle.full, style, { backgroundColor }, { marginBottom: tabBarHeight || 0 }]}
       >
         {children}
       </View>

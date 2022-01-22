@@ -13,18 +13,12 @@ const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 
 export const AuthNavigator: VFC = () => {
   return (
-    <AuthStack.Navigator
-      initialRouteName="SigninAction"
-      screenOptions={{ headerShown: false }}
-    >
+    <AuthStack.Navigator initialRouteName="SigninAction" screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name="SigninAction" component={SigninActionScreen} />
       <AuthStack.Screen name="Signin" component={SigninScreen} />
       <AuthStack.Screen name="Signup" component={SignupScreen} />
       <AuthStack.Screen name="Verify" component={VerifyScreen} />
-      <AuthStack.Screen
-        name="UserInfoRegister"
-        component={UserInfoRegisterScreen}
-      />
+      <AuthStack.Screen name="UserInfoRegister" component={UserInfoRegisterScreen} />
     </AuthStack.Navigator>
   );
 };

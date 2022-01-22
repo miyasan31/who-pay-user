@@ -27,14 +27,10 @@ export const SignupPhoneForm: VFC<any> = (props) => {
     async (body: FormDataType) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
-      const { statusCode } = await authRequestFetcher(
-        "POST",
-        "/auth/signup/phone",
-        {
-          phone: "81" + body.phone,
-          password: sha512(body.password),
-        }
-      );
+      const { statusCode } = await authRequestFetcher("POST", "/auth/signup/phone", {
+        phone: "81" + body.phone,
+        password: sha512(body.password),
+      });
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");
       SuccessToast("確認コードを送信しました");
@@ -43,16 +39,12 @@ export const SignupPhoneForm: VFC<any> = (props) => {
 
       props.navigation.navigate("Verify", { phone: body.phone });
     },
-    [props]
+    [props],
   );
 
   return (
     <>
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         電話番号
       </Text>
 
@@ -72,11 +64,7 @@ export const SignupPhoneForm: VFC<any> = (props) => {
       />
       {errors.phone && <ErrorMessage message={errors.phone.message} />}
 
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         パスワード
       </Text>
       <Controller

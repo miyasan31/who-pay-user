@@ -20,14 +20,8 @@ export const CustomTextInput: VFC<TextInputProps> = memo((props) => {
     ...otherProps
   } = props;
 
-  const color = useThemeColor(
-    { light: lightTextColor, dark: darkTextColor },
-    "text1"
-  );
-  const backgroundColor = useThemeColor(
-    { light: lightBgColor, dark: darkBgColor },
-    "bg2"
-  );
+  const color = useThemeColor({ light: lightTextColor, dark: darkTextColor }, "text1");
+  const backgroundColor = useThemeColor({ light: lightBgColor, dark: darkBgColor }, "bg2");
 
   return (
     <View

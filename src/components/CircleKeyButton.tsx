@@ -24,9 +24,7 @@ export const CircleKeyButton: VFC<Porps> = memo((props) => {
       bgStyle={!props.children ? styles.keyBg : null}
       textStyle={styles.keyText}
       title={props.title}
-      onPress={() =>
-        props.title ? props.onPress(props.title) : props.onPress()
-      }
+      onPress={() => (props.title ? props.onPress(props.title) : props.onPress())}
     >
       {props.children}
     </ColorButton>

@@ -7,12 +7,7 @@ import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
-import {
-  EMAIL_RULE,
-  PASSWORD_RULE,
-  PHONE_RULE,
-  SEQURE_TOKEN_KEY,
-} from "src/constants";
+import { EMAIL_RULE, PASSWORD_RULE, PHONE_RULE, SEQURE_TOKEN_KEY } from "src/constants";
 import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useTab, useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -40,15 +35,11 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
     async (body: FormDataType) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
-      const { statusCode, response } = await requestFetcher<User>(
-        "POST",
-        "/auth/signin/user",
-        {
-          phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
-          password: sha512(body.password),
-          key: select,
-        }
-      );
+      const { statusCode, response } = await requestFetcher<User>("POST", "/auth/signin/user", {
+        phoneOrEmail: select === "phone" ? "81" + body.phone : body.email,
+        password: sha512(body.password),
+        key: select,
+      });
 
       if (statusCode >= 400) return ErrorToast("サインインに失敗しました");
       SuccessToast("サインインしました", 1500);
@@ -57,16 +48,12 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
       setUserInfo({ ...response, isSignin: true });
     },
-    [select, setUserInfo]
+    [select, setUserInfo],
   );
 
   return (
     <AuthLayout tab={<Tab />}>
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         {select === "phone" ? "電話番号" : "メールアドレス"}
       </Text>
 
@@ -104,11 +91,7 @@ export const SigninScreen: VFC<AuthScreenProps<"Signin">> = () => {
       {errors.phone && <ErrorMessage message={errors.phone.message} />}
       {errors.email && <ErrorMessage message={errors.email.message} />}
 
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         パスワード
       </Text>
       <Controller

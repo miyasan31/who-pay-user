@@ -19,9 +19,9 @@ const data: Readonly<List[]> = [
   { id: "2", screen: "PasscodeUpdate", label: "更新する" },
 ];
 
-export const PasscodeSettingSelectScreen: VFC<
-  PasscodeScreenProps<"PasscodeSettingSelect">
-> = (props) => {
+export const PasscodeSettingSelectScreen: VFC<PasscodeScreenProps<"PasscodeSettingSelect">> = (
+  props,
+) => {
   const icon1 = useThemeColor({}, "icon1");
 
   const onNavigation = (screen: List["screen"]) => {
@@ -32,18 +32,10 @@ export const PasscodeSettingSelectScreen: VFC<
     <Layout style={styles.full}>
       {data.map((item) => {
         return (
-          <ListItem
-            key={item.id}
-            style={styles.list}
-            onPress={() => onNavigation(item.screen)}
-          >
+          <ListItem key={item.id} style={styles.list} onPress={() => onNavigation(item.screen)}>
             <View style={styles.listbox}>
               <Text style={styles.key}>{item.label}</Text>
-              <MaterialIcons
-                name="keyboard-arrow-right"
-                size={24}
-                color={icon1}
-              />
+              <MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
             </View>
           </ListItem>
         );

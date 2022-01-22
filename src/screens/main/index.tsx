@@ -24,9 +24,7 @@ export const MainBottomTabNavigator: VFC = () => {
         headerShown: false,
         tabBarActiveTintColor: theme[colorScheme].primary,
         tabBarStyle: { position: "absolute", backgroundColor: bg1 },
-        tabBarBackground: () => (
-          <BlurView intensity={10} style={StyleSheet.absoluteFill} />
-        ),
+        tabBarBackground: () => <BlurView intensity={10} style={StyleSheet.absoluteFill} />,
       }}
     >
       <MainBottomTab.Screen
@@ -34,9 +32,7 @@ export const MainBottomTabNavigator: VFC = () => {
         component={PaymentNavigator}
         options={() => ({
           title: "決済履歴",
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="list-outline" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="list-outline" color={color} />,
         })}
       />
 
@@ -45,9 +41,7 @@ export const MainBottomTabNavigator: VFC = () => {
         component={SettingNavigator}
         options={() => ({
           title: "設定",
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="settings-outline" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="settings-outline" color={color} />,
         })}
       />
     </MainBottomTab.Navigator>

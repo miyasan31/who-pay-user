@@ -21,10 +21,7 @@ export const useTab = () => {
           activeOpacity={0.4}
           onPress={onPhoneTabPress}
         >
-          <Text
-            style={styles.tabLabel}
-            lightTextColor={select === "phone" ? "" : "#88888888"}
-          >
+          <Text style={styles.tabLabel} lightTextColor={select === "phone" ? "" : "#88888888"}>
             電話番号
           </Text>
         </TouchableOpacity>
@@ -34,10 +31,7 @@ export const useTab = () => {
           activeOpacity={0.4}
           onPress={onEmailTabPress}
         >
-          <Text
-            style={styles.tabLabel}
-            lightTextColor={select === "email" ? "" : "#88888888"}
-          >
+          <Text style={styles.tabLabel} lightTextColor={select === "email" ? "" : "#88888888"}>
             メールアドレス
           </Text>
         </TouchableOpacity>

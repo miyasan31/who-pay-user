@@ -27,15 +27,14 @@ export const usePasscodeUpsert = (props: Props) => {
     (number?: string) => {
       setPasscode((prevPrice) => {
         if (prevPrice[result].length === 4) return prevPrice;
-        if (number && prevPrice[result] === "" && ["00"].includes(number))
-          return prevPrice;
+        if (number && prevPrice[result] === "" && ["00"].includes(number)) return prevPrice;
         return {
           ...prevPrice,
           [result]: prevPrice[result] + number,
         };
       });
     },
-    [result]
+    [result],
   );
 
   const onDeletePress = useCallback(() => {
@@ -97,14 +96,9 @@ export const usePasscodeUpsert = (props: Props) => {
 
     if (statusCode >= 400)
       return ErrorToast(
-        `パスコードの${
-          props.screen === "Passcode" ? "登録" : "更新"
-        }に失敗しました`
+        `パスコードの${props.screen === "Passcode" ? "登録" : "更新"}に失敗しました`,
       );
-    SuccessToast(
-      `パスコードを${props.screen === "Passcode" ? "登録" : "更新"}しました`,
-      1500
-    );
+    SuccessToast(`パスコードを${props.screen === "Passcode" ? "登録" : "更新"}しました`, 1500);
 
     await new Promise((resolve) => setTimeout(resolve, 800));
 

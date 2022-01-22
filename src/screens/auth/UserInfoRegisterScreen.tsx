@@ -6,12 +6,7 @@ import { user } from "src/atoms";
 import { ErrorMessage } from "src/components";
 import { ColorButton, Text, TextInput, View } from "src/components/custom";
 import { AuthLayout } from "src/components/layout";
-import {
-  EMAIL_RULE,
-  PHONE_RULE,
-  REQUIRE,
-  SEQURE_TOKEN_KEY,
-} from "src/constants";
+import { EMAIL_RULE, PHONE_RULE, REQUIRE, SEQURE_TOKEN_KEY } from "src/constants";
 import { requestFetcher, saveSequreStore, ToastKit } from "src/functions";
 import { useThemeColor } from "src/hooks";
 import { buttonStyles, textInputStyles, textStyles } from "src/styles";
@@ -26,9 +21,7 @@ type FormDataType = {
   phone?: string;
 };
 
-export const UserInfoRegisterScreen: VFC<
-  AuthScreenProps<"UserInfoRegister">
-> = () => {
+export const UserInfoRegisterScreen: VFC<AuthScreenProps<"UserInfoRegister">> = () => {
   const color = useThemeColor({}, "text2");
   const [userInfo, setUserInfo] = useRecoilState(user);
 
@@ -42,20 +35,15 @@ export const UserInfoRegisterScreen: VFC<
     async (body: FormDataType) => {
       const { ErrorToast, SuccessToast } = ToastKit();
 
-      const { statusCode, response } = await requestFetcher<User>(
-        "POST",
-        "/auth/register/user",
-        {
-          ...body,
-          id: userInfo.id,
-          phone: body.phone || userInfo.phone,
-          email: body.email || userInfo.email,
-          token: userInfo.token,
-        }
-      );
+      const { statusCode, response } = await requestFetcher<User>("POST", "/auth/register/user", {
+        ...body,
+        id: userInfo.id,
+        phone: body.phone || userInfo.phone,
+        email: body.email || userInfo.email,
+        token: userInfo.token,
+      });
 
-      if (statusCode >= 400)
-        return ErrorToast("ユーザー情報の登録に失敗しました");
+      if (statusCode >= 400) return ErrorToast("ユーザー情報の登録に失敗しました");
       SuccessToast("ユーザー情報を登録しました", 1500);
 
       await new Promise((resolve) => setTimeout(resolve, 400));
@@ -63,7 +51,7 @@ export const UserInfoRegisterScreen: VFC<
       await saveSequreStore(SEQURE_TOKEN_KEY, response.token);
       setUserInfo({ ...response, isSignin: true });
     },
-    [userInfo, setUserInfo]
+    [userInfo, setUserInfo],
   );
 
   return (
@@ -72,11 +60,7 @@ export const UserInfoRegisterScreen: VFC<
 
       <View style={viewStyles.horizontal}>
         <View style={viewStyles.flex1}>
-          <Text
-            lightTextColor={color}
-            darkTextColor={color}
-            style={textStyles.label}
-          >
+          <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
             姓
           </Text>
           <Controller
@@ -93,19 +77,13 @@ export const UserInfoRegisterScreen: VFC<
               />
             )}
           />
-          {errors.firstName && (
-            <ErrorMessage message={errors.firstName.message} />
-          )}
+          {errors.firstName && <ErrorMessage message={errors.firstName.message} />}
         </View>
 
         <View style={viewStyles.space}></View>
 
         <View style={viewStyles.flex1}>
-          <Text
-            lightTextColor={color}
-            darkTextColor={color}
-            style={textStyles.label}
-          >
+          <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
             名
           </Text>
           <Controller
@@ -122,17 +100,11 @@ export const UserInfoRegisterScreen: VFC<
               />
             )}
           />
-          {errors.lastName && (
-            <ErrorMessage message={errors.lastName.message} />
-          )}
+          {errors.lastName && <ErrorMessage message={errors.lastName.message} />}
         </View>
       </View>
 
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         {userInfo.email ? "電話番号" : "メールアドレス"}
       </Text>
       {userInfo.email ? (

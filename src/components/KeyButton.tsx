@@ -24,9 +24,7 @@ export const KeyButton: VFC<Porps> = memo((props) => {
       bgStyle={styles.keyBg}
       textStyle={styles.keyText}
       title={props.title}
-      onPress={() =>
-        props.title ? props.onPress(props.title) : props.onPress()
-      }
+      onPress={() => (props.title ? props.onPress(props.title) : props.onPress())}
     >
       {props.children}
     </ColorButton>

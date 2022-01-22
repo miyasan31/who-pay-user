@@ -10,7 +10,5 @@ type Props = {
 };
 
 export const TabBarIcon: VFC<Props> = memo((props) => {
-  return (
-    <Ionicons style={{ marginBottom: -3 }} size={BOTTOM_ICON} {...props} />
-  );
+  return <Ionicons style={{ marginBottom: -3 }} size={BOTTOM_ICON} {...props} />;
 });

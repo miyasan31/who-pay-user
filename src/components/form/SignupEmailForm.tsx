@@ -37,7 +37,7 @@ export const SignupEmailForm: VFC<any> = (props) => {
         {
           email: body.email,
           password: sha512(body.password),
-        }
+        },
       );
 
       if (statusCode >= 400) return ErrorToast("認証に失敗しました");
@@ -53,16 +53,12 @@ export const SignupEmailForm: VFC<any> = (props) => {
 
       props.navigation.navigate("UserInfoRegister");
     },
-    [props, setUserInfo]
+    [props, setUserInfo],
   );
 
   return (
     <>
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         メールアドレス
       </Text>
 
@@ -82,11 +78,7 @@ export const SignupEmailForm: VFC<any> = (props) => {
       />
       {errors.email && <ErrorMessage message={errors.email.message} />}
 
-      <Text
-        lightTextColor={color}
-        darkTextColor={color}
-        style={textStyles.label}
-      >
+      <Text lightTextColor={color} darkTextColor={color} style={textStyles.label}>
         パスワード
       </Text>
       <Controller

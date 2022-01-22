@@ -7,14 +7,7 @@ import { useToaster } from "react-hot-toast/src/core/use-toaster";
 import { Animated } from "react-native";
 import { Text, View } from "src/components/custom";
 
-const ToastBar = ({
-  toast,
-  updateHeight,
-  offset,
-  options,
-  position,
-  ...props
-}: any) => {
+const ToastBar = ({ toast, updateHeight, offset, options, position, ...props }: any) => {
   const fadeAnim = useRef(new Animated.Value(0.5)).current;
   const posAnim = useRef(new Animated.Value(-80)).current;
 
@@ -48,9 +41,7 @@ const ToastBar = ({
     >
       <View
         key={toast.id}
-        onLayout={(event) =>
-          updateHeight(toast.id, event.nativeEvent.layout.height)
-        }
+        onLayout={(event) => updateHeight(toast.id, event.nativeEvent.layout.height)}
         style={{
           margin: 50,
           backgroundColor: "#ffffff",
@@ -95,11 +86,7 @@ const ToastBar = ({
   );
 };
 
-export const Toaster: VFC<any> = ({
-  position = "top-center",
-  containerStyle,
-  toastOptions,
-}) => {
+export const Toaster: VFC<any> = ({ position = "top-center", containerStyle, toastOptions }) => {
   const { toasts, handlers } = useToaster();
   return (
     <View

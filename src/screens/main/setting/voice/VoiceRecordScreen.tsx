@@ -7,18 +7,14 @@ import { Layout } from "src/components/layout";
 import { useThemeColor, useVoiceRecord } from "src/hooks";
 import type { VoiceRecordScreenProps } from "types";
 
-export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
-  props
-) => {
+export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (props) => {
   const primary = useThemeColor({}, "primary");
   const accent = useThemeColor({}, "accent");
 
-  const { recordingStatus, onStartRecording, onStopRecording } = useVoiceRecord(
-    {
-      ...props,
-      screen: "VoiceRecord",
-    }
-  );
+  const { recordingStatus, onStartRecording, onStopRecording } = useVoiceRecord({
+    ...props,
+    screen: "VoiceRecord",
+  });
 
   return (
     <Layout>
@@ -36,9 +32,7 @@ export const VoiceRecordScreen: VFC<VoiceRecordScreenProps<"VoiceRecord">> = (
               size={150}
               color="white"
               // eslint-disable-next-line react/jsx-handler-names
-              onPress={
-                recordingStatus.isRecording ? onStopRecording : onStartRecording
-              }
+              onPress={recordingStatus.isRecording ? onStopRecording : onStartRecording}
             />
           </View>
           <Text style={styles.subText}>発言するときはマイクボタンを</Text>

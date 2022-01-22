@@ -13,26 +13,16 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
   const color = useThemeColor({}, "text2");
   const backGroundColor = useThemeColor({}, "bg1");
 
-  const {
-    error,
-    passcode,
-    secretView,
-    onKeyPress,
-    onDeletePress,
-    onSubmitPress,
-  } = usePasscodeUpsert({
-    ...props,
-    screen: "PasscodeUpdate",
-  });
+  const { error, passcode, secretView, onKeyPress, onDeletePress, onSubmitPress } =
+    usePasscodeUpsert({
+      ...props,
+      screen: "PasscodeUpdate",
+    });
 
   return (
     <Layout>
       {error.isError ? (
-        <Text
-          lightTextColor="red"
-          darkTextColor="red"
-          style={styles.passcodeError}
-        >
+        <Text lightTextColor="red" darkTextColor="red" style={styles.passcodeError}>
           {error.message}
         </Text>
       ) : (
@@ -43,11 +33,7 @@ export const PasscodeScreen: VFC<PasscodeScreenProps<"Passcode">> = (props) => {
         </Text>
       )}
 
-      <View
-        lightBgColor={backGroundColor}
-        darkBgColor={backGroundColor}
-        style={styles.priceArea}
-      >
+      <View lightBgColor={backGroundColor} darkBgColor={backGroundColor} style={styles.priceArea}>
         <Text style={styles.priceText}>{secretView}</Text>
       </View>
 

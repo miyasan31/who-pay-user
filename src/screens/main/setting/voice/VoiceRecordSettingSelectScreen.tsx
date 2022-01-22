@@ -32,18 +32,10 @@ export const VoiceRecordSettingSelectScreen: VFC<
     <Layout style={styles.full}>
       {data.map((item) => {
         return (
-          <ListItem
-            key={item.id}
-            style={styles.list}
-            onPress={() => onNavigation(item.screen)}
-          >
+          <ListItem key={item.id} style={styles.list} onPress={() => onNavigation(item.screen)}>
             <View style={styles.listbox}>
               <Text style={styles.key}>{item.label}</Text>
-              <MaterialIcons
-                name="keyboard-arrow-right"
-                size={24}
-                color={icon1}
-              />
+              <MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />
             </View>
           </ListItem>
         );

@@ -15,8 +15,7 @@ export const useMonthPagenation = () => {
   const prevLabel = dateInfo.month === 1 ? 12 : dateInfo.month - 1;
   const nextLabel = dateInfo.month === 12 ? 1 : dateInfo.month + 1;
   const isThisMonth =
-    new Date().getFullYear() !== dateInfo.year &&
-    new Date().getMonth() + 1 !== dateInfo.month;
+    new Date().getFullYear() !== dateInfo.year && new Date().getMonth() + 1 !== dateInfo.month;
 
   const onPrevMonth = useCallback(() => {
     setDateInfo((prev) => {
@@ -43,11 +42,7 @@ export const useMonthPagenation = () => {
         style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.prev]}
       >
         <MaterialIcons name="keyboard-arrow-left" size={24} color={icon1} />
-        <Text
-          style={styles.buttonLabel}
-          lightTextColor={icon1}
-          darkTextColor={icon1}
-        >
+        <Text style={styles.buttonLabel} lightTextColor={icon1} darkTextColor={icon1}>
           {prevLabel}月
         </Text>
       </Pressable>
@@ -60,11 +55,7 @@ export const useMonthPagenation = () => {
         onPress={onNextMonth}
         style={({ pressed }) => [{ opacity: pressed ? 0.4 : 1 }, styles.next]}
       >
-        <Text
-          style={styles.buttonLabel}
-          lightTextColor={icon1}
-          darkTextColor={icon1}
-        >
+        <Text style={styles.buttonLabel} lightTextColor={icon1} darkTextColor={icon1}>
           {nextLabel}月
         </Text>
         <MaterialIcons name="keyboard-arrow-right" size={24} color={icon1} />

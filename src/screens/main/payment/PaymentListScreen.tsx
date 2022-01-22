@@ -12,9 +12,7 @@ import { textStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 import type { Payment } from "types/fetcher";
 
-export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
-  props
-) => {
+export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (props) => {
   const color = useThemeColor({}, "text2");
   const userInfo = useRecoilValue(user);
   const dateInfo = useRecoilValue(date);
@@ -23,7 +21,7 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
     `/payment/user/${userInfo.id}/${dateInfo.year}/${dateInfo.month}`,
     {
       enabled: !!userInfo.id && !!dateInfo.year && !!dateInfo.month,
-    }
+    },
   );
 
   return (
@@ -35,11 +33,7 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
       ) : data?.length === 0 ? (
         <Text style={textStyles.fetchResult}>データがありません</Text>
       ) : data ? (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item, _) => String(item.id)}
-        />
+        <FlatList data={data} renderItem={renderItem} keyExtractor={(item, _) => String(item.id)} />
       ) : null}
     </SafeAreaLayout>
   );
@@ -58,20 +52,12 @@ export const PaymentListScreen: VFC<PaymentScreenProps<"PaymentList">> = (
       <ListItem style={styles.list} onPress={onNavigation}>
         <View style={styles.leftLayout}>
           <Text style={styles.shopName}>{item.Shop.shopName}</Text>
-          <Text
-            style={styles.date}
-            lightTextColor={color}
-            darkTextColor={color}
-          >
+          <Text style={styles.date} lightTextColor={color} darkTextColor={color}>
             {date}
           </Text>
         </View>
         <View style={styles.rightLayout}>
-          <Text
-            style={styles.frequency}
-            lightTextColor={color}
-            darkTextColor={color}
-          >
+          <Text style={styles.frequency} lightTextColor={color} darkTextColor={color}>
             1回払い
           </Text>
           <Text style={styles.price}>

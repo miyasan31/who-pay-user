@@ -12,9 +12,7 @@ export const getFetcher = async (url: string) => {
   console.info(cyan + "| fetcher  | " + magenta + "useSWR - getFetcher");
   console.info(cyan + "| method   | " + green + "GET");
   console.info(cyan + "| endpoint | " + yellow + `http://localhost:5000${url}`);
-  console.info(
-    cyan + "| -------------------------------------------------- " + reset
-  );
+  console.info(cyan + "| -------------------------------------------------- " + reset);
 
   // ローディングUIを表示させるために0.4秒待つ
   await new Promise((resolve) => setTimeout(resolve, 400));

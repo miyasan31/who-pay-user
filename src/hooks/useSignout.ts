@@ -3,12 +3,7 @@ import { Alert } from "react-native";
 import { useSetRecoilState } from "recoil";
 import { user } from "src/atoms";
 import { SEQURE_TOKEN_KEY } from "src/constants";
-import {
-  deleteSequreStore,
-  getSequreStore,
-  requestFetcher,
-  ToastKit,
-} from "src/functions";
+import { deleteSequreStore, getSequreStore, requestFetcher, ToastKit } from "src/functions";
 
 export const useSignout = () => {
   const setUserInfo = useSetRecoilState(user);

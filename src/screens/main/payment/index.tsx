@@ -15,8 +15,7 @@ const Payment = createNativeStackNavigator<PaymentStackParamList>();
 export const PaymentNavigator: VFC = () => {
   const backgroundColor = useThemeColor({}, "bg1");
 
-  const { dateInfo, isThisMonth, PrevMounth, NextMounth } =
-    useMonthPagenation();
+  const { dateInfo, isThisMonth, PrevMounth, NextMounth } = useMonthPagenation();
 
   return (
     <Payment.Navigator

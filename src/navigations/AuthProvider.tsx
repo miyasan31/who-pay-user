@@ -21,13 +21,9 @@ export const AuthProvider: VFC<Props> = (props) => {
     const tokenResult = await getSequreStore(SEQURE_TOKEN_KEY);
 
     if (tokenResult) {
-      const { statusCode, response } = await requestFetcher<User>(
-        "POST",
-        "/auth/session/user",
-        {
-          token: tokenResult,
-        }
-      );
+      const { statusCode, response } = await requestFetcher<User>("POST", "/auth/session/user", {
+        token: tokenResult,
+      });
 
       if (statusCode >= 400) {
         return toast("エラーが発生しました", {

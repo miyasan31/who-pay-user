@@ -9,12 +9,7 @@ export const Progress: VFC = () => {
   const primary = useThemeColor({}, "primary");
   return (
     <View style={defaultStyle.center}>
-      <RNProgress.CircleSnail
-        color={primary}
-        size={60}
-        thickness={4}
-        spinDuration={800}
-      />
+      <RNProgress.CircleSnail color={primary} size={60} thickness={4} spinDuration={800} />
     </View>
   );
 };

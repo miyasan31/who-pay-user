@@ -1,11 +1,5 @@
 import { API_URL } from "./API_URL";
-import {
-  EMAIL_RULE,
-  PASSWORD_RULE,
-  PHONE_RULE,
-  REQUIRE,
-  VERIFY_RULE,
-} from "./FORM_RULE";
+import { EMAIL_RULE, PASSWORD_RULE, PHONE_RULE, REQUIRE, VERIFY_RULE } from "./FORM_RULE";
 import { LAYOUT } from "./LAYOUT";
 import { SEQURE_TOKEN_KEY } from "./SEQURE_TOKEN_KEY";
 

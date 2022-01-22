@@ -43,9 +43,7 @@ export const PasscodeNavigator: VFC = () => {
         component={PasscodeScreen}
         options={(options: Option<"Passcode">) => ({
           title: "パスコード登録",
-          headerLeft: () => (
-            <PrevButton {...options} screen="PasscodeSettingSelect" />
-          ),
+          headerLeft: () => <PrevButton {...options} screen="PasscodeSettingSelect" />,
         })}
       />
 
@@ -54,9 +52,7 @@ export const PasscodeNavigator: VFC = () => {
         component={PasscodeUpdateScreen}
         options={(options: Option<"PasscodeUpdate">) => ({
           title: "パスコード更新",
-          headerLeft: () => (
-            <PrevButton {...options} screen="PasscodeSettingSelect" />
-          ),
+          headerLeft: () => <PrevButton {...options} screen="PasscodeSettingSelect" />,
         })}
       />
     </Passcode.Navigator>

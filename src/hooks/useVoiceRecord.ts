@@ -24,9 +24,7 @@ export const useVoiceRecord = (props: Props) => {
   // 録音開始
   const onStartRecording = useCallback(async () => {
     if (audioPerm) {
-      await recording.prepareToRecordAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-      );
+      await recording.prepareToRecordAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
       await recording.startAsync();
       setRecordingStatus((prev) => ({
         ...prev,
@@ -60,13 +58,9 @@ export const useVoiceRecord = (props: Props) => {
 
     if (statusCode >= 400)
       return ErrorToast(
-        `録音情報の${
-          props.screen === "VoiceRecord" ? "登録" : "更新"
-        }に失敗しました`
+        `録音情報の${props.screen === "VoiceRecord" ? "登録" : "更新"}に失敗しました`,
       );
-    SuccessToast(
-      `音声を${props.screen === "VoiceRecord" ? "登録" : "更新"}しました`
-    );
+    SuccessToast(`音声を${props.screen === "VoiceRecord" ? "登録" : "更新"}しました`);
 
     // 録音状態をfalseにする
     setRecordingStatus({

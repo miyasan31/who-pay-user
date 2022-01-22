@@ -10,16 +10,11 @@ import { textStyles } from "src/styles";
 import type { PaymentScreenProps } from "types";
 import type { PaymentDetail } from "types/fetcher";
 
-export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (
-  props
-) => {
+export const PaymentDetailScreen: VFC<PaymentScreenProps<"PaymentDetail">> = (props) => {
   const { id } = props.route.params;
-  const { data, isError, isLoading } = useGetSWR<PaymentDetail>(
-    `/payment/${id}`,
-    {
-      enabled: !!id,
-    }
-  );
+  const { data, isError, isLoading } = useGetSWR<PaymentDetail>(`/payment/${id}`, {
+    enabled: !!id,
+  });
 
   const resultDate = (date: Date) => format(new Date(date), "yyyy年M月d日");
 
